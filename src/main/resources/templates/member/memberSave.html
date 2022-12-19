@@ -66,6 +66,7 @@
             회원가입 목적:
             <select name="memberPurpose" id="purpose" class="form-select mb-3"  >
                 <option value="선택">선택</option>
+                <option value="아직없어요">아직없어요</option>
                 <option value="입양">입양</option>
                 <option value="분양">분양</option>
                 <option value="임시보호">임시보호</option>
@@ -194,13 +195,13 @@
             alert("비밀번호를 입력해주세요")
         }else if(age==""){
             alert("나이를 입력해주세요")
-        }else if(phone) {
+        }else if(phone=="") {
             alert("전화번호를 입력해주세요.")
         }else if(pass!=ckPass) {
             alert("재 입력 비밀번호가 맞지않습니다.")
         }else if(!ageCk.test(age)) {
             alert("숫자만 입력해주세요.")
-        }else if(!phoneCk.test(pass)){
+        }else if(!phoneCk.test(phone)){
             alert("전화번호 형식을 확인해주세요.")
         }else{
             document.memberSaveForm.submit();
