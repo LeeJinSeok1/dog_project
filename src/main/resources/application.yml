@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_springboot?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/db_finalProject?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: user_springboot
     password: 1234
 
@@ -19,7 +19,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
 # db query log 관련 설정
 logging:

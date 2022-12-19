@@ -6,6 +6,8 @@ import com.ex.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -14,5 +16,15 @@ public class MemberService {
     public Long memberSave(MemberDTO memberDTO) {
         MemberEntity memberEntity= MemberEntity.changeEntity(memberDTO);
        return memberRepository.save(memberEntity).getId();
+    }
+
+    public MemberDTO findByMemberEmail(String memberEmail) {
+       Optional<MemberEntity> optionalMemberEntity= memberRepository.findByMemberEmail(memberEmail);
+
+       if(optionalMemberEntity.isPresent()) {
+           return MemberDTO.changeMemberDTO(optionalMemberEntity.get());
+       }else{
+           return null;
+       }
     }
 }

@@ -98,14 +98,31 @@
         const email = document.getElementById("email").value;
         const emailBox = document.getElementById("emailBox");
         if(email==""){
-            emailBox.innerHTML="이메일은 필수값입니다."
+            emailBox.innerHTML="필수값입니다."
             emailBox.style.color="red"
         }else{
-            emailBox.innerHTML="멋진 이메일이네요!"
-            emailBox.style.color="green"
-        }
-    }
+        $.ajax({
+            type: "post",
+            url: "/memberEmailCk",
+            data: {
+                memberEmail: email
+            },
+            dateType: "text",
+            success: function (ck) {
+                if (ck == "no") {
+                    emailBox.innerHTML="이메일 중복입니다."
+                    emailBox.style.color="red";
+                }else if(ck=="yes"){
+                    emailBox.innerHTML="멋진 이메일이네요!"
+                    emailBox.style.color="green";
+                }
+            },
+            error: function (ck) {
 
+            }
+        })
+    }
+    }
     // 비밀번호 체크
     const passCk= () => {
         const pass = document.getElementById("pass").value;
@@ -180,6 +197,7 @@
         const ckPass = document.getElementById("ckPass").value;
         const ageCk = /^[0-9]+$/;
         const phoneCk = /\d{3}-\d{4}-\d{4}/;
+
 
         if(gender =="선택") {
             alert("성별을 선택해주세요.")

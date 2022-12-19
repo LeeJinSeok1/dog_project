@@ -1,5 +1,6 @@
 package com.ex.project.dto;
 
+import com.ex.project.entity.MemberEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -20,4 +21,18 @@ public class MemberDTO {
     private int memberAge;
     private String memberPhone;
     private String memberPurpose;
+
+    public static MemberDTO changeMemberDTO(MemberEntity memberEntity){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMemberEmail(memberEntity.getMemberEmail());
+        memberDTO.setMemberPass(memberEntity.getMemberPass());
+        memberDTO.setMemberName(memberEntity.getMemberName());
+        memberDTO.setMemberGender(memberEntity.getMemberGender());
+        memberDTO.setMemberArea(memberEntity.getMemberArea());
+        memberDTO.setMemberAge(memberEntity.getMemberAge());
+        memberDTO.setMemberPhone(memberEntity.getMemberPhone());
+        memberDTO.setMemberPurpose(memberEntity.getMemberPurpose());
+        memberDTO.setMemberSaveTime(memberEntity.getMemberSaveTime());
+        return memberDTO;
+    }
 }

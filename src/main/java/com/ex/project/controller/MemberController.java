@@ -4,9 +4,7 @@ import com.ex.project.dto.MemberDTO;
 import com.ex.project.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +17,17 @@ public class MemberController {
     public String memberSavePage() {
         return "/member/memberSave";
     }
+    //이메일 중복 체크 ajax
+    @PostMapping("/memberEmailCk")
+    public @ResponseBody String memberEmailCk(@RequestParam("memberEmail") String memberEmail){
+        MemberDTO result= memberService.findByMemberEmail(memberEmail);
+        System.out.println(result);
+        if(result ==null){
+            return "yes";
+        }else{
+            return "no";
+        }
+    }
     //회원가입처리
     @PostMapping("/memberSave")
     public String memberSave(@ModelAttribute MemberDTO memberDTO,
@@ -27,4 +36,5 @@ public class MemberController {
 
         return "/member/memberSaveSuccess";
     }
+
 }
