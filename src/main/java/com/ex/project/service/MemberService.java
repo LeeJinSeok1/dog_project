@@ -27,4 +27,19 @@ public class MemberService {
            return null;
        }
     }
+
+    public MemberDTO memberLoginCk(MemberDTO memberDTO) {
+       Optional<MemberEntity> optionalMemberEntity= memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
+       if(optionalMemberEntity.isPresent()) {
+           MemberEntity memberEntity= optionalMemberEntity.get();
+           MemberDTO result = MemberDTO.changeMemberDTO(memberEntity);
+           if(result.getMemberPass().equals(memberDTO.getMemberPass()) ){
+               return result;
+           }else{
+               return null;
+           }
+       }else{
+           return null;
+       }
+    }
 }

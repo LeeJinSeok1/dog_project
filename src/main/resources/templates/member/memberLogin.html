@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>memberLogin</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+    }
+    #memberLoginForm{
+      margin-left: auto;
+      margin-right: auto;
+      font-size:30px;
+      width: 800px;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5">
+  <form action="/memberLogin" method="post" class="form-control" id="memberLoginForm" name="memberLoginForm">
+    이메일 입력
+    <input type="text" class="form-control" placeholder="이메일을 입력해주세요!" name="memberEmail" id="email">
+    <br>
+    비밀번호 입력
+    <input type="text" class="form-control" placeholder="비밀번호를 입력해주세요!" name="memberPass" id="pass">
+    <br>
+    <input type="button" class="btn btn-success" value="로그인" onclick="memberLogin()">
+  </form>
+</div>
+</body>
+<script>
+  const memberLogin = () => {
+    const email = document.getElementById("email").value;
+    const pass =document.getElementById("pass").value;
+    $.ajax({
+      type: "post",
+      url: "/memberLoginCk",
+      data: {
+        memberEmail: email,
+        memberPass: pass
+      },
+      dateType: "text",
+      success: function (ck) {
+        if (ck == "ok") {
+         document.memberLoginForm.submit();
+        }else if(ck=="no"){
+          alert("입력하신 정보가 맞지 않습니다.")
+        }
+      },
+      error: function (ck) {
+
+      }
+    })
+
+  }
+</script>
+</html>

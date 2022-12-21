@@ -4,6 +4,7 @@ import com.ex.project.dto.MemberDTO;
 import com.ex.project.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -30,11 +31,36 @@ public class MemberController {
     }
     //회원가입처리
     @PostMapping("/memberSave")
-    public String memberSave(@ModelAttribute MemberDTO memberDTO,
-                             HttpSession session) {
+    public String memberSave(@ModelAttribute MemberDTO memberDTO) {
         Long savedId = memberService.memberSave(memberDTO);
 
         return "/member/memberSaveSuccess";
+    }
+    //로그인페이지
+    @GetMapping("/memberLogin")
+    public String memberLoginPage(){
+        return "/member/memberLogin";
+    }
+    //로그인시도 체크
+    @PostMapping("/memberLoginCk")
+    public @ResponseBody String memberLoginCk(@ModelAttribute MemberDTO memberDTO) {
+       MemberDTO result = memberService.memberLoginCk(memberDTO);
+        System.out.println(result);
+       if(result !=null){
+           return "ok";
+       }else{
+           return "no";
+       }
+    }
+    //로그인처리
+    @PostMapping("/memberLogin")
+    public String memberLogin(@ModelAttribute MemberDTO memberDTO,
+                              Model model,
+                              HttpSession session){
+        MemberDTO result = memberService.memberLoginCk(memberDTO);
+        model.addAttribute("member",result);
+        session.setAttribute("loginEmail",result.getMemberEmail());
+        return "home";
     }
 
 }
