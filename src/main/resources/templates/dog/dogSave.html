@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>memberLogin</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+    }
+    #dogSaveForm{
+      margin-left: auto;
+      margin-right: auto;
+      font-size:30px;
+      width: 800px;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5 mb-5"><h2 style="text-align: center">반려친구를 등록하면 <br> 관련 상품들을 <br> 확인 할 수 있어요! </h2></div>
+<div class="container mt-5 mb-5">
+  <form action="/dogSave" method="post" id="dogSaveForm" class="form-control" name="dogSaveForm">
+    작성자:
+    <input type="text" th:value="${session.loginEmail}" class="form-control" name="dogWriter" readonly>
+    <br>
+    강아지 종:
+<!--    <input type="text" class="form-control mt-3" name="dogSpecies" id="species">-->
+    <select name="dogSpecies" id="species">
+      <option value="선택">선택♥</option>
+      <option value="푸들">푸들♥</option>
+      <option value="이탈리안 그레이하운드">이탈리안 그레이하운드♥</option>
+      <option value="말티즈">말티즈♥</option>
+      <option value="포메라니안">포메라니안♥</option>
+      <option value="스피치">스피치♥</option>
+    </select>
+    <br>
+    친구 이름:
+    <input type="text" class="form-control mt-3" name="dogName" id="name" placeholder="이름 입력">
+    <br>
+    친구 나이:
+    <input type="text" class="form-control mt-3" name="dogAge" id="age" placeholder="나이 입력">
+    <br>
+    친구 몸무게:
+    <input type="text" class="form-control mt-3" name="dogWeight" id="weight" placeholder="숫자만 입력">
+    <br>
+    친구 사진:
+    <input type="file" class="form-control mt-3" name="dogFile">
+    <br>
+    <input type="button" class="btn btn-success mt-3" onclick="dogSave()" value="등록하기">
+  </form>
+
+</div>
+<div style="background-color: #d1f6a7">
+  <div class="container mt-5" >
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+      </ul>
+      <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+  </div>
+</div>
+</body>
+<script>
+  const dogSave = () => {
+    const species = document.getElementById("species").value;
+    const name = document.getElementById("name").value;
+    const age = document.getElementById("age").value;
+    const weight = document.getElementById("weight").value;
+    if(species=="선택"){
+      alert("강아지 종을 선택해주세요!")
+    }else if(name==""){
+      alert("이름을 입력해주세요")
+    }else if(age==""){
+      alert("나이를 입력해주세요")
+    }else if(weight==""){
+      alert("몸무게를 입력해주세요")
+    }else{
+      document.dogSaveForm.submit();
+    }
+
+  }
+</script>
+</html>

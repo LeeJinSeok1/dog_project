@@ -7,6 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,6 +37,9 @@ public class MemberEntity {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime memberSaveTime;
+
+    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<DogEntity> dogEntityList = new ArrayList<>();
 
     // dto를 entity로 바꾸는 메서드
     public static MemberEntity changeEntity(MemberDTO memberDTO) {
