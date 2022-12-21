@@ -5,6 +5,7 @@
     <title>회원가입</title>
   <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
   <script th:src="@{/js/jqurey.js}"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
     /* 폰트 적용 */
@@ -48,13 +49,23 @@
                 <option value="여성">여성</option>
                 <option value="남성">남성</option>
             </select> <br>
-            지역:
-            <select name="memberArea" id="area"  class="form-select mb-3">
-                <option value="선택">선택</option>
-                <option value="인천">인천</option>
-                <option value="서울">서울</option>
-                <option value="경기">경기</option>
-            </select> <br>
+            주소:
+            <input type="text" id="1" placeholder="우편번호" class="form-control" >
+            <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" class="form-control"><br>
+            <input type="text" id="2" placeholder="도로명주소" class="form-control">
+            <input type="text" id="3" placeholder="지번주소" class="form-control">
+            <span id="guide" style="color:#999;display:none"></span>
+            <input type="text" id="4" placeholder="상세주소" class="form-control">
+            <input type="text" id="5" placeholder="참고항목" class="form-control">
+            <input type="text" id="memberArea" name="memberArea" hidden>
+
+            <br>
+<!--            <select name="memberArea" id="area"  class="form-select mb-3">-->
+<!--                <option value="선택">선택</option>-->
+<!--                <option value="인천">인천</option>-->
+<!--                <option value="서울">서울</option>-->
+<!--                <option value="경기">경기</option>-->
+<!--            </select> <br>-->
             나이:
             <input type="text" class="form-control mb-3" name="memberAge" id="age" onblur="ageCk()">
             <span id="ageBox"></span>
@@ -92,7 +103,14 @@
     </div>
 </div>
 </body>
+
 <script>
+    new daum.Postcode({
+        oncomplete: function(data) {
+            //data는 사용자가 선택한 주소 정보를 담고 있는 객체이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
+        }
+    });
+
     //이메일체크
     const emailCk = () => {
         const email = document.getElementById("email").value;
@@ -190,19 +208,24 @@
         const age = document.getElementById("age").value;
         const phone = document.getElementById("phone").value;
         const gender = document.getElementById("gender").value;
-        const area = document.getElementById("area").value;
         const purpose = document.getElementById("purpose").value;
         const name = document.getElementById("name").value;
-
         const ckPass = document.getElementById("ckPass").value;
         const ageCk = /^[0-9]+$/;
         const phoneCk = /\d{3}-\d{4}-\d{4}/;
 
+        const post1 =document.getElementById("1").value;
+        const post2 = document.getElementById("2").value;
+        const post3 =document.getElementById("3").value;
+        const post4 =document.getElementById("4").value;
+        const post5 =document.getElementById("5").value;
+        const post = "("+post1+")"+post2+"-"+post3+"-"+post4+post5;
+        document.getElementById("memberArea").value= post;
+
+
 
         if(gender =="선택") {
             alert("성별을 선택해주세요.")
-        }else if(area=="선택"){
-            alert("지역을 선택해주세요.")
         }else if(purpose=="선택"){
             alert("가입목적을 선택해주세요.")
         }else if(name==""){
@@ -224,6 +247,61 @@
         }else{
             document.memberSaveForm.submit();
         }
+    }
+
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('1').value = data.zonecode;
+                document.getElementById("2").value = roadAddr;
+                document.getElementById("3").value = data.jibunAddress;
+
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("5").value = extraRoadAddr;
+                } else {
+                    document.getElementById("5").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
     }
 
 </script>

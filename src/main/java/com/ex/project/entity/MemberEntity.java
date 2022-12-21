@@ -24,7 +24,7 @@ public class MemberEntity {
     private String memberName;
     @Column(length = 3)
     private String memberGender;
-    @Column(length = 10,nullable = false)
+    @Column(length = 100,nullable = false)
     private String memberArea;
     @Column
     private int memberAge;
