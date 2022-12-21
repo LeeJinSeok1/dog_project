@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container">
+<table class="table table-success table-striped" >
+  <tr>
+    <th>id:</th>
+    <td th:text="${member.id}"> </td>
+  </tr>
+  <tr>
+    <th>이메일:</th>
+    <td th:text="${member.memberEmail}"></td>
+  </tr>
+  <tr>
+    <th>이름:</th>
+    <td th:text="${member.memberName}"></td>
+  </tr>
+  <tr>
+    <th>나이:</th>
+    <td th:text="${member.memberAge}"></td>
+  </tr>
+  <tr>
+    <th>지역:</th>
+    <td th:text="${member.memberArea}"></td>
+  </tr>
+  <tr>
+    <th>연락처:</th>
+    <td th:text="${member.memberPhone}"></td>
+  </tr>
+  <tr>
+    <th>가입날짜:</th>
+    <td th:text="*{#temporals.format(member.memberSaveTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+  </tr>
+  <tr>
+    <th>반려 친구</th>
+    <td><h2>현재 등록된 반려 친구가 없습니다.</h2></td>
+  </tr>
+  <tr>
+    <th>반려견 등록</th>
+    <td><a href="" class="btn btn-success">등록하기!</a></td>
+  </tr>
+<!--  푸터-->
+  <div style="background-color: #d1f6a7">
+    <div class="container" >
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+        </ul>
+        <p class="text-center text-muted">2022 JinSeok Project </p>
+      </footer>
+    </div>
+  </div>
+</table>
+</div>
+</body>
+</html>

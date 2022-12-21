@@ -55,12 +55,24 @@ public class MemberController {
     //로그인처리
     @PostMapping("/memberLogin")
     public String memberLogin(@ModelAttribute MemberDTO memberDTO,
-                              Model model,
                               HttpSession session){
         MemberDTO result = memberService.memberLoginCk(memberDTO);
-        model.addAttribute("member",result);
         session.setAttribute("loginEmail",result.getMemberEmail());
         return "home";
     }
+    //로그아웃
+    @GetMapping("/memberLogout")
+    public String memberLogout(HttpSession session){
+        session.invalidate();
+        return "home";
+    }
+    @GetMapping("/memberDetail/{memberEmail}")
+    public String memberDetail(@PathVariable String memberEmail,
+                               Model model){
+        MemberDTO result = memberService.findByMemberEmail(memberEmail);
+        model.addAttribute("member",result);
+        return "/member/memberDetail";
+    }
+
 
 }

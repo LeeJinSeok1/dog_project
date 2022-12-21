@@ -16,8 +16,8 @@
           <div class="col-4 pt-1">
             <a class="blog-header-logo text-dark" style="margin-right: 50px" href="/" ><strong>Hi My Buddy</strong></a>
               <div th:if="${session.loginEmail}">
-                  <a href="" class="link-secondary">myPage</a>
-                  <a href="" class="link-secondary">로그아웃</a>
+                  <a th:href="@{|/memberDetail/${session.loginEmail}|}" class="link-secondary">myPage</a>
+                  <a href="/memberLogout" class="link-secondary">로그아웃</a>
                   <h4 th:text="${session.loginEmail}"></h4><h4>님 환영합니다.</h4>
               </div>
               <div th:unless="${session.loginEmail}">
