@@ -21,6 +21,7 @@ public class MemberDTO {
     private int memberAge;
     private String memberPhone;
     private String memberPurpose;
+//    private Long dogId;
 
     public static MemberDTO changeMemberDTO(MemberEntity memberEntity){
         MemberDTO memberDTO = new MemberDTO();

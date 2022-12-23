@@ -1,6 +1,8 @@
 package com.ex.project.controller;
 
+import com.ex.project.dto.DogDTO;
 import com.ex.project.dto.MemberDTO;
+import com.ex.project.service.DogSerivce;
 import com.ex.project.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -8,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+    private final DogSerivce dogSerivce;
     //회원가입 페이지로 이동
     @GetMapping("/memberSave")
     public String memberSavePage() {
@@ -68,9 +72,11 @@ public class MemberController {
     }
     @GetMapping("/memberDetail/{memberEmail}")
     public String memberDetail(@PathVariable String memberEmail,
-                               Model model){
+                               Model model) {
         MemberDTO result = memberService.findByMemberEmail(memberEmail);
+        DogDTO dogDTO = dogSerivce.findDog(memberEmail);
         model.addAttribute("member",result);
+        model.addAttribute("dog",dogDTO);
         return "/member/memberDetail";
     }
 

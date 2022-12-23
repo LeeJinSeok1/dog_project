@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,10 +26,15 @@ public class DogEntity {
     private String dogWeight;
     @Column(length = 30)
     private String dogWriter;
+    @Column
+    private int fileAttached;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private MemberEntity memberEntity;
+
+    @OneToMany(mappedBy = "dogEntity", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<DogFileEntity> dogFileEntityList = new ArrayList<>();
 
     public static DogEntity toChangeEntity(DogDTO dogDTO, MemberEntity memberEntity) {
         DogEntity dogEntity = new DogEntity();
@@ -37,6 +44,19 @@ public class DogEntity {
         dogEntity.setDogAge(dogDTO.getDogAge());
         dogEntity.setDogWeight(dogDTO.getDogWeight());
         dogEntity.setMemberEntity(memberEntity);
+        dogEntity.setFileAttached(0);
+        return dogEntity;
+    }
+
+    public static DogEntity toChangeFileEntity(DogDTO dogDTO, MemberEntity memberEntity) {
+        DogEntity dogEntity = new DogEntity();
+        dogEntity.setDogWriter(dogDTO.getDogWriter());
+        dogEntity.setDogName(dogDTO.getDogName());
+        dogEntity.setDogSpecies(dogDTO.getDogSpecies());
+        dogEntity.setDogAge(dogDTO.getDogAge());
+        dogEntity.setDogWeight(dogDTO.getDogWeight());
+        dogEntity.setMemberEntity(memberEntity);
+        dogEntity.setFileAttached(1);
         return dogEntity;
     }
 }

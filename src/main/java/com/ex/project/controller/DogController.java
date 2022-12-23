@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
+
 @Controller
 @RequiredArgsConstructor
 public class DogController {
@@ -18,7 +20,7 @@ public class DogController {
     }
     //강아지 저장처리
     @PostMapping("/dogSave")
-    public String dogSave(@ModelAttribute DogDTO dogDTO) {
+    public String dogSave(@ModelAttribute DogDTO dogDTO) throws IOException {
         Long savedId = dogSerivce.dogSave(dogDTO);
         return "/dog/dogSaveSuccess";
     }

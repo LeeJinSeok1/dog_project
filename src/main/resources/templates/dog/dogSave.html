@@ -24,7 +24,7 @@
 <th:block th:replace="header/header :: header"></th:block>
 <div class="container mt-5 mb-5"><h2 style="text-align: center">반려친구를 등록하면 <br> 관련 상품들을 <br> 확인 할 수 있어요! </h2></div>
 <div class="container mt-5 mb-5">
-  <form action="/dogSave" method="post" id="dogSaveForm" class="form-control" name="dogSaveForm">
+  <form action="/dogSave" method="post" id="dogSaveForm" class="form-control" name="dogSaveForm" enctype="multipart/form-data">
     작성자:
     <input type="text" th:value="${session.loginEmail}" class="form-control" name="dogWriter" readonly>
     <br>
