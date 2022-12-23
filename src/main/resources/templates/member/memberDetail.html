@@ -57,16 +57,22 @@
     <th>회원가입의 목적:</th>
     <td th:text="${member.memberPurpose}"></td>
   </tr>
+  <tr>
+    <th>회원정보 수정:</th>
+    <td><a th:href="@{|/memberUpdate/${member.memberEmail}|}" class="btn btn-warning">수정하기</a></td>
+  </tr>
+</table>
+  <div class="container mt-5 mb-5"><h1><strong>반려친구 페이지</strong></h1></div>
   <div th:if="${dog}">
-<!--    <tr th:if="${dog.fileAttached == 1}">-->
+    <table class="table table-success table-striped mt-5" >
     <tr>
       <th>친구 사진:</th>
       <td><img th:src="@{|/upload/${dog.storedFileName}}" alt="" width="200" height="200"></td>
     </tr>
-<!--    <tr th:unless="${dog.fileAttached == 0}">-->
-<!--      <th>친구 사진:</th>-->
-<!--      <td>등록된 사진이 없어요!</td>-->
-<!--    </tr>-->
+    <tr th:unless="${dog.fileAttached == 0}">
+      <th>친구 사진:</th>
+      <td>등록된 사진이 없어요!</td>
+    </tr>
     <tr>
       <th>친구의 이름:</th>
       <td th:text="${dog.dogName}"></td>
@@ -83,8 +89,10 @@
       <th>친구의 몸무게:</th>
       <td th:text="${dog.dogWeight}"></td>
     </tr>
+    </table>
   </div>
   <div th:unless="${dog}">
+    <table class="table table-success table-striped mt-5 mb-5" >
   <tr>
     <th>반려 친구</th>
     <td><h2>현재 등록된 반려 친구가 없습니다.</h2></td>
@@ -93,9 +101,8 @@
     <th>반려견 등록</th>
     <td><a href="/dogSave" class="btn btn-success">등록하기!</a></td>
   </tr>
+    </table>
   </div>
-
-</table>
 </div>
 <div style="background-color: #d1f6a7">
   <div class="container mt-5" >

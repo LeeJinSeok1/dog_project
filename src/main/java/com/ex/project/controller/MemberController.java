@@ -70,6 +70,7 @@ public class MemberController {
         session.invalidate();
         return "home";
     }
+    //회원 상세조회
     @GetMapping("/memberDetail/{memberEmail}")
     public String memberDetail(@PathVariable String memberEmail,
                                Model model) {
@@ -78,6 +79,20 @@ public class MemberController {
         model.addAttribute("member",result);
         model.addAttribute("dog",dogDTO);
         return "/member/memberDetail";
+    }
+    //회원수정
+    @GetMapping("/memberUpdate/{memberEmail}")
+    public String memberUpdatePage(@PathVariable String memberEmail,
+                               Model model) {
+        MemberDTO result = memberService.findByMemberEmail(memberEmail);
+        model.addAttribute("member",result);
+        return "/member/memberUpdate";
+    }
+    //수정처리
+    @PostMapping("/memberUpdate")
+    public String memberUpdate(@ModelAttribute MemberDTO memberDTO) {
+        memberService.memberUpdate(memberDTO);
+        return "/member/memberUpdateSuccess";
     }
 
 

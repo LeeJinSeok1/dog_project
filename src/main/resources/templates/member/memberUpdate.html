@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>memberLogin</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+    }
+    #memberLoginForm{
+      margin-left: auto;
+      margin-right: auto;
+      font-size:30px;
+      width: 800px;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5">
+  <form action="/memberUpdate"  method="post" class="form-control mt-5" name="memberUpdateForm">
+    <input type="text" hidden th:value="${member.memberPass}" id="pass" name="memberPass">
+    <input type="text" hidden th:value="${member.memberArea}" name="memberArea">
+    <input type="text" hidden th:value="${member.memberPurpose}" name="memberPurpose">
+    <input type="text" hidden th:value="${member.memberGender}" name="memberGender">
+    id:
+    <input type="text" class="form-control" th:value="${member.id}" readonly name="id">
+    <br>
+    이메일:
+    <input type="text" class="form-control" th:value="${member.memberEmail}" readonly name="memberEmail">
+    <br>
+    이름:
+    <input type="text" class="form-control" th:value="${member.memberName}" name="memberName">
+    <br>
+    나이:
+    <input type="text" class="form-control" th:value="${member.memberAge}" name="memberAge">
+    <br>
+    연락처:
+    <input type="text" class="form-control" th:value="${member.memberPhone}" name="memberPhone">
+    <br>
+    회원가입 날짜:
+    <input type="text" class="form-control" th:value="${member.memberSaveTime}" readonly>
+    <br>
+    <div class="input-group">
+    <input type="text" class="form-control" placeholder="비밀번호를 입력해주세요" width="300px" id="ckPass">
+      <input type="button" class="btn btn-warning" onclick="passCheck()" value="수정하기">
+    </div>
+  </form>
+</div>
+<div style="background-color: #d1f6a7">
+  <div class="container mt-5" >
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+      </ul>
+      <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+  </div>
+</div>
+</body>
+<script>
+  const passCheck=()=>{
+    const pass =document.getElementById("pass").value;
+    const ckPass =document.getElementById("ckPass").value;
+    if(pass != ckPass){
+      alert("비밀번호 불 일치")
+    }else{
+      document.memberUpdateForm.submit();
+    }
+  }
+</script>
+</html>
