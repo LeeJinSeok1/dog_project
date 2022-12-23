@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>memberLogin</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+    }
+    #memberLoginForm{
+      margin-left: auto;
+      margin-right: auto;
+      font-size:30px;
+      width: 800px;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5">
+  <form action="/dogUpdate" method="post" class="form-control" enctype="multipart/form-data">
+    아이디
+    <input type="text"  th:value="${dog.id}" name="id" class="form-control">
+    <br>
+    작성자
+    <input type="text" class="form-control " th:value="${dog.dogWriter}" readonly name="dogWriter">
+    <br>
+    친구 이름
+    <input type="text" class="form-control" th:value="${dog.dogName}" name="dogName">
+    <br>
+    친구 종
+    <input type="text" class="form-control" th:value="${dog.dogSpecies}" name="dogSpecies" readonly>
+    <br>
+    친구 몸무게
+    <input type="text" class="form-control" th:value="${dog.dogWeight}" name="dogWeight">
+    <br>
+    친구 나이
+    <input type="text" class="form-control" th:value="${dog.dogAge}" name="dogAge">
+    <br>
+
+    등록된 사진
+    <img th:src="@{|/upload/${dog.storedFileName}}" alt="" width="200" height="200">
+    <input type="file" class="form-control mt-4" name="dogFile" th:value="${dog.originalFileName}">
+    <br>
+    <input type="submit" class="btn btn-warning" value="수정하기" >
+  </form>
+
+</div>
+<div style="background-color: #d1f6a7">
+  <div class="container mt-5" >
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+      </ul>
+      <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+  </div>
+</div>
+</body>
+<script>
+
+</script>
+</html>

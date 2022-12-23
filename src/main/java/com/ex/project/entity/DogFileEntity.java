@@ -31,4 +31,16 @@ public class DogFileEntity {
         dogFileEntity.setDogEntity(entity);
         return dogFileEntity;
     }
+
+    public static DogFileEntity toUpdateDogFileEntity(DogEntity entity, String originalFileName,
+                                                      String storedFileName,
+                                                      Long fileId
+                                                     ) {
+        DogFileEntity dogFileEntity = new DogFileEntity();
+        dogFileEntity.setId(fileId);
+        dogFileEntity.setOriginalFileName(originalFileName);
+        dogFileEntity.setStoredFileName(storedFileName);
+        dogFileEntity.setDogEntity(entity);
+        return dogFileEntity;
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @ToString
 public class DogDTO {
+    private Long id;
     private String dogWriter;
     private String dogSpecies;
     private String dogName;
@@ -24,6 +25,7 @@ public class DogDTO {
 
     public static DogDTO toChangeDogDTO(DogEntity dogEntity) {
         DogDTO dogDTO = new DogDTO();
+        dogDTO.setId(dogEntity.getId());
         dogDTO.setDogName(dogEntity.getDogName());
         dogDTO.setDogSpecies(dogEntity.getDogSpecies());
         dogDTO.setDogAge(dogEntity.getDogAge());

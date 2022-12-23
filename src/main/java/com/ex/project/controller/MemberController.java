@@ -78,6 +78,7 @@ public class MemberController {
         DogDTO dogDTO = dogSerivce.findDog(memberEmail);
         model.addAttribute("member",result);
         model.addAttribute("dog",dogDTO);
+        System.out.println(dogDTO);
         return "/member/memberDetail";
     }
     //회원수정

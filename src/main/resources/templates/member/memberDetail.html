@@ -89,6 +89,10 @@
       <th>친구의 몸무게:</th>
       <td th:text="${dog.dogWeight}"></td>
     </tr>
+      <tr>
+      <th>친구 정보 수정:</th>
+      <td><a th:href="@{|/dogUpdate/${dog.getDogWriter()}|}" class="btn btn-warning">수정하기</a></td>
+    </tr>
     </table>
   </div>
   <div th:unless="${dog}">

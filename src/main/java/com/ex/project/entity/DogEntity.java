@@ -48,6 +48,7 @@ public class DogEntity {
         return dogEntity;
     }
 
+
     public static DogEntity toChangeFileEntity(DogDTO dogDTO, MemberEntity memberEntity) {
         DogEntity dogEntity = new DogEntity();
         dogEntity.setDogWriter(dogDTO.getDogWriter());
@@ -57,6 +58,32 @@ public class DogEntity {
         dogEntity.setDogWeight(dogDTO.getDogWeight());
         dogEntity.setMemberEntity(memberEntity);
         dogEntity.setFileAttached(1);
+        return dogEntity;
+    }
+
+    public static DogEntity toUpdateEntity(DogDTO dogDTO,MemberEntity memberEntity) {
+        DogEntity dogEntity = new DogEntity();
+        dogEntity.setId(dogDTO.getId());
+        dogEntity.setDogWriter(dogDTO.getDogWriter());
+        dogEntity.setDogName(dogDTO.getDogName());
+        dogEntity.setDogSpecies(dogDTO.getDogSpecies());
+        dogEntity.setDogAge(dogDTO.getDogAge());
+        dogEntity.setDogWeight(dogDTO.getDogWeight());
+        dogEntity.setFileAttached(0);
+        dogEntity.setMemberEntity(memberEntity);
+        return dogEntity;
+    }
+
+    public static DogEntity toUpdateFileEntity(DogDTO dogDTO,MemberEntity memberEntity) {
+        DogEntity dogEntity = new DogEntity();
+        dogEntity.setId(dogDTO.getId());
+        dogEntity.setDogWriter(dogDTO.getDogWriter());
+        dogEntity.setDogName(dogDTO.getDogName());
+        dogEntity.setDogSpecies(dogDTO.getDogSpecies());
+        dogEntity.setDogAge(dogDTO.getDogAge());
+        dogEntity.setDogWeight(dogDTO.getDogWeight());
+        dogEntity.setFileAttached(1);
+        dogEntity.setMemberEntity(memberEntity);
         return dogEntity;
     }
 }

@@ -64,4 +64,30 @@ public class DogSerivce {
             return null;
         }
     }
+
+    public void dogUpdate(DogDTO dogDTO) throws IOException {
+        MemberEntity memberEntity = memberRepository.findByMemberEmail(dogDTO.getDogWriter()).get();
+        if(dogDTO.getDogFile().isEmpty()) {
+            DogEntity dogEntity = DogEntity.toUpdateEntity(dogDTO,memberEntity);
+            dogRepository.save(dogEntity);
+        }else{
+            MultipartFile dogFile = dogDTO.getDogFile();
+            String originalFileName = dogFile.getOriginalFilename();
+            String storedFileName = System.currentTimeMillis()+"_"+originalFileName;
+            String savePath = "D:\\dog_project\\" + storedFileName;
+            dogFile.transferTo(new File(savePath));
+
+
+            DogEntity dogEntity = DogEntity.toUpdateFileEntity(dogDTO ,memberEntity);
+            Long savedId = dogRepository.save(dogEntity).getId();
+
+            DogEntity entity =dogRepository.findById(savedId).get();
+            Long fileId = dogFileRepository.findByDogEntity(entity).get().getId();
+            DogFileEntity dogFileEntity=
+                    DogFileEntity.toUpdateDogFileEntity(entity,originalFileName,storedFileName,fileId);
+
+            dogFileRepository.save(dogFileEntity);
+
+        }
+    }
 }
