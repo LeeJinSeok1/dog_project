@@ -2,6 +2,7 @@ package com.ex.project.dto;
 
 import com.ex.project.entity.AdoptEntity;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,11 @@ public class AdoptDTO {
     private String adoptArea;
     private LocalDateTime adoptSaveTime;
 
+    private MultipartFile adoptFile;
+    private int fileAttached;
+    private String originalFileName;
+    private String storedFileName;
+
     public static AdoptDTO toChangeDTO(AdoptEntity adoptEntity) {
         AdoptDTO adoptDTO = new AdoptDTO();
         adoptDTO.setId(adoptEntity.getId());
@@ -35,6 +41,14 @@ public class AdoptDTO {
         adoptDTO.setAdoptArea(adoptEntity.getAdoptArea());
         adoptDTO.setAdoptSaveTime(adoptEntity.getAdoptSaveTime());
         adoptDTO.setAdoptContents(adoptEntity.getAdoptContents());
+
+        if(adoptEntity.getFileAttached() ==1){
+            adoptDTO.setFileAttached(adoptDTO.getFileAttached());
+            adoptDTO.setOriginalFileName(adoptEntity.getAdoptFileEntityList().get(0).getOriginalFileName());
+            adoptDTO.setStoredFileName(adoptEntity.getAdoptFileEntityList().get(0).getStoredFileName());
+        }else{
+            adoptDTO.setFileAttached(adoptDTO.getFileAttached());
+        }
         return adoptDTO;
     }
 }

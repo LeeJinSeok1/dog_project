@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -30,7 +31,7 @@ public class AdoptController {
 
     @PostMapping("/adoptSave")
     public String adoptSave(@ModelAttribute AdoptDTO adoptDTO,
-                            Model model) {
+                            Model model) throws IOException {
         System.out.println(adoptDTO);
         adoptService.adoptSave(adoptDTO);
         List<AdoptDTO> adoptDTOList = adoptService.findAll();

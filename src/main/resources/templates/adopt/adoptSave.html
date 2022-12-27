@@ -25,7 +25,7 @@
 <div class="container mt-5">
   <h2 style="text-align: center"><strong>내 가족을 <br> 더 좋은 환경으로 <br> 보내 줄 수 있어요.</strong></h2>
   <h3 style="text-align: center" class="mt-3">보내줄 가족의 <br> 이야기를 자세하게 <br> 적어주세요!</h3>
-  <form action="/adoptSave"  method="post" class="form-control mt-5" id="adoptSaveForm" name="adoptSaveForm">
+  <form action="/adoptSave"  method="post" class="form-control mt-5" id="adoptSaveForm" name="adoptSaveForm" enctype="multipart/form-data">
 
     작성자(보호자):
     <input type="text" class="form-control" th:value="${member.memberEmail}" name="adoptWriter" id="writer" readonly>
@@ -50,7 +50,7 @@
     <input type="text" name="adoptArea" id="area" class="form-control">
     <br>
     사진:※필수입니다.
-    <input type="file" class="form-control">
+    <input type="file" class="form-control" name="adoptFile">
     <br>
     <input type="button" class="btn btn-primary mt-5" value="등록하기" onclick="adoptSave()">
   </form>

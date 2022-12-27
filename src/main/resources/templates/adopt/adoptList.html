@@ -13,20 +13,16 @@
             font-size: 30px;
         }
 
-        searchForm{
-            width:150px;
-            float: left;
-        }
 
     </style>
 </head>
 <body>
 <th:block th:replace="header/header :: header"></th:block>
 <div class="container mt-5">
-    <h2><strong>분양글을 확인 할 수 있습니다.</strong></h2>
+    <h2><strong>분양 글 목록</strong></h2>
 </div>
-<div>
-<form action="/adoptSearch" method="post" class="form-group mt-5" style="margin-left: 250px; margin-bottom: 50px">
+<div class="container" style="width: 1500px; margin-left: auto; margin-right: auto;" >
+<form action="/adoptSearch" method="post" class="form-group mt-5" style="float: left;margin-bottom: 50px">
     <select name="type" class="form-select-lg">
         <option value="adoptSpecies">분양 종</option>
         <option value="adoptArea">분양 지역</option>
@@ -36,13 +32,14 @@
 </form>
 </div>
 <div clas="container mt-5 mb-5" >
-<table class="table table-hover" id="list" style="margin-left: 250px; width: 1500px" >
+<table class="table table-hover" id="list" style="margin-left:auto; margin-right: auto; width: 1500px;" >
     <tr>
         <th>글번호</th>
         <th>작성자(보호자)</th>
         <th>제목</th>
         <th>분양 종</th>
         <th>분양 지역</th>
+        <th>사진</th>
     </tr>
     <tr th:each="adopt : ${adoptList}" >
         <td th:text="${adopt.id}"></td>
@@ -50,6 +47,12 @@
         <td th:text="${adopt.adoptTitle}"></td>
         <td th:text="${adopt.adoptSpecies}"></td>
         <td th:text="${adopt.adoptArea}"></td>
+<!--        <div th:if="${adopt.fileAttached == 1}">-->
+        <td><img th:src="@{|/upload/${adopt.storedFileName}}" width="50px" height="50px" alt="사진이 없어요!"></td>
+<!--        </div>-->
+<!--        <div th:if="${adopt.fileAttached == 0}">-->
+<!--            <td>사진이없어요!</td>-->
+<!--        </div>-->
         <!--        <td th:text="${board.boardCreatedTime}"></td>-->
 <!--        <td th:text="*{#temporals.format(board.adoptSaveTime, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
 <!--        <td th:text="${}"></td>-->
