@@ -38,7 +38,7 @@
       <div class="nav-scroller py-1 mb-2">
           <div th:if="${session.loginEmail}">
             <nav class="nav d-flex justify-content-between">
-          <a class="p-2 link-secondary" href="#" ><strong>입양글</strong></a>
+          <a class="p-2 link-secondary" href="/adoptList" ><strong>입양글</strong></a>
           <a class="p-2 link-secondary" href="#" ><strong>입양신청</strong></a>
           <a class="p-2 link-secondary" th:href="@{|/adoptSave/${session.loginEmail}|}"><strong>입양등록</strong></a>
           <a class="p-2 link-secondary" href="#" ><strong>반려용품</strong></a>

@@ -31,4 +31,19 @@ public class AdoptService {
         }
         return adoptDTOList;
     }
+
+    public List<AdoptDTO> adoptSearch(String type, String q) {
+        List<AdoptDTO> adoptDTOList = new ArrayList<>();
+        List<AdoptEntity> adoptEntityList = null;
+        if(type.equals("adoptSpecies")){
+            adoptEntityList = adoptRepository.findByAdoptSpeciesContainingOrderByIdDesc(q);
+        }else if(type.equals("adoptArea")){
+            adoptEntityList = adoptRepository.findByAdoptAreaContainingOrderByIdDesc(q);
+        }
+
+        for (AdoptEntity adoptEntity : adoptEntityList) {
+            adoptDTOList.add(AdoptDTO.toChangeDTO(adoptEntity));
+        }
+        return adoptDTOList;
+    }
 }

@@ -37,4 +37,19 @@ public class AdoptController {
         model.addAttribute("adoptList",adoptDTOList);
         return "/adopt/adoptList";
     }
+
+    @GetMapping("/adoptList")
+    public String adoptList(Model model){
+        List<AdoptDTO> adoptDTOList = adoptService.findAll();
+        model.addAttribute("adoptList",adoptDTOList);
+        return "/adopt/adoptList";
+    }
+
+    @PostMapping("/adoptSearch")
+    public String adoptSearch(@RequestParam("type") String type,@RequestParam("q") String q,
+                              Model model){
+        List<AdoptDTO> searchList = adoptService.adoptSearch(type,q);
+        model.addAttribute("adoptList",searchList);
+        return "/adopt/adoptList";
+    }
 }

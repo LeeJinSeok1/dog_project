@@ -13,20 +13,36 @@
             font-size: 30px;
         }
 
+        searchForm{
+            width:150px;
+            float: left;
+        }
+
     </style>
 </head>
 <body>
 <th:block th:replace="header/header :: header"></th:block>
-<div clas="container mt-5" >
-<table class="table table-hover">
+<div class="container mt-5">
+    <h2><strong>분양글을 확인 할 수 있습니다.</strong></h2>
+</div>
+<div>
+<form action="/adoptSearch" method="post" class="form-group mt-5" style="margin-left: 250px; margin-bottom: 50px">
+    <select name="type" class="form-select-lg">
+        <option value="adoptSpecies">분양 종</option>
+        <option value="adoptArea">분양 지역</option>
+    </select>
+    <input type="text" name="q" class="form-control-lg" placeholder="Search..">
+    <input type="submit" class="btn btn-dark" value="검색하기">
+</form>
+</div>
+<div clas="container mt-5 mb-5" >
+<table class="table table-hover" id="list" style="margin-left: 250px; width: 1500px" >
     <tr>
         <th>글번호</th>
         <th>작성자(보호자)</th>
         <th>제목</th>
         <th>분양 종</th>
         <th>분양 지역</th>
-
-
     </tr>
     <tr th:each="adopt : ${adoptList}" >
         <td th:text="${adopt.id}"></td>
