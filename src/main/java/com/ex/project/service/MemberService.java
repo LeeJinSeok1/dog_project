@@ -47,4 +47,6 @@ public class MemberService {
         MemberEntity memberEntity = MemberEntity.toUpdateChangeEntity(memberDTO);
         memberRepository.save(memberEntity);
     }
+
+
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>memberLogin</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+    }
+    #adoptSaveForm{
+      margin-left: auto;
+      margin-right: auto;
+      font-size:30px;
+      width: 800px;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5">
+  <h2 style="text-align: center"><strong>내 가족을 <br> 더 좋은 환경으로 <br> 보내 줄 수 있어요.</strong></h2>
+  <h3 style="text-align: center" class="mt-3">보내줄 가족의 <br> 이야기를 자세하게 <br> 적어주세요!</h3>
+  <form action="/adoptSave"  method="post" class="form-control mt-5" id="adoptSaveForm" name="adoptSaveForm">
+
+    작성자(보호자):
+    <input type="text" class="form-control" th:value="${member.memberEmail}" name="adoptWriter" id="writer" readonly>
+    <br>
+    보낼 가족의 이름:
+    <input type="text" class="form-control" name="adoptName" id="name">
+    <br>
+    강아지 종:
+    <input type="text" class="form-control" name="adoptSpecies" id="species">
+    <br>
+    나이:
+    <input type="text" class="form-control" name="adoptAge" id="age">
+    <br>
+    제목:
+    <input type="text" class="form-control" name="adoptTitle" id="title">
+    <br>
+    내용:
+    <textarea name="adoptContents" id="contents" cols="30" rows="10" class="form-control">
+    </textarea>
+    <br>
+    지역:
+    <input type="text" name="adoptArea" id="area" class="form-control">
+    <br>
+    사진:※필수입니다.
+    <input type="file" class="form-control">
+    <br>
+    <input type="button" class="btn btn-primary mt-5" value="등록하기" onclick="adoptSave()">
+  </form>
+</div>
+<div >
+  <div class="container mt-5" style="margin-top: 300px" >
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+      </ul>
+      <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+  </div>
+</div>
+</body>
+<script>
+  const adoptSave =() =>{
+    const writer=document.getElementById("writer").value;
+    const name =document.getElementById("name").value;
+    const species = document.getElementById("species").value;
+    const age = document.getElementById("age").value;
+    const title = document.getElementById("title").value;
+    const contents = document.getElementById("contents").value;
+    const area =document.getElementById("area").value;
+    if(writer==""){
+      alert("작성자를 입력해주세요")
+    }else if(name==""){
+      alert("이름을 입력해주세요")
+    }else if(species==""){
+      alert("종을 선택해주세요")
+    }else if(age==""){
+      alert("나이를 입력해주세요")
+    }else if(title=="") {
+      alert("제목을 입력해주세요")
+    }else if(contents=="") {
+      alert("내용을 입력해주세요")
+    }else if(area==""){
+      alert("지역을 입력해주세요.")
+    }else{
+      document.adoptSaveForm.submit();
+    }
+  }
+
+</script>
+</html>
