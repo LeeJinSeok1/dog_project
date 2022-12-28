@@ -49,18 +49,19 @@ public class AdoptController {
         return "/adopt/adoptList";
     }
 
-//    @PostMapping("/adoptSearch")
-//    public String adoptSearch(@RequestParam("type") String type,@RequestParam("q") String q,
-//                              Model model){
-//        List<AdoptDTO> searchList = adoptService.adoptSearch(type,q);
-//        model.addAttribute("adoptList",searchList);
-//
-//        return "/adopt/adoptList";
-//    }
+    @PostMapping("/adoptSearch")
+    public String adoptSearch(@RequestParam("type") String type,@RequestParam("q") String q,
+                              Model model){
+        List<AdoptDTO> searchList = adoptService.adoptSearch(type,q);
+        model.addAttribute("adoptList",searchList);
+
+        return "/adopt/adoptList";
+    }
     //연습
-@PostMapping("/adoptSearch")
-public String adoptSearch(@RequestParam("type") String type,@RequestParam("q") String q,
+    @PostMapping("/adoptSearchPaging")
+    public String adoptSearch(@RequestParam("type") String type,@RequestParam("q") String q,
                           Model model,@PageableDefault(page=1) Pageable pageable){
+
     Page<AdoptDTO> adoptDTOList = adoptService.searchPaging(type,q,pageable);
     model.addAttribute("adoptList",adoptDTOList);
     int blockLimit = 3;
@@ -70,7 +71,7 @@ public String adoptSearch(@RequestParam("type") String type,@RequestParam("q") S
     model.addAttribute("endPage", endPage);
     System.out.println(pageable.getPageNumber());
     return "/adopt/adoptPaging";
-}
+    }
 
 
     @GetMapping("/adopt")
