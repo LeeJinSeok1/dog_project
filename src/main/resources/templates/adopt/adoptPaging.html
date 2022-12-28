@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jqurey.js}"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+        /* 폰트 적용 */
+        body {
+            font-family: 'Dongle', sans-serif;
+            font-size: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5">
+    <h2><strong>분양 글 목록</strong></h2>
+</div>
+<div class="container" style="width: 1500px; margin-left: auto; margin-right: auto;" >
+    <form action="/adoptSearch" method="post" class="form-group mt-5" style="float: left;margin-bottom: 50px">
+        <select name="type" class="form-select-lg">
+            <option value="adoptSpecies">분양 종</option>
+            <option value="adoptArea">분양 지역</option>
+        </select>
+        <input type="text" name="q" class="form-control-lg" placeholder="Search..">
+        <input type="submit" class="btn btn-dark" value="검색하기">
+    </form>
+</div>
+<div class="container mt-5">
+    <table class="table table-hover" style="margin-left:auto; margin-right: auto; width: 1500px;">
+        <thead>
+        <tr>
+            <th scope="col">글번호</th>
+            <th scope="col">작성자(보호자)</th>
+            <th scope="col">제목</th>
+            <th scope="col">분양지역</th>
+            <th scope="col">분양 종</th>
+            <th scope="col">글작성 시간</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="adopt: ${adoptList}">
+            <td th:text="${adopt.id}"></td>
+            <td th:text="${adopt.adoptWriter}"></td>
+            <td th:text="${adopt.adoptTitle}"></td>
+            <td th:text="${adopt.adoptArea}"></td>
+            <td th:text="${adopt.adoptSpecies}"></td>
+            <td th:text="*{#temporals.format(adopt.adoptSaveTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="container">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+
+                <a class="page-link" th:href="@{/adopt(page=1)}">
+                    <span>First</span>
+                </a>
+            </li>
+
+            <li th:class="${adoptList.first} ? 'disabled'" class="page-item">
+
+                <a class="page-link" th:href="${adoptList.first} ? '#' : @{/adopt(page=${adoptList.number})}">
+                    <span><</span> <!-- < -->
+                </a>
+            </li>
+
+            <!-- startPage ~ endPage 까지 숫자를 만들어주는 역할 -->
+            <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                th:class="${page == adoptList.number + 1} ? 'page-item active'" class="page-item">
+                <a class="page-link" th:text="${page}" th:href="@{/adopt(page=${page})}"></a>
+            </li>
+
+            <!-- 다음 페이지 요청
+                현재 3페이지를 보고 있다면 다음 페이지는 4페이지임.
+                getNumber() 값은 2임.
+                따라서 4페이지를 보고 싶다면 getNumber()+2를 해야 컨트롤러에 4를 요청할 수 있음. -->
+            <li th:class="${adoptList.last} ? 'disabled'">
+                <a class="page-link" th:href="${adoptList.last} ? '#' : @{/adopt(page=${adoptList.number + 2})}">
+                    <span>&gt;</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/adopt(page=${adoptList.totalPages})}">
+                    <span>Last</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>

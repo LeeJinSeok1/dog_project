@@ -8,6 +8,10 @@ import com.ex.project.repository.AdoptFIleRepository;
 import com.ex.project.repository.AdoptRepository;
 import com.ex.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,5 +73,23 @@ public class AdoptService {
             adoptDTOList.add(AdoptDTO.toChangeDTO(adoptEntity));
         }
         return adoptDTOList;
+    }
+
+
+    public Page<AdoptDTO> paging(Pageable pageable) {
+        int page = pageable.getPageNumber() -1 ;
+        final int pageLimit = 3;
+        Page<AdoptEntity> adoptEntities = adoptRepository.findAll(PageRequest.of
+                (page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+        Page<AdoptDTO> adoptList = adoptEntities.map(
+                adopt -> new AdoptDTO(adopt.getId(),
+                        adopt.getAdoptWriter(),
+                        adopt.getAdoptTitle(),
+                        adopt.getAdoptArea(),
+                        adopt.getAdoptSpecies(),
+                        adopt.getAdoptSaveTime()
+                )
+        );
+        return adoptList;
     }
 }

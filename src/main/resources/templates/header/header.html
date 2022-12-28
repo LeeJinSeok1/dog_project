@@ -16,11 +16,13 @@
               <div th:if="${session.loginEmail}">
                   <a th:href="@{|/memberDetail/${session.loginEmail}|}" class="link-secondary">myPage</a>
                   <a href="/memberLogout" class="link-secondary">로그아웃</a>
+                  <a href="/">main</a>
                   <h4 th:text="${session.loginEmail}"></h4><h4>님 환영합니다.</h4>
               </div>
               <div th:unless="${session.loginEmail}">
             <a class="link-secondary" href="/memberLogin">Login</a>
             <a class="link-secondary m-lg-2" href="/memberSave">회원가입</a>
+            <a href="/">main</a>
               </div>
           </div>
           <div class="col-4 text-center">
@@ -38,7 +40,7 @@
       <div class="nav-scroller py-1 mb-2">
           <div th:if="${session.loginEmail}">
             <nav class="nav d-flex justify-content-between">
-          <a class="p-2 link-secondary" href="/adoptList" ><strong>입양글</strong></a>
+          <a class="p-2 link-secondary" href="/adopt" ><strong>입양글</strong></a>
           <a class="p-2 link-secondary" href="#" ><strong>입양신청</strong></a>
           <a class="p-2 link-secondary" th:href="@{|/adoptSave/${session.loginEmail}|}"><strong>입양등록</strong></a>
           <a class="p-2 link-secondary" href="#" ><strong>반려용품</strong></a>
@@ -47,7 +49,7 @@
           </div>
           <div th:unless="${session.loginEmail}">
             <nav class="nav d-flex justify-content-between">
-            <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양글</strong></a>
+            <a class="p-2 link-secondary" href="/adoptList" ><strong>입양글</strong></a>
             <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양신청</strong></a>
             <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양등록</strong></a>
             <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>반려용품</strong></a>

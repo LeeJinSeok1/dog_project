@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>memberLogin</title>
+    <title>adoptList</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
     <script th:src="@{/js/jqurey.js}"></script>
     <style>
@@ -12,7 +12,6 @@
             font-family: 'Dongle', sans-serif;
             font-size: 30px;
         }
-
 
     </style>
 </head>
@@ -47,16 +46,7 @@
         <td th:text="${adopt.adoptTitle}"></td>
         <td th:text="${adopt.adoptSpecies}"></td>
         <td th:text="${adopt.adoptArea}"></td>
-<!--        <div th:if="${adopt.fileAttached == 1}">-->
         <td><img th:src="@{|/upload/${adopt.storedFileName}}" width="50px" height="50px" alt="사진이 없어요!"></td>
-<!--        </div>-->
-<!--        <div th:if="${adopt.fileAttached == 0}">-->
-<!--            <td>사진이없어요!</td>-->
-<!--        </div>-->
-        <!--        <td th:text="${board.boardCreatedTime}"></td>-->
-<!--        <td th:text="*{#temporals.format(board.adoptSaveTime, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
-<!--        <td th:text="${}"></td>-->
-<!--        <td><a th:href="@{|/${}|}" class="btn btn-primary">조회</a></td>-->
     </tr>
 </table>
 </div>

@@ -5,6 +5,9 @@ import com.ex.project.dto.MemberDTO;
 import com.ex.project.service.AdoptService;
 import com.ex.project.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -53,4 +56,21 @@ public class AdoptController {
         model.addAttribute("adoptList",searchList);
         return "/adopt/adoptList";
     }
+
+    @GetMapping("/adopt")
+    public String adopt(@PageableDefault(page=1) Pageable pageable, Model model){
+        System.out.println(pageable.getPageNumber());
+        Page<AdoptDTO> adoptDTOList = adoptService.paging(pageable);
+        model.addAttribute("adoptList",adoptDTOList);
+        int blockLimit = 3;
+        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = ((startPage + blockLimit - 1) < adoptDTOList.getTotalPages()) ? startPage + blockLimit - 1 : adoptDTOList.getTotalPages();
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        System.out.println(pageable.getPageNumber());
+        return "/adopt/adoptPaging";
+    }
+
+
+
 }
