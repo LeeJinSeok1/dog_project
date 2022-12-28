@@ -92,4 +92,36 @@ public class AdoptService {
         );
         return adoptList;
     }
+
+
+    public Page<AdoptDTO> searchPaging(String type, String q, Pageable pageable) {
+        int page = pageable.getPageNumber() -1 ;
+        final int pageLimit = 3;
+        if(type.equals("adoptSpecies")){
+            Page<AdoptEntity> adoptEntities = adoptRepository.findByAdoptSpeciesContainingOrderByIdDesc(q,PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+            Page<AdoptDTO> adoptList = adoptEntities.map(
+                    adopt -> new AdoptDTO(adopt.getId(),
+                            adopt.getAdoptWriter(),
+                            adopt.getAdoptTitle(),
+                            adopt.getAdoptArea(),
+                            adopt.getAdoptSpecies(),
+                            adopt.getAdoptSaveTime()
+                    )
+            );
+            return adoptList;
+        }else if(type.equals("adoptArea")){
+            Page<AdoptEntity> adoptEntities = adoptRepository.findByAdoptAreaContainingOrderByIdDesc(q,PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+            Page<AdoptDTO> adoptList = adoptEntities.map(
+                    adopt -> new AdoptDTO(adopt.getId(),
+                            adopt.getAdoptWriter(),
+                            adopt.getAdoptTitle(),
+                            adopt.getAdoptArea(),
+                            adopt.getAdoptSpecies(),
+                            adopt.getAdoptSaveTime()
+                    )
+            );
+            return adoptList;
+        }
+        return null;
+    }
 }

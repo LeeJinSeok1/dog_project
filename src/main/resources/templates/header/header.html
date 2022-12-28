@@ -16,13 +16,13 @@
               <div th:if="${session.loginEmail}">
                   <a th:href="@{|/memberDetail/${session.loginEmail}|}" class="link-secondary">myPage</a>
                   <a href="/memberLogout" class="link-secondary">로그아웃</a>
-                  <a href="/">main</a>
+                  <a href="/" class="text-black">main</a>
                   <h4 th:text="${session.loginEmail}"></h4><h4>님 환영합니다.</h4>
               </div>
               <div th:unless="${session.loginEmail}">
             <a class="link-secondary" href="/memberLogin">Login</a>
             <a class="link-secondary m-lg-2" href="/memberSave">회원가입</a>
-            <a href="/">main</a>
+            <a href="/" class="text-black">main</a>
               </div>
           </div>
           <div class="col-4 text-center">

@@ -54,18 +54,18 @@
         </tbody>
     </table>
 
-    <div class="container">
+    <div class="container" style="margin-top: 100px">
         <ul class="pagination justify-content-center">
             <li class="page-item">
 
-                <a class="page-link" th:href="@{/adopt(page=1)}">
+                <a class="page-link text-black" th:href="@{/adopt(page=1)}">
                     <span>First</span>
                 </a>
             </li>
 
-            <li th:class="${adoptList.first} ? 'disabled'" class="page-item">
+            <li th:class="${adoptList.first} ? 'disabled'" class="page-item ">
 
-                <a class="page-link" th:href="${adoptList.first} ? '#' : @{/adopt(page=${adoptList.number})}">
+                <a class="page-link text-black" th:href="${adoptList.first} ? '#' : @{/adopt(page=${adoptList.number})}">
                     <span><</span> <!-- < -->
                 </a>
             </li>
@@ -73,7 +73,7 @@
             <!-- startPage ~ endPage 까지 숫자를 만들어주는 역할 -->
             <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
                 th:class="${page == adoptList.number + 1} ? 'page-item active'" class="page-item">
-                <a class="page-link" th:text="${page}" th:href="@{/adopt(page=${page})}"></a>
+                <a class="page-link text-black" th:text="${page}" th:href="@{/adopt(page=${page})}"></a>
             </li>
 
             <!-- 다음 페이지 요청
@@ -81,13 +81,13 @@
                 getNumber() 값은 2임.
                 따라서 4페이지를 보고 싶다면 getNumber()+2를 해야 컨트롤러에 4를 요청할 수 있음. -->
             <li th:class="${adoptList.last} ? 'disabled'">
-                <a class="page-link" th:href="${adoptList.last} ? '#' : @{/adopt(page=${adoptList.number + 2})}">
+                <a class="page-link text-black" th:href="${adoptList.last} ? '#' : @{/adopt(page=${adoptList.number + 2})}">
                     <span>&gt;</span>
                 </a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{/adopt(page=${adoptList.totalPages})}">
+                <a class="page-link text-black" th:href="@{/adopt(page=${adoptList.totalPages})}">
                     <span>Last</span>
                 </a>
             </li>
