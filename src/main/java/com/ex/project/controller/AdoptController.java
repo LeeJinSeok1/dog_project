@@ -21,7 +21,7 @@ public class AdoptController {
     private final MemberService memberService;
 
     private final AdoptService adoptService;
-
+    // 분양 글 저장 페이지
     @GetMapping("/adoptSave/{memberEmail}")
     public String adoptSavePage(@PathVariable String memberEmail,
                                 Model model) {
@@ -31,7 +31,7 @@ public class AdoptController {
         model.addAttribute("member",memberDTO);
         return "/adopt/adoptSave";
     }
-
+    // 분양 글 저장
     @PostMapping("/adoptSave")
     public String adoptSave(@ModelAttribute AdoptDTO adoptDTO,
                             Model model) throws IOException {
@@ -42,6 +42,7 @@ public class AdoptController {
         return "/adopt/adoptList";
     }
 
+    // 비회원 리스트
     @GetMapping("/adoptList")
     public String adoptList(Model model){
         List<AdoptDTO> adoptDTOList = adoptService.findAll();
@@ -49,6 +50,7 @@ public class AdoptController {
         return "/adopt/adoptList";
     }
 
+    //비회원 검색 후 리스트 처리
     @PostMapping("/adoptSearch")
     public String adoptSearch(@RequestParam("type") String type,@RequestParam("q") String q,
                               Model model){
@@ -57,7 +59,7 @@ public class AdoptController {
 
         return "/adopt/adoptList";
     }
-    //연습
+    //검색 후 페이징 처리
     @PostMapping("/adoptSearchPaging")
     public String adoptSearch(@RequestParam("type") String type,@RequestParam("q") String q,
                           Model model,@PageableDefault(page=1) Pageable pageable){
@@ -73,7 +75,7 @@ public class AdoptController {
     return "/adopt/adoptPaging";
     }
 
-
+    // 페이징 리스트 처리
     @GetMapping("/adopt")
     public String adopt(@PageableDefault(page=1) Pageable pageable, Model model){
         System.out.println(pageable.getPageNumber());
@@ -86,6 +88,16 @@ public class AdoptController {
         model.addAttribute("endPage", endPage);
         System.out.println(pageable.getPageNumber());
         return "/adopt/adoptPaging";
+    }
+
+    @GetMapping("/adoptDetail/{id}")
+    public String adoptDetail(@PathVariable Long id,
+                              Model model){
+        System.out.println("ID="+id);
+       AdoptDTO adoptDTO = adoptService.adoptDetail(id);
+       model.addAttribute("adopt",adoptDTO);
+        System.out.println("adopt="+adoptDTO);
+       return "/adopt/adoptDetail";
     }
 
 

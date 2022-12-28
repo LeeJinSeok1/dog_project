@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>adoptList</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jqurey.js}"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+        /* 폰트 적용 */
+        body {
+            font-family: 'Dongle', sans-serif;
+            font-size: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5">
+    <h2 style="text-align: center"><strong>분양 글 입니다!<br></strong></h2>
+    <h2 style="text-align: center">분양 신청을 <br> 진행해 보세요!</h2>
+</div>
+<div class="container mt-5" style="margin-top: 100px; margin-bottom: 100px" >
+<table class="table table-hover" style="width: 1500px; margin-left: auto; margin-right: auto;">
+    <tr>
+        <th>글번호:</th>
+        <td th:text="${adopt.id}"> </td>
+    </tr>
+    <tr>
+        <th>작성자(보호자):</th>
+        <td th:text="${adopt.adoptWriter}"></td>
+    </tr>
+    <tr>
+        <th>강아지 이름:</th>
+        <td th:text="${adopt.adoptName}"></td>
+    </tr>
+    <tr>
+        <th>강아지 종:</th>
+        <td th:text="${adopt.adoptSpecies}"></td>
+    </tr>
+    <tr>
+        <th>강아지 나이:</th>
+        <td th:text="${adopt.adoptAge}"></td>
+    </tr>
+<!--    <tr th:if="${adopt.fileAttached == 1}">-->
+    <tr>
+        <th>강아지 사진</th>
+        <td><img th:src="@{|/upload/${adopt.storedFileName}}" alt="등록한 사진이 없어요!"></td>
+    </tr>
+    <tr>
+        <th>제목:</th>
+        <td th:text="${adopt.adoptTitle}"></td>
+    </tr>
+    <tr>
+        <th>내용:</th>
+        <td th:text="${adopt.adoptContents}"></td>
+    </tr>
+    <tr>
+        <th>분양지역:</th>
+        <td th:text="${adopt.adoptArea}"></td>
+    </tr>
+    <tr>
+        <th>제목:</th>
+        <td th:text="${adopt.adoptTitle}"></td>
+    </tr>
+    <tr>
+        <th>작성시간:</th>
+        <td th:text="*{#temporals.format(adopt.adoptSaveTime, 'yyyy년 MM월 dd일 HH시 mm분 ss초')}"></td>
+    </tr>
+    <tr>
+        <th>입양 신청하기!</th>
+        <td><a th:href="@{|/adoptApplySave/${adopt.id}/${session.loginEmail}|}" class="btn btn-warning">신청</a></td>
+    </tr>
+</table>
+</div>
+<div class="container mt-5 mb-5">
+    <a href="/adopt" style="text-align: center" class="btn btn-dark text-white">돌아가기!</a>
+</div>
+<div class="container mt-5" style="margin-top: 500px" >
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+        </ul>
+        <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+</div>
+</div>
+</body>
+<script>
+
+</script>
+</html>

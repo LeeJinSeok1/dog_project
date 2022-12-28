@@ -24,6 +24,8 @@ public class AdoptFileEntity {
     @JoinColumn(name="adopt_id")
     private AdoptEntity adoptEntity;
 
+
+
     public static AdoptFileEntity toSaveAdoptFileEntity(AdoptEntity adopt, String originalFileName, String storedFileName) {
         AdoptFileEntity adoptFileEntity = new AdoptFileEntity();
         adoptFileEntity.setAdoptEntity(adopt);

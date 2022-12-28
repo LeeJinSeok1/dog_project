@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -123,5 +124,12 @@ public class AdoptService {
             return adoptList;
         }
         return null;
+    }
+    @Transactional
+    public AdoptDTO adoptDetail(Long id) {
+        Optional<AdoptEntity> optionalAdoptEntity = adoptRepository.findById(id);
+        AdoptEntity adoptEntity = optionalAdoptEntity.get();
+        AdoptDTO adoptDTO = AdoptDTO.toChangeDTO(adoptEntity);
+        return adoptDTO;
     }
 }

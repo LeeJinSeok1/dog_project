@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>adoptApply</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+    }
+    #adoptApplySaveForm{
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+      font-size:30px;
+      width: 700px;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5" style="margin-top: 50px; margin-bottom: 50px">
+<h2 style="text-align: center"><strong>입양신청 양식<br>페이지 입니다.</strong></h2>
+<h2 style="text-align: center">양식에 따라<br>신청을 진행해 주세요.</h2>
+</div>
+<div class="container mt-5">
+  <form action="/applySave" method="post" class="form-control" id="adoptApplySaveForm" name="adoptApplySaveForm">
+    신청자:
+    <input type="text" class="form-control" th:value="${member.memberEmail}" readonly name="applyEmail">
+    <br>
+    신청자 성별:
+    <input type="text" class="form-control" th:value="${member.memberGender}" readonly name="applyGender">
+    <br>
+    신청자 나이:
+    <input type="text" class="form-control" th:value="${member.memberAge}" readonly name="applyAge">
+    <br>
+    신청 글 번호:
+    <input type="text" class="form-control" th:value="${adopt.id}" readonly name="adoptApplyId" hidden>
+    <br>
+    신청자 반려동물 여부:
+    <select name="applyHaveDog" id="" class="form-select" >
+      <option value="선택">선택</option>
+      <option value="유">유</option>
+      <option value="무">무</option>
+    </select>
+    <br>
+    신청 거주지 사진:
+    <input type="file" class="form-control" >
+    <br>
+    신청 제목:
+    <input type="text" class="form-control" name="applyTitle">
+    <br>
+    신청 사유:
+    <input type="text" class="form-control" name="applyContents">
+    <br>
+    <input type="submit" class="btn btn-warning" value="신청하기">
+  </form>
+</div>
+<div >
+  <div class="container mt-5" style="margin-top: 300px" >
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+      </ul>
+      <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+  </div>
+</div>
+</body>
+<script>
+ 
+</script>
+</html>
