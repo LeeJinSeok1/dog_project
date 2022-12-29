@@ -29,6 +29,12 @@
 </div>
 <div class="container mt-5">
   <form action="/applySave" method="post" class="form-control" id="adoptApplySaveForm" name="adoptApplySaveForm">
+    신청 상대:
+    <input type="text" class="form-control" th:value="${adopt.adoptWriter}" readonly name="adoptWriter" >
+    <br>
+    신청글 번호:
+    <input type="text" class="form-control" th:value="${adopt.id}" readonly name="adoptApplyId" >
+    <br>
     신청자:
     <input type="text" class="form-control" th:value="${member.memberEmail}" readonly name="applyEmail">
     <br>
@@ -37,9 +43,6 @@
     <br>
     신청자 나이:
     <input type="text" class="form-control" th:value="${member.memberAge}" readonly name="applyAge">
-    <br>
-    신청 글 번호:
-    <input type="text" class="form-control" th:value="${adopt.id}" readonly name="adoptApplyId" hidden>
     <br>
     신청자 반려동물 여부:
     <select name="applyHaveDog" id="" class="form-select" >

@@ -18,6 +18,14 @@
 </head>
 <body>
 <th:block th:replace="header/header :: header"></th:block>
+<div th:if="${applyList}" style="text-align: center; margin-bottom: 50px; margin-top: 50px" id="apply">
+  <h2><strong>입양 신청이</strong> <br>도착했어요! <br>
+  버튼을 눌러 <br>확인 해 주세요!</h2>
+  <button class="btn btn-warning" style="text-align: center" onclick="applyOpen()">신청확인</button>
+</div>
+<div th:unless="${applyList}">
+</div>
+
 <div class="container mt-5 mb-5"><h1><strong>마이 페이지</strong></h1></div>
 <div class="container mb-5">
 <table class="table table-success table-striped" >
@@ -122,5 +130,50 @@
     </footer>
   </div>
 </div>
+
 </body>
+<script th:inline="javascript">
+  const applyOpen =()=>{
+   const applyArea = document.getElementById("apply");
+   const memberEmail = [[${member.memberEmail}]];
+
+    $.ajax({
+      type:"post",
+      url:"/findApply",
+      data:{
+        memberEmail:memberEmail
+      },
+      dateType: "json",
+      success: function (applyList){
+        let output = "<table class='table table-hover' style=\"margin-left:auto; margin-right: auto; width: 1500px;\">";
+        output += "<tr><th>신청번호</th>";
+        output += "<th>신청자</th>";
+        output += "<th>나이</th>";
+        output += "<th>성별</th>";
+        output += "<th>반려동물 유/무</th>";
+        output += "<th>신청제목</th>";
+        output += "<th>신청사유</th>";
+        output += "<th>수락하기</th>";
+        output += "<th>거절하기</th></tr>";
+        for(let i in applyList){
+          output += "<tr>";
+          output += "<td>"+applyList[i].id+"</td>";
+          output += "<td>"+applyList[i].applyEmail+"</td>";
+          output += "<td>"+applyList[i].applyAge+"</td>";
+          output += "<td>"+applyList[i].applyGender+"</td>";
+          output += "<td>"+applyList[i].applyHaveDog+"</td>";
+          output += "<td>"+applyList[i].applyTitle+"</td>";
+          output += "<td>"+applyList[i].applyContents+"</td>";
+          output += "<td>"+"<button class='btn btn-success'>수락</button>"+"</td>";
+          output += "<td>"+"<button class='btn btn-danger' >거절</button>"+"</td>";
+          output += "</tr>";
+        }
+        output += "</table>";
+        document.getElementById('apply').innerHTML = output;
+      },
+      error: function (ck) {
+      }
+    })
+  }
+</script>
 </html>

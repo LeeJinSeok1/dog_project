@@ -28,6 +28,8 @@ public class ApplyEntity {
     private String applyTitle;
     @Column(length = 500,nullable = false)
     private String applyContents;
+    @Column(length = 30,nullable = false)
+    private String adoptWriter;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
@@ -48,6 +50,7 @@ public class ApplyEntity {
         applyEntity.setAdoptApplyId(applyDTO.getAdoptApplyId());
         applyEntity.setAdoptEntity(adoptEntity);
         applyEntity.setMemberEntity(memberEntity);
+        applyEntity.setAdoptWriter(applyDTO.getAdoptWriter());
         return applyEntity;
     }
 }

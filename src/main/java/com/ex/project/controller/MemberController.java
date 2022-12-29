@@ -1,7 +1,11 @@
 package com.ex.project.controller;
 
+import com.ex.project.dto.AdoptDTO;
+import com.ex.project.dto.ApplyDTO;
 import com.ex.project.dto.DogDTO;
 import com.ex.project.dto.MemberDTO;
+import com.ex.project.service.AdoptService;
+import com.ex.project.service.ApplyService;
 import com.ex.project.service.DogSerivce;
 import com.ex.project.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +15,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
     private final DogSerivce dogSerivce;
+
+    private final ApplyService applyService;
     //회원가입 페이지로 이동
     @GetMapping("/memberSave")
     public String memberSavePage() {
@@ -78,7 +85,9 @@ public class MemberController {
         DogDTO dogDTO = dogSerivce.findDog(memberEmail);
         model.addAttribute("member",result);
         model.addAttribute("dog",dogDTO);
-        System.out.println(dogDTO);
+        List<ApplyDTO> applyDTOList = applyService.findApply(memberEmail);
+        model.addAttribute("applyList",applyDTOList);
+        System.out.println(applyDTOList);
         return "/member/memberDetail";
     }
     //회원수정

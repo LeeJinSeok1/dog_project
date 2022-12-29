@@ -10,6 +10,9 @@ import com.ex.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ApplyService {
@@ -22,4 +25,42 @@ public class ApplyService {
         ApplyEntity applyEntity = ApplyEntity.toChangeEntity(applyDTO,adoptEntity,memberEntity);
         applyRepository.save(applyEntity);
     }
+
+
+
+
+    public List<ApplyDTO> findApply(String memberEmail) {
+        MemberEntity memberEntity = memberRepository.findByMemberEmail(memberEmail).get();
+        List<ApplyEntity> applyEntityList = applyRepository.findAllByAdoptWriter(memberEntity.getMemberEmail());
+        List<ApplyDTO> applyDTOList = new ArrayList<>();
+        for (ApplyEntity applyEntity : applyEntityList){
+            ApplyDTO applyDTO = ApplyDTO.toChangeDTO(applyEntity);
+            applyDTOList.add(applyDTO);
+        }
+        if(applyDTOList.isEmpty()){
+            return null;
+        }else{
+            return applyDTOList;
+        }
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

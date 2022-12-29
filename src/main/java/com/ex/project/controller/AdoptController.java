@@ -1,8 +1,10 @@
 package com.ex.project.controller;
 
 import com.ex.project.dto.AdoptDTO;
+import com.ex.project.dto.ApplyDTO;
 import com.ex.project.dto.MemberDTO;
 import com.ex.project.service.AdoptService;
+import com.ex.project.service.ApplyService;
 import com.ex.project.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,8 @@ public class AdoptController {
     private final MemberService memberService;
 
     private final AdoptService adoptService;
+
+    private final ApplyService applyService;
     // 분양 글 저장 페이지
     @GetMapping("/adoptSave/{memberEmail}")
     public String adoptSavePage(@PathVariable String memberEmail,
