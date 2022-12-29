@@ -28,7 +28,7 @@
 
 <div class="container mt-5 mb-5"><h1><strong>마이 페이지</strong></h1></div>
 <div class="container mb-5">
-<table class="table table-success table-striped" >
+<table class="table table-hover table-striped" >
   <tr>
     <th>id:</th>
     <td th:text="${member.id}"> </td>
@@ -72,7 +72,7 @@
 </table>
   <div class="container mt-5 mb-5"><h1><strong>반려친구 페이지</strong></h1></div>
   <div th:if="${dog}">
-    <table class="table table-success table-striped mt-5" >
+    <table class="table table-hover table-striped mt-5" >
     <tr>
       <th>친구 사진:</th>
       <td><img th:src="@{|/upload/${dog.storedFileName}}" alt="" width="200" height="200"></td>
@@ -104,7 +104,7 @@
     </table>
   </div>
   <div th:unless="${dog}">
-    <table class="table table-success table-striped mt-5 mb-5" >
+    <table class="table table-hover table-striped mt-5 mb-5" >
   <tr>
     <th>반려 친구</th>
     <td><h2>현재 등록된 반려 친구가 없습니다.</h2></td>
@@ -153,19 +153,18 @@
         output += "<th>반려동물 유/무</th>";
         output += "<th>신청제목</th>";
         output += "<th>신청사유</th>";
-        output += "<th>수락하기</th>";
-        output += "<th>거절하기</th></tr>";
+        output += "<th>확인하기</th></tr>";
         for(let i in applyList){
           output += "<tr>";
-          output += "<td>"+applyList[i].id+"</td>";
+          output += "<td id='applyId'>"+applyList[i].id+"</td>";
           output += "<td>"+applyList[i].applyEmail+"</td>";
           output += "<td>"+applyList[i].applyAge+"</td>";
           output += "<td>"+applyList[i].applyGender+"</td>";
           output += "<td>"+applyList[i].applyHaveDog+"</td>";
           output += "<td>"+applyList[i].applyTitle+"</td>";
           output += "<td>"+applyList[i].applyContents+"</td>";
-          output += "<td>"+"<button class='btn btn-success'>수락</button>"+"</td>";
-          output += "<td>"+"<button class='btn btn-danger' >거절</button>"+"</td>";
+          output += "<td>"+"<button class='btn btn-success' onclick='applyDetail()'>확인</button>"+"</td>";
+          // output += "<td>"+"<a href='/applyDetail?id='+applyList[i].id>확인</a>"+"</td>";
           output += "</tr>";
         }
         output += "</table>";
@@ -175,5 +174,10 @@
       }
     })
   }
+  const applyDetail=()=>{
+    const id = document.getElementById("applyId").innerText;
+    location.href="/applyDetail?id="+id;
+  }
+
 </script>
 </html>

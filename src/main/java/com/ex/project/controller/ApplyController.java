@@ -43,6 +43,13 @@ public class ApplyController {
         return applyDTOList;
     }
 
+    @GetMapping("/applyDetail")
+    public String applyDetail(@RequestParam("id") Long id){
+        System.out.println(id);
+
+        return "/apply/applyDetail";
+    }
+
 
 
 
