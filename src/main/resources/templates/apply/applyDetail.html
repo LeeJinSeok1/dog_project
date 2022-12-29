@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>adoptList</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jqurey.js}"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+        /* 폰트 적용 */
+        body {
+            font-family: 'Dongle', sans-serif;
+            font-size: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5">
+    <h2 style="text-align: center"><strong>입양신청서 입니다.</strong></h2>
+    <h2 style="text-align: center">잘 확인하시고 <br> 진행해 보세요!</h2>
+</div>
+<div class="container mt-5" style="margin-top: 100px; margin-bottom: 100px" >
+    <table class="table table-hover" style="width: 1500px; margin-left: auto; margin-right: auto;">
+        <tr>
+            <th>신청 번호:</th>
+            <td th:text="${apply.id}"> </td>
+        </tr>
+        <tr>
+            <th>신청자:</th>
+            <td th:text="${apply.applyEmail}"></td>
+        </tr>
+        <tr>
+            <th>나이:</th>
+            <td th:text="${apply.applyAge}"></td>
+        </tr>
+        <tr>
+            <th>성별:</th>
+            <td th:text="${apply.applyGender}"></td>
+        </tr>
+        <tr>
+            <th>반려동물 유/무:</th>
+            <td th:text="${apply.applyHaveDog}"></td>
+        </tr>
+        <tr>
+            <th>신청제목:</th>
+            <td th:text="${apply.applyTitle}"></td>
+        </tr>
+        <tr>
+            <th>신청사유:</th>
+            <td th:text="${apply.applyContents}"></td>
+        </tr>
+        <tr th:text="${apply.adoptApplyId}"></tr>
+    </table>
+    <div class="input-group">
+        <div>
+            <h2>수락하기</h2>
+            <form action="" style="width: 500px" class="form-control">
+                분양자:
+                <input type="text" class="form-control" th:value="${session.loginEmail}">
+                <br>
+                입양신청자:
+                <input type="text" class="form-control" th:value="${apply.applyEmail}">
+                <br>
+                연락처:
+                <input type="text" class="form-control" >
+                <br>
+                <input type="button" value="수락하기" class="btn btn-success">
+                <br>
+            </form></div>
+        <div style="margin-left: 100px">
+            <h2>거절하기</h2>
+            <form action="/applyDelete" method="post" style="width: 500px" class="form-control">
+                분양글 번호
+                <input type="text" class="form-control" th:value="${apply.id}" name="applyId">
+                <br>
+                입양신청자:
+                <input type="text" class="form-control" th:value="${apply.applyEmail}">
+                <br>
+                <input type="submit" value="거절하기" class="btn btn-danger">
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-5" style="margin-top: 500px" >
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+        </ul>
+        <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+</div>
+</div>
+</body>
+<!-- 신청 거절하는 memberEmail, 신청하는 memberEmail, 글 id -->
+<script th:inline="javascript">
+
+</script>
+</html>

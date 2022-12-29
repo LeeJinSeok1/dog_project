@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,6 +40,8 @@ public class ApplyEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="adopt_id")
     private AdoptEntity adoptEntity;
+
+
 
     public static ApplyEntity toChangeEntity(ApplyDTO applyDTO,AdoptEntity adoptEntity,MemberEntity memberEntity) {
         ApplyEntity applyEntity = new ApplyEntity();

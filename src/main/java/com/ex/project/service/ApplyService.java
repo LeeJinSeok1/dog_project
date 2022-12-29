@@ -44,6 +44,18 @@ public class ApplyService {
         }
 
     }
+
+    public ApplyDTO applyDetail(Long id) {
+        ApplyEntity applyEntity = applyRepository.findById(id).get();
+        ApplyDTO applyDTO = ApplyDTO.toChangeDTO(applyEntity);
+        return applyDTO;
+    }
+
+
+
+    public void applyDelete(Long applyId) {
+        applyRepository.deleteById(applyId);
+    }
 }
 
 

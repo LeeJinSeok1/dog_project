@@ -44,11 +44,21 @@ public class ApplyController {
     }
 
     @GetMapping("/applyDetail")
-    public String applyDetail(@RequestParam("id") Long id){
+    public String applyDetail(@RequestParam("id") Long id,
+                              Model model){
         System.out.println(id);
-
+        ApplyDTO applyDTO = applyService.applyDetail(id);
+        model.addAttribute("apply",applyDTO);
         return "/apply/applyDetail";
     }
+
+    @PostMapping("/applyDelete")
+    public String applyDelete(@RequestParam("applyId") Long applyId){
+        applyService.applyDelete(applyId);
+        return "/apply/applyNo";
+    }
+
+
 
 
 
