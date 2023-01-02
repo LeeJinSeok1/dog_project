@@ -18,12 +18,29 @@
 </head>
 <body>
 <th:block th:replace="header/header :: header"></th:block>
+<!--입양신청 알림-->
+<div style="text-align: center">
+  <h1><strong>--입양신청 알림--</strong></h1>
 <div th:if="${applyList}" style="text-align: center; margin-bottom: 50px; margin-top: 50px" id="apply">
   <h2><strong>입양 신청이</strong> <br>도착했어요! <br>
   버튼을 눌러 <br>확인 해 주세요!</h2>
   <button class="btn btn-warning" style="text-align: center" onclick="applyOpen()">신청확인</button>
 </div>
 <div th:unless="${applyList}">
+  <h2 style="margin-top: 50px">입양신청이 없습니다.</h2>
+</div>
+</div>
+<!--입양수락 알림-->
+<div style="text-align: center">
+  <h1><strong>--입양수락 알림--</strong></h1>
+<div th:if="${agreeList}" style="text-align: center; margin-bottom: 50px;" id="agree">
+  <h2><strong>입양 수락이</strong> <br>도착했어요! <br>
+    버튼을 눌러 <br>확인 해 주세요!</h2>
+  <button class="btn btn-warning" style="text-align: center" onclick="agreeOpen()">수락확인</button>
+</div>
+<div th:unless="${agreeList}">
+  <h2 style="margin-top: 50px">수락알림이 없습니다.</h2>
+</div>
 </div>
 
 <div class="container mt-5 mb-5"><h1><strong>마이 페이지</strong></h1></div>
@@ -134,7 +151,6 @@
 </body>
 <script th:inline="javascript">
   const applyOpen =()=>{
-   const applyArea = document.getElementById("apply");
    const memberEmail = [[${member.memberEmail}]];
 
     $.ajax({
@@ -177,6 +193,44 @@
   const applyDetail=()=>{
     const id = document.getElementById("applyId").innerText;
     location.href="/applyDetail?id="+id;
+  }
+  const agreeOpen = ()=> {
+      const memberEmail = [[${member.memberEmail}]];
+
+      $.ajax({
+        type:"post",
+        url:"/findAgree",
+        data:{
+          memberEmail:memberEmail
+        },
+        dateType: "json",
+        success: function (agreeList){
+          let output = "<table class='table table-hover' style=\"margin-left:auto; margin-right: auto; width: 1500px;\">";
+          output += "<tr><th>수락번호</th>";
+          output += "<th>수락자</th>";
+          output += "<th>분양자</th>";
+          output += "<th>연락처</th>";
+          output += "<th>확인하기</th></tr>";
+          for(let i in agreeList){
+            output += "<tr>";
+            output += "<td id='agreeId'>"+agreeList[i].id+"</td>";
+            output += "<td>"+agreeList[i].agreeWriter+"</td>";
+            output += "<td>"+agreeList[i].agreeApplyWriter+"</td>";
+            output += "<td>"+agreeList[i].agreePhone+"</td>";
+            output += "<td>"+"<button class='btn btn-success' onclick='agreeSuccess()'>확인</button>"+"</td>";
+            output += "</tr>";
+          }
+          output += "</table>";
+          document.getElementById('agree').innerHTML = output;
+        },
+        error: function (ck) {
+        }
+      })
+  }
+  const agreeSuccess=()=> {
+    alert("입양처리 하였습니다.")
+    const id = document.getElementById("agreeId").innerText;
+    location.href="/agreeSuccess?id="+id;
   }
 
 </script>

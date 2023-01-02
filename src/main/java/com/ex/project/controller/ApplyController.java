@@ -48,7 +48,11 @@ public class ApplyController {
                               Model model){
         System.out.println(id);
         ApplyDTO applyDTO = applyService.applyDetail(id);
+        MemberDTO memberDTO = memberService.findByMemberEmail(applyDTO.getAdoptWriter());
+        System.out.println(memberDTO);
+        System.out.println("memberDTO="+ memberDTO);
         model.addAttribute("apply",applyDTO);
+        model.addAttribute("member",memberDTO);
         return "/apply/applyDetail";
     }
 

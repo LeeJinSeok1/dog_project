@@ -1,13 +1,7 @@
 package com.ex.project.controller;
 
-import com.ex.project.dto.AdoptDTO;
-import com.ex.project.dto.ApplyDTO;
-import com.ex.project.dto.DogDTO;
-import com.ex.project.dto.MemberDTO;
-import com.ex.project.service.AdoptService;
-import com.ex.project.service.ApplyService;
-import com.ex.project.service.DogSerivce;
-import com.ex.project.service.MemberService;
+import com.ex.project.dto.*;
+import com.ex.project.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +16,9 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
     private final DogSerivce dogSerivce;
-
     private final ApplyService applyService;
+
+    private  final AgreeService agreeService;
     //회원가입 페이지로 이동
     @GetMapping("/memberSave")
     public String memberSavePage() {
@@ -88,6 +83,8 @@ public class MemberController {
         List<ApplyDTO> applyDTOList = applyService.findApply(memberEmail);
         model.addAttribute("applyList",applyDTOList);
         System.out.println(applyDTOList);
+        List<AgreeDTO> agreeDTOList= agreeService.findAgree(memberEmail);
+        model.addAttribute("agreeList",agreeDTOList);
         return "/member/memberDetail";
     }
     //회원수정

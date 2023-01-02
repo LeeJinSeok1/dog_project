@@ -47,6 +47,9 @@ public class MemberEntity {
     @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<ApplyEntity> applyEntityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<AgreeEntity> agreeEntityList = new ArrayList<>();
+
 
 
     // dto를 entity로 바꾸는 메서드

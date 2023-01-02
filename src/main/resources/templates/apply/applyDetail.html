@@ -56,17 +56,18 @@
     <div class="input-group">
         <div>
             <h2>수락하기</h2>
-            <form action="" style="width: 500px" class="form-control">
+            <form action="/applyAgree" method="post" style="width: 500px" class="form-control">
+                <input type="text" class="form-control" th:value="${apply.id}"  name="applyId" hidden>
                 분양자:
-                <input type="text" class="form-control" th:value="${session.loginEmail}">
+                <input type="text" class="form-control" th:value="${member.memberEmail}" name="agreeWriter" readonly>
                 <br>
                 입양신청자:
-                <input type="text" class="form-control" th:value="${apply.applyEmail}">
+                <input type="text" class="form-control" th:value="${apply.applyEmail}" name="agreeApplyWriter" readonly>
                 <br>
                 연락처:
-                <input type="text" class="form-control" >
+                <input type="text" class="form-control" th:value="${member.memberPhone}" name="agreePhone" readonly>
                 <br>
-                <input type="button" value="수락하기" class="btn btn-success">
+                <input type="submit" value="수락하기" class="btn btn-success">
                 <br>
             </form></div>
         <div style="margin-left: 100px">

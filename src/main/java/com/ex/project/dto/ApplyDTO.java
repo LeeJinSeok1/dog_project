@@ -29,6 +29,7 @@ public class ApplyDTO {
         applyDTO.setApplyContents(applyEntity.getApplyContents());
         applyDTO.setAdoptApplyId(applyEntity.getAdoptApplyId());
         applyDTO.setApplyHaveDog(applyEntity.getApplyHaveDog());
+        applyDTO.setAdoptWriter(applyEntity.getAdoptWriter());
         return applyDTO;
     }
 }

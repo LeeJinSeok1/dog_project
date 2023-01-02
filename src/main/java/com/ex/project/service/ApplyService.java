@@ -2,9 +2,11 @@ package com.ex.project.service;
 
 import com.ex.project.dto.ApplyDTO;
 import com.ex.project.entity.AdoptEntity;
+import com.ex.project.entity.AgreeEntity;
 import com.ex.project.entity.ApplyEntity;
 import com.ex.project.entity.MemberEntity;
 import com.ex.project.repository.AdoptRepository;
+import com.ex.project.repository.AgreeRepository;
 import com.ex.project.repository.ApplyRepository;
 import com.ex.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ public class ApplyService {
     private final ApplyRepository applyRepository;
     private final MemberRepository memberRepository;
     private final AdoptRepository adoptRepository;
+    private final AgreeRepository agreeRepository;
     public void applySave(ApplyDTO applyDTO) {
         AdoptEntity adoptEntity = adoptRepository.findById(applyDTO.getAdoptApplyId()).get();
         MemberEntity memberEntity = memberRepository.findByMemberEmail(applyDTO.getApplyEmail()).get();
@@ -56,6 +59,8 @@ public class ApplyService {
     public void applyDelete(Long applyId) {
         applyRepository.deleteById(applyId);
     }
+
+
 }
 
 

@@ -5,9 +5,11 @@ import com.ex.project.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ApplyRepository extends JpaRepository<ApplyEntity,Long> {
     List<ApplyEntity> findAllByAdoptWriter(String memberEmail);
 
 
+    Optional<ApplyEntity> findByApplyEmail(String agreeApplyWriter);
 }
