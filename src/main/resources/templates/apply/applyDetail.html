@@ -76,7 +76,7 @@
             </form></div>
         <div style="margin-left: 100px">
             <h2>거절하기</h2>
-            <form action="/applyNo" method="post" style="width: 500px" class="form-control">
+            <form action="/applyNo" method="post" style="width: 500px" class="form-control" name="applyNoForm">
                 <input type="text" class="form-control" th:value="${apply.id}" name="applyId" hidden>
                 분양자
                 <input type="text" class="form-control" th:value="${member.memberEmail}" name="noWriter">
@@ -85,16 +85,14 @@
                 <input type="text" class="form-control" th:value="${apply.applyEmail}" name="noApplyWriter">
                 <br>
                 거절사유:
-                <input type="text" class="form-control" placeholder="거절 사유를 입력해주세요." name="noContents" >
+                <input type="text" class="form-control" placeholder="거절 사유를 입력해주세요." name="noContents" id="noContents">
                 <br>
-                <input type="submit" value="거절하기" class="btn btn-danger">
+                <input type="button" value="거절하기" class="btn btn-danger">
                 <br>
             </form>
         </div>
     </div>
 </div>
-
-
 <div class="container mt-5" style="margin-top: 500px" >
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -111,6 +109,11 @@
 </body>
 <!-- 신청 거절하는 memberEmail, 신청하는 memberEmail, 글 id -->
 <script th:inline="javascript">
-
+  const applyNoForm =()=>{
+      const contents = document.getElementById("noContents").value;
+      if(contents==""){
+          alert("거절 내용을 입력해주세요.")
+      }
+  }
 </script>
 </html>

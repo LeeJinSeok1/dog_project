@@ -45,17 +45,17 @@
     <input type="text" class="form-control" th:value="${member.memberAge}" readonly name="applyAge">
     <br>
     신청자 반려동물 여부:
-    <select name="applyHaveDog" id="" class="form-select" >
+    <select name="applyHaveDog" id="" class="form-select" id="haveDog" >
       <option value="선택">선택</option>
       <option value="유">유</option>
       <option value="무">무</option>
     </select>
     <br>
     신청 거주지 사진:
-    <input type="file" class="form-control" name="applyFile" >
+    <input type="file" class="form-control" name="applyFile" id="file">
     <br>
     신청 제목:
-    <input type="text" class="form-control" name="applyTitle">
+    <input type="text" class="form-control" name="applyTitle" id="title">
     <br>
     신청 사유:
 <!--    <input type="text" class="form-control" name="applyContents">-->
@@ -63,7 +63,7 @@
 
     </textarea>
     <br>
-    <input type="submit" class="btn btn-warning" value="신청하기">
+    <input type="button" onclick="applySave()" class="btn btn-warning" value="신청하기">
   </form>
 </div>
 <div >
@@ -82,6 +82,22 @@
 </div>
 </body>
 <script>
- 
+  const applySave=()=>{
+    const haveDog=document.getElementById("haveDog").value;
+    const file =document.getElementById("file").value;
+    const title =document.getElementById("title").value;
+    const contents = document.getElementById("contents").value;
+    if(haveDog =="선택"){
+      alert("반려동물 유/무를 선택해주세요")
+    }else if(file==""){
+      alert("거주 사진을 등록해주세요")
+    }else if(title==""){
+      alert("제목을 입력해주세요")
+    }else if(contents==""){
+      alert("내용을 입력해주세요")
+    }else{
+      document.adoptApplySaveForm.submit();
+    }
+  }
 </script>
 </html>
