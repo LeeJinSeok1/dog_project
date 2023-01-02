@@ -14,7 +14,15 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
               <div th:if="${session.loginEmail}">
-                  <a th:href="@{|/memberDetail/${session.loginEmail}|}" class="link-secondary">myPage</a>
+                  <a th:href="@{|/memberDetail/${session.loginEmail}|}" class="link-secondary">myPage
+                  <div th:if="${applyList} or ${agreeList} or ${noList}">
+                      <img src="https://media.istockphoto.com/id/1217142525/ko/%EB%B2%A1%ED%84%B0/%EA%B2%80%EC%9D%80-%EC%83%89-%EB%98%90%EB%8A%94-%EB%B2%A8-%EB%B2%A8-%EB%A7%81-%EC%95%8C%EB%9E%8C-%EC%95%8C%EB%A6%BC-%EC%95%84%EC%9D%B4%EC%BD%98-%ED%85%9C%ED%94%8C%EB%A6%BF-%EA%B3%A0%EB%A6%BD-%EB%90%9C-%ED%9D%B0%EC%83%89-%EB%B0%B0%EA%B2%BD%EC%97%90-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%95%B1-ui-%ED%8F%89%EB%A9%B4-%EA%B0%84%EB%8B%A8%ED%95%9C-%EC%95%84%EC%9D%B4%EC%BD%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%86%8C%EC%85%9C-%EB%AF%B8%EB%94%94%EC%96%B4-%EA%B8%B0%ED%98%B8-eps-10-%EB%B2%A1%ED%84%B0.jpg?s=170667a&w=0&k=20&c=HvS0NsUOXhainPtOjGWqPB5xiYVjtVvF37ucW-koowo=" alt=""
+                           style="width: 50px;height: 50px">
+                  </div>
+                  <div th:unless="${applyList} or ${agreeList} or ${noList}">
+
+                  </div>
+                  </a>
                   <a href="/memberLogout" class="link-secondary">로그아웃</a>
                   <a href="/" class="text-black">main</a>
                   <h4 th:text="${session.loginEmail}"></h4><h4>님 환영합니다.</h4>

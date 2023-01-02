@@ -63,9 +63,17 @@ public class MemberController {
     //로그인처리
     @PostMapping("/memberLogin")
     public String memberLogin(@ModelAttribute MemberDTO memberDTO,
-                              HttpSession session){
+                              HttpSession session,
+                              Model model){
         MemberDTO result = memberService.memberLoginCk(memberDTO);
         session.setAttribute("loginEmail",result.getMemberEmail());
+        List<ApplyDTO> applyDTOList = applyService.findApply(result.getMemberEmail());
+        model.addAttribute("applyList",applyDTOList);
+        System.out.println(applyDTOList);
+        List<AgreeDTO> agreeDTOList= agreeService.findAgree(result.getMemberEmail());
+        model.addAttribute("agreeList",agreeDTOList);
+        List<NoDTO> noDTOList = noService.findNo(result.getMemberEmail());
+        model.addAttribute("noList",noDTOList);
         return "home";
     }
     //로그아웃
