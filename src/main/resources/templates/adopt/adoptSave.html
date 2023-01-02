@@ -34,10 +34,19 @@
     <input type="text" class="form-control" name="adoptName" id="name">
     <br>
     강아지 종:
-    <input type="text" class="form-control" name="adoptSpecies" id="species">
+<!--    <input type="text" class="form-control" name="adoptSpecies" id="species">-->
+    <select name="adoptSpecies" id="species" class="form-select">
+      <option value="선택">선택</option>
+      <option value="이탈리안 그레이하운드">이탈리안 그레이하운드</option>
+      <option value="말티즈">말티즈</option>
+      <option value="푸들">푸들</option>
+      <option value="프렌치 불독">프렌치 불독</option>
+      <option value=치와와"">치와와</option>
+      <option value="시츄">시츄</option>
+    </select>
     <br>
     나이:
-    <input type="text" class="form-control" name="adoptAge" id="age">
+    <input type="text" class="form-control" placeholder="ex)1살" name="adoptAge" id="age">
     <br>
     제목:
     <input type="text" class="form-control" name="adoptTitle" id="title">
@@ -47,7 +56,17 @@
     </textarea>
     <br>
     지역:
-    <input type="text" name="adoptArea" id="area" class="form-control">
+    <select name="adoptArea" id="area">
+      <option value="선택">선택</option>
+      <option value="인천">인천</option>
+      <option value="경기">경기</option>
+      <option value="서울">서울</option>
+      <option value="대전">대전</option>
+      <option value="대구">대구</option>
+      <option value="부산">부산</option>
+      <option value="경북">경북</option>
+      <option value="경남">경남</option>
+    </select>
     <br>
     사진:※필수입니다.
     <input type="file" class="form-control" name="adoptFile">
@@ -83,7 +102,7 @@
       alert("작성자를 입력해주세요")
     }else if(name==""){
       alert("이름을 입력해주세요")
-    }else if(species==""){
+    }else if(species=="선택"){
       alert("종을 선택해주세요")
     }else if(age==""){
       alert("나이를 입력해주세요")
@@ -91,7 +110,7 @@
       alert("제목을 입력해주세요")
     }else if(contents=="") {
       alert("내용을 입력해주세요")
-    }else if(area==""){
+    }else if(area=="선택"){
       alert("지역을 입력해주세요.")
     }else{
       document.adoptSaveForm.submit();

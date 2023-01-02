@@ -5,6 +5,7 @@
   <title>Title</title>
   <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
   <script th:src="@{/js/jqurey.js}"></script>
+  <script src="https://kit.fontawesome.com/0fb4f63c63.js" crossorigin="anonymous"></script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
@@ -191,7 +192,7 @@
           output += "<td>"+applyList[i].applyHaveDog+"</td>";
           output += "<td>"+applyList[i].applyTitle+"</td>";
           output += "<td>"+applyList[i].applyContents+"</td>";
-          output += "<td>"+"<button class='btn btn-success' onclick='applyDetail()'>확인</button>"+"</td>";
+          output += "<td>"+"<button class='btn btn-success' onclick='applyDetail()'><i class=\"fa-solid fa-bell fa-shake\" style='margin-right: 5px'></i>확인</button>"+"</td>";
           // output += "<td>"+"<a href='/applyDetail?id='+applyList[i].id>확인</a>"+"</td>";
           output += "</tr>";
         }
@@ -229,7 +230,7 @@
             output += "<td>"+agreeList[i].agreeWriter+"</td>";
             output += "<td>"+agreeList[i].agreeApplyWriter+"</td>";
             output += "<td>"+agreeList[i].agreePhone+"</td>";
-            output += "<td>"+"<button class='btn btn-success' onclick='agreeSuccess()'>확인</button>"+"</td>";
+            output += "<td>"+"<button class='btn btn-success' onclick='agreeSuccess()'><i class=\"fa-solid fa-bell fa-shake\" style='margin-right: 5px'></i>확인</button>"+"</td>";
             output += "</tr>";
           }
           output += "</table>";
@@ -268,7 +269,8 @@
           output += "<td>"+noList[i].noWriter+"</td>";
           output += "<td>"+noList[i].noApplyWriter+"</td>";
           output += "<td>"+noList[i].noContents+"</td>";
-          output += "<td>"+"<button class='btn btn-danger' onclick='no()'>확인</button>"+"</td>";
+          // output += "<td>"+"<button class='btn btn-danger' onclick='no()'>확인</button>"+"</td>";
+          output += "<td>"+"<button class='btn btn-danger' onclick='no()'><i class=\"fa-solid fa-bell fa-shake\" style='margin-right: 5px'></i>확인</button>"+"</td>";
           output += "</tr>";
         }
         output += "</table>";

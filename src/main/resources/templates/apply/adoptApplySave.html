@@ -28,7 +28,7 @@
 <h2 style="text-align: center">양식에 따라<br>신청을 진행해 주세요.</h2>
 </div>
 <div class="container mt-5">
-  <form action="/applySave" method="post" class="form-control" id="adoptApplySaveForm" name="adoptApplySaveForm">
+  <form action="/applySave" method="post" class="form-control" id="adoptApplySaveForm" name="adoptApplySaveForm" enctype="multipart/form-data">
     신청 상대:
     <input type="text" class="form-control" th:value="${adopt.adoptWriter}" readonly name="adoptWriter" >
     <br>
@@ -52,13 +52,16 @@
     </select>
     <br>
     신청 거주지 사진:
-    <input type="file" class="form-control" >
+    <input type="file" class="form-control" name="applyFile" >
     <br>
     신청 제목:
     <input type="text" class="form-control" name="applyTitle">
     <br>
     신청 사유:
-    <input type="text" class="form-control" name="applyContents">
+<!--    <input type="text" class="form-control" name="applyContents">-->
+    <textarea name="applyContents" class="form-control" id="contents" cols="30" rows="10">
+
+    </textarea>
     <br>
     <input type="submit" class="btn btn-warning" value="신청하기">
   </form>

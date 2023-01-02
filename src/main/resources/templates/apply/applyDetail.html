@@ -44,6 +44,10 @@
             <td th:text="${apply.applyHaveDog}"></td>
         </tr>
         <tr>
+            <th>거주지 사진:</th>
+            <td><img th:src="@{|/upload/${apply.storedFileName}}" alt="등록된 사진이 없습니다!" width="400px" height="400px"></td>
+        </tr>
+        <tr>
             <th>신청제목:</th>
             <td th:text="${apply.applyTitle}"></td>
         </tr>

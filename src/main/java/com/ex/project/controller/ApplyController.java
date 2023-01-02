@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -32,7 +33,7 @@ public class ApplyController {
     }
 
     @PostMapping("/applySave")
-    public String applySave(@ModelAttribute ApplyDTO applyDTO){
+    public String applySave(@ModelAttribute ApplyDTO applyDTO) throws IOException {
         applyService.applySave(applyDTO);
         return "/apply/applySuccess";
     }
@@ -49,10 +50,9 @@ public class ApplyController {
         System.out.println(id);
         ApplyDTO applyDTO = applyService.applyDetail(id);
         MemberDTO memberDTO = memberService.findByMemberEmail(applyDTO.getAdoptWriter());
-        System.out.println(memberDTO);
-        System.out.println("memberDTO="+ memberDTO);
         model.addAttribute("apply",applyDTO);
         model.addAttribute("member",memberDTO);
+        System.out.println(applyDTO.getFileAttached());
         return "/apply/applyDetail";
     }
 

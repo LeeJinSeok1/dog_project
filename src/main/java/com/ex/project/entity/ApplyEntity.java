@@ -32,6 +32,8 @@ public class ApplyEntity {
     private String applyContents;
     @Column(length = 30,nullable = false)
     private String adoptWriter;
+    @Column
+    private int fileAttached;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
@@ -40,6 +42,9 @@ public class ApplyEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="adopt_id")
     private AdoptEntity adoptEntity;
+
+    @OneToMany(mappedBy = "applyEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<ApplyFileEntity> applyFileEntityList = new ArrayList<>();
 
 
 
@@ -55,6 +60,22 @@ public class ApplyEntity {
         applyEntity.setAdoptEntity(adoptEntity);
         applyEntity.setMemberEntity(memberEntity);
         applyEntity.setAdoptWriter(applyDTO.getAdoptWriter());
+        applyEntity.setFileAttached(0);
+        return applyEntity;
+    }
+    public static ApplyEntity toChangeFileEntity(ApplyDTO applyDTO,AdoptEntity adoptEntity,MemberEntity memberEntity) {
+        ApplyEntity applyEntity = new ApplyEntity();
+        applyEntity.setApplyTitle(applyDTO.getApplyTitle());
+        applyEntity.setApplyContents(applyDTO.getApplyContents());
+        applyEntity.setApplyEmail(applyDTO.getApplyEmail());
+        applyEntity.setApplyAge(applyDTO.getApplyAge());
+        applyEntity.setApplyGender(applyDTO.getApplyGender());
+        applyEntity.setApplyHaveDog(applyDTO.getApplyHaveDog());
+        applyEntity.setAdoptApplyId(applyDTO.getAdoptApplyId());
+        applyEntity.setAdoptEntity(adoptEntity);
+        applyEntity.setMemberEntity(memberEntity);
+        applyEntity.setAdoptWriter(applyDTO.getAdoptWriter());
+        applyEntity.setFileAttached(1);
         return applyEntity;
     }
 }

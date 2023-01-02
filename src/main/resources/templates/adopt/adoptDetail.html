@@ -68,10 +68,22 @@
         <th>작성시간:</th>
         <td th:text="*{#temporals.format(adopt.adoptSaveTime, 'yyyy년 MM월 dd일 HH시 mm분 ss초')}"></td>
     </tr>
+    <div th:if="${adopt.adoptWriter == session.loginEmail}">
+    <tr>
+            <th>글 수정하기</th>
+            <td><button class="btn btn-warning">수정</button></td>
+    </tr>
+    <tr>
+         <th>글 삭제하기</th>
+          <td><button class="btn btn-danger">삭제</button></td>
+    </tr>
+    </div>
+    <div th:if="${adopt.adoptWriter != session.loginEmail}">
     <tr>
         <th>입양 신청하기!</th>
         <td><a th:href="@{|/adoptApplySave/${adopt.id}/${session.loginEmail}|}" class="btn btn-warning">신청</a></td>
     </tr>
+    </div>
 </table>
 </div>
 
