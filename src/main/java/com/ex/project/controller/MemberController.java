@@ -19,6 +19,8 @@ public class MemberController {
     private final ApplyService applyService;
 
     private  final AgreeService agreeService;
+
+    private final NoService noService;
     //회원가입 페이지로 이동
     @GetMapping("/memberSave")
     public String memberSavePage() {
@@ -85,6 +87,8 @@ public class MemberController {
         System.out.println(applyDTOList);
         List<AgreeDTO> agreeDTOList= agreeService.findAgree(memberEmail);
         model.addAttribute("agreeList",agreeDTOList);
+        List<NoDTO> noDTOList = noService.findNo(memberEmail);
+        model.addAttribute("noList",noDTOList);
         return "/member/memberDetail";
     }
     //회원수정

@@ -72,12 +72,16 @@
             </form></div>
         <div style="margin-left: 100px">
             <h2>거절하기</h2>
-            <form action="/applyDelete" method="post" style="width: 500px" class="form-control">
-                분양글 번호
-                <input type="text" class="form-control" th:value="${apply.id}" name="applyId">
+            <form action="/applyNo" method="post" style="width: 500px" class="form-control">
+                <input type="text" class="form-control" th:value="${apply.id}" name="applyId" hidden>
+                분양자
+                <input type="text" class="form-control" th:value="${member.memberEmail}" name="noWriter">
                 <br>
                 입양신청자:
-                <input type="text" class="form-control" th:value="${apply.applyEmail}">
+                <input type="text" class="form-control" th:value="${apply.applyEmail}" name="noApplyWriter">
+                <br>
+                거절사유:
+                <input type="text" class="form-control" placeholder="거절 사유를 입력해주세요." name="noContents" >
                 <br>
                 <input type="submit" value="거절하기" class="btn btn-danger">
                 <br>

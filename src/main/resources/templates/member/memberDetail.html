@@ -42,7 +42,19 @@
   <h2 style="margin-top: 50px">수락알림이 없습니다.</h2>
 </div>
 </div>
+<!--입양거절 알림-->
 
+<div style="text-align: center">
+  <h1><strong>--입양거절 알림--</strong></h1>
+  <div th:if="${noList}" style="text-align: center; margin-bottom: 50px;" id="no">
+    <h2><strong>입양 거절이</strong> <br>도착했어요! <br>
+      버튼을 눌러 <br>확인 해 주세요!</h2>
+    <button class="btn btn-warning" style="text-align: center" onclick="noOpen()">거절확인</button>
+  </div>
+  <div th:unless="${noList}">
+    <h2 style="margin-top: 50px">거절알림이 없습니다.</h2>
+  </div>
+</div>
 <div class="container mt-5 mb-5"><h1><strong>마이 페이지</strong></h1></div>
 <div class="container mb-5">
 <table class="table table-hover table-striped" >
@@ -231,6 +243,45 @@
     alert("입양처리 하였습니다.")
     const id = document.getElementById("agreeId").innerText;
     location.href="/agreeSuccess?id="+id;
+  }
+
+  const noOpen = ()=> {
+    const memberEmail = [[${member.memberEmail}]];
+
+    $.ajax({
+      type:"post",
+      url:"/findNo",
+      data:{
+        memberEmail:memberEmail
+      },
+      dateType: "json",
+      success: function (noList){
+        let output = "<table class='table table-hover' style=\"margin-left:auto; margin-right: auto; width: 1500px;\">";
+        output += "<tr><th>거절번호</th>";
+        output += "<th>거절자</th>";
+        output += "<th>분양자</th>";
+        output += "<th>거절사유</th>";
+        output += "<th>확인하기</th></tr>";
+        for(let i in noList){
+          output += "<tr>";
+          output += "<td id='noId'>"+noList[i].id+"</td>";
+          output += "<td>"+noList[i].noWriter+"</td>";
+          output += "<td>"+noList[i].noApplyWriter+"</td>";
+          output += "<td>"+noList[i].noContents+"</td>";
+          output += "<td>"+"<button class='btn btn-danger' onclick='no()'>확인</button>"+"</td>";
+          output += "</tr>";
+        }
+        output += "</table>";
+        document.getElementById('no').innerHTML = output;
+      },
+      error: function (ck) {
+      }
+    })
+  }
+  const no = ()=>{
+    const id = document.getElementById("noId").innerText;
+    alert("거절내용을 확인하였습니다.")
+    location.href="/noDelete?id="+id;
   }
 
 </script>
