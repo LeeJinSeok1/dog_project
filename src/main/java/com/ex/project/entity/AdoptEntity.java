@@ -48,6 +48,9 @@ public class AdoptEntity {
     @OneToMany(mappedBy = "adoptEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<ApplyEntity> applyEntityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "adoptEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
+
 
     public static AdoptEntity toChangeEntity(AdoptDTO adoptDTO,MemberEntity memberEntity) {
         AdoptEntity adoptEntity = new AdoptEntity();

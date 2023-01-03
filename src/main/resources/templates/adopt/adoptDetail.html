@@ -46,7 +46,7 @@
     <tr>
         <th>강아지 사진</th>
         <td th:each="fileName:${adopt.storedFileName}">
-            <img th:src="@{|/upload/${fileName}}" alt="등록한 사진이 없어요!" width="400px" height="400px">
+            <img th:src="@{|/upload/${fileName}}" alt="등록한 사진이 없어요!" width="200px" height="200px">
         </td>
     </tr>
     <tr>
@@ -87,7 +87,43 @@
     </div>
 </table>
 </div>
+<!--댓글 -->
 
+<h2 style="text-align: center">댓글</h2>
+<div>
+<div class="container mt-5 mb-5" >
+    <div>
+        <div class="form-control input-group">
+            <label for="commentWriter" style="margin-right: 5px"> 작성자</label>
+            <input type="text" id="commentWriter" class="form-control" placeholder="작성자" th:value="${session.loginEmail}" readonly style="width: 60px;margin-right: 5px">
+            <label for="commentContents" style="margin-right: 5px">내용</label>
+            <input type="text" id="commentContents" class="form-control" placeholder="내용" style="width: 250px;">
+            <button id="comment-write-btn" onclick="commentWrite()" class="btn btn-success" style="margin-left: 5px">댓글작성</button>
+        </div>
+    </div>
+</div>
+<div class="container" id="commentArea">
+        <div th:if="${commentList == 'empty'}">
+            <p>작성된 댓글이 없습니다.</p>
+        </div>
+        <div th:unless="${commentList == 'empty'}">
+            <table class="table">
+                <tr>
+                    <th>댓글번호</th>
+                    <th>작성자</th>
+                    <th>내용</th>
+<!--                    <th>작성시간</th>-->
+                </tr>
+                <tr th:each="comment : ${commentList}">
+                    <td th:text="${comment.id}"></td>
+                    <td th:text="${comment.commentWriter}"></td>
+                    <td th:text="${comment.commentContents}"></td>
+<!--                    <td th:text="*{#temporals.format(comment.commentSaveTime, 'yyyy년 MM월 dd일')}"></td>-->
+                </tr>
+            </table>
+        </div>
+</div>
+</div>
 <div class="container mt-5 mb-5">
     <a href="/adopt" style="text-align: center" class="btn btn-dark text-white">돌아가기!</a>
 </div>
@@ -105,7 +141,46 @@
 </div>
 </div>
 </body>
-<script>
+<script th:inline="javascript">
+ const commentWrite=()=>{
+     const commentWriter = document.getElementById("commentWriter").value;
+     const commentContents =document.getElementById("commentContents").value;
+     const adoptId =[[${adopt.id}]]
+     $.ajax({
+         type:"post",
+         url:"/commentSave",
+         data:{
+             commentWriter:commentWriter,
+             commentContents:commentContents,
+             adoptId : adoptId
+         },
+         dateType: "json",
+         success: function (commentList) {
+             let output = "<table class='table'>";
+             output += "<tr><th>댓글번호</th>";
+             output += "<th>작성자</th>";
+             output += "<th>내용</th></tr>";
+             // output += "<th>작성시간</th></tr>";
+// output += "<th>삭제</th></tr>";
+             for(let i in commentList){
+                 output += "<tr>";
+                 output += "<td>"+commentList[i].id+"</td>";
+                 output += "<td>"+commentList[i].commentWriter+"</td>";
+                 output += "<td>"+commentList[i].commentContents+"</td>";
+                 // output += "<td>"+commentList[i].commentSaveTime+"</td>";
+                 // output += "<td><button class='btn btn-danger' >삭제</button></td>";
+                 output += "</tr>";
+             }
+             output += "</table>";
+             document.getElementById('commentArea').innerHTML = output;
+             document.getElementById('commentWriter').value='';
+             document.getElementById('commentContents').value='';
 
+         },
+         error: function (ck) {
+
+         }
+     })
+ }
 </script>
 </html>
