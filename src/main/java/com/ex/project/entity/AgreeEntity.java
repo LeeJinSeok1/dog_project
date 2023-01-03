@@ -3,8 +3,10 @@ package com.ex.project.entity;
 import com.ex.project.dto.AgreeDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class AgreeEntity {
     private String agreeApplyWriter;
     @Column(length = 30)
     private String agreePhone;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")

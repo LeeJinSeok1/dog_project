@@ -31,7 +31,8 @@ public class SuccessController {
 
     @GetMapping("successFind")
     public String successList(Model model){
-        List<SuccessDTO> successDTOList =
-
+        List<SuccessDTO> successDTOList = successService.findAll();
+        model.addAttribute("successList",successDTOList);
+        return "/success/successList";
     }
 }

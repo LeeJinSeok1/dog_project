@@ -10,6 +10,9 @@ import com.ex.project.repository.SuccessRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SuccessService {
@@ -21,5 +24,15 @@ public class SuccessService {
         Long savedId = successRepository.save(successEntity).getId();
 
         return savedId;
+    }
+
+    public List<SuccessDTO> findAll() {
+       List<SuccessEntity> successEntityList = successRepository.findAll();
+       List<SuccessDTO> successDTOList = new ArrayList<>();
+       for (SuccessEntity successEntity : successEntityList){
+           SuccessDTO successDTO =SuccessDTO.toChangeDTO(successEntity);
+           successDTOList.add(successDTO);
+       }
+       return successDTOList;
     }
 }

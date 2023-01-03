@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>adoptList</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jqurey.js}"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+        /* 폰트 적용 */
+        body {
+            font-family: 'Dongle', sans-serif;
+            font-size: 30px;
+        }
+
+    </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container mt-5">
+    <h2><strong>입양성공 한 마디</strong></h2>
+</div>
+<!--<div class="container" style="width: 1500px; margin-left: auto; margin-right: auto;" >-->
+<!--    <form action="/adoptSearch" method="post" class="form-group mt-5" style="float: left;margin-bottom: 50px">-->
+<!--        <select name="type" class="form-select-lg">-->
+<!--            <option value="adoptSpecies">분양 종</option>-->
+<!--            <option value="adoptArea">분양 지역</option>-->
+<!--        </select>-->
+<!--        <input type="text" name="q" class="form-control-lg" placeholder="Search..">-->
+<!--        <input type="submit" class="btn btn-dark" value="검색하기">-->
+<!--    </form>-->
+</div>
+<div clas="container mt-5 mb-5" >
+    <table class="table table-hover" id="list" style="margin-left:auto; margin-right: auto; width: 1500px;" >
+        <tr>
+            <th>글번호</th>
+            <th>입양해주신 분</th>
+            <th>입양받으신 분</th>
+            <th>입양 한 마디</th>
+            <th>입양 날짜</th>
+        </tr>
+        <tr th:each="success : ${successList}" >
+            <td th:text="${success.getId()}"></td>
+            <td th:text="${success.getAgreeWriter()}"></td>
+            <td th:text="${success.getAgreeApplyWriter()}"></td>
+            <td th:text="${success.getAgreeContents()}"></td>
+            <td th:text="*{#temporals.format(success.getSuccessSaveTime(), 'yyyy년 MM월 dd일')}"></td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+<div class="container mt-5" style="margin-top: 500px" >
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+        </ul>
+        <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+</div>
+</div>
+</body>
+<script>
+
+</script>
+</html>
