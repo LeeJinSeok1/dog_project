@@ -30,23 +30,24 @@ public class AdoptService {
     private final AdoptFIleRepository adoptFIleRepository;
     public void adoptSave(AdoptDTO adoptDTO) throws IOException {
         MemberEntity memberEntity = memberRepository.findByMemberEmail(adoptDTO.getAdoptWriter()).get();
-        if(adoptDTO.getAdoptFile().isEmpty()) {
+        if(adoptDTO.getAdoptFile().size() == 0) {
             AdoptEntity adoptEntity = AdoptEntity.toChangeEntity(adoptDTO, memberEntity);
             adoptRepository.save(adoptEntity);
         }else{
-            MultipartFile adoptFile = adoptDTO.getAdoptFile();
-            String originalFileName =adoptFile.getOriginalFilename();
-            String storedFileName =System.currentTimeMillis()+"_"+originalFileName;
-            String savePath = "D:\\dog_project\\" +storedFileName;
-            adoptFile.transferTo(new File(savePath));
-
             AdoptEntity adoptEntity = AdoptEntity.toChangeFileEntity(adoptDTO,memberEntity);
             Long savedId = adoptRepository.save(adoptEntity).getId();
-
             AdoptEntity adopt = adoptRepository.findById(savedId).get();
-            AdoptFileEntity adoptFileEntity =
-                    AdoptFileEntity.toSaveAdoptFileEntity(adopt,originalFileName,storedFileName);
-            adoptFIleRepository.save(adoptFileEntity);
+
+            for (MultipartFile adoptFile : adoptDTO.getAdoptFile()){
+                String originalFileName =adoptFile.getOriginalFilename();
+                String storedFileName =System.currentTimeMillis()+"_"+originalFileName;
+                String savePath = "D:\\dog_project\\" +storedFileName;
+                adoptFile.transferTo(new File(savePath));
+                AdoptFileEntity adoptFileEntity =
+                        AdoptFileEntity.toSaveAdoptFileEntity(adopt,originalFileName,storedFileName);
+                adoptFIleRepository.save(adoptFileEntity);
+            }
+
 
         }
     }

@@ -46,7 +46,9 @@
 <!--    <tr th:if="${adopt.fileAttached == 1}">-->
     <tr>
         <th>강아지 사진</th>
-        <td><img th:src="@{|/upload/${adopt.storedFileName}}" alt="등록한 사진이 없어요!"></td>
+        <td th:each="fileName:${adopt.storedFileName}">
+            <img th:src="@{|/upload/${fileName}}" alt="등록한 사진이 없어요!">
+        </td>
     </tr>
     <tr>
         <th>제목:</th>

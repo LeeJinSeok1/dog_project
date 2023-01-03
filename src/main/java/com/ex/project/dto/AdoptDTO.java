@@ -1,6 +1,7 @@
 package com.ex.project.dto;
 
 import com.ex.project.entity.AdoptEntity;
+import com.ex.project.entity.AdoptFileEntity;
 import lombok.*;
 import net.bytebuddy.asm.Advice;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,10 +29,10 @@ public class AdoptDTO {
     private String adoptArea;
     private LocalDateTime adoptSaveTime;
 
-    private MultipartFile adoptFile;
+    private List<MultipartFile> adoptFile;
     private int fileAttached;
-    private String originalFileName;
-    private String storedFileName;
+    private List<String> originalFileName;
+    private List<String> storedFileName;
 
     public AdoptDTO(Long id, String adoptWriter, String adoptTitle,
                     String adoptArea, String adoptSpecies, LocalDateTime adoptSaveTime) {
@@ -55,8 +58,17 @@ public class AdoptDTO {
 
         if(adoptEntity.getFileAttached() ==1){
             adoptDTO.setFileAttached(adoptDTO.getFileAttached());
-            adoptDTO.setOriginalFileName(adoptEntity.getAdoptFileEntityList().get(0).getOriginalFileName());
-            adoptDTO.setStoredFileName(adoptEntity.getAdoptFileEntityList().get(0).getStoredFileName());
+            List<String> originalFileNameList = new ArrayList<>();
+            List<String> storedFileNameList = new ArrayList<>();
+
+            for (AdoptFileEntity adoptFileEntity : adoptEntity.getAdoptFileEntityList()){
+
+                originalFileNameList.add(adoptFileEntity.getOriginalFileName());
+                storedFileNameList.add(adoptFileEntity.getStoredFileName());
+            }
+            adoptDTO.setOriginalFileName(originalFileNameList);
+            adoptDTO.setStoredFileName(storedFileNameList);
+
         }else{
             adoptDTO.setFileAttached(adoptDTO.getFileAttached());
         }
