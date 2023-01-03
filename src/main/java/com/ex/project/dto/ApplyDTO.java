@@ -1,8 +1,12 @@
 package com.ex.project.dto;
 
 import com.ex.project.entity.ApplyEntity;
+import com.ex.project.entity.ApplyFileEntity;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,10 +24,10 @@ public class ApplyDTO {
     private String adoptWriter;
     private Long adoptApplyId;
 
-    private MultipartFile applyFile;
+    private List<MultipartFile> applyFile;
     private int fileAttached;
-    private String originalFileName;
-    private String storedFileName;
+    private List<String> originalFileName;
+    private List<String> storedFileName;
 
     public static ApplyDTO toChangeDTO(ApplyEntity applyEntity) {
         ApplyDTO applyDTO = new ApplyDTO();
@@ -41,8 +45,15 @@ public class ApplyDTO {
         if(applyEntity.getFileAttached() == 1){
 
             applyEntity.setFileAttached(applyEntity.getFileAttached());
-            applyDTO.setOriginalFileName(applyEntity.getApplyFileEntityList().get(0).getOriginalFileName());
-            applyDTO.setStoredFileName(applyEntity.getApplyFileEntityList().get(0).getStoredFileName());
+
+            List<String> originalFileList = new ArrayList<>();
+            List<String> storedFileList = new ArrayList<>();
+            for (ApplyFileEntity applyFileEntity : applyEntity.getApplyFileEntityList()){
+                originalFileList.add(applyFileEntity.getOriginalFileName());
+                storedFileList.add(applyFileEntity.getStoredFileName());
+            }
+            applyDTO.setOriginalFileName(originalFileList);
+            applyDTO.setStoredFileName(storedFileList);
         }else{
             applyEntity.setFileAttached(applyEntity.getFileAttached());
         }

@@ -22,7 +22,7 @@ public class ApplyService {
     private final ApplyFileRepository applyFileRepository;
     @Transactional
     public void applySave(ApplyDTO applyDTO) throws IOException {
-        if(applyDTO.getApplyFile().isEmpty()) {
+        if(applyDTO.getApplyFile().size() == 0) {
             AdoptEntity adoptEntity = adoptRepository.findById(applyDTO.getAdoptApplyId()).get();
             MemberEntity memberEntity = memberRepository.findByMemberEmail(applyDTO.getApplyEmail()).get();
             ApplyEntity applyEntity = ApplyEntity.toChangeEntity(applyDTO, adoptEntity, memberEntity);
@@ -30,18 +30,22 @@ public class ApplyService {
         }else{
             AdoptEntity adoptEntity = adoptRepository.findById(applyDTO.getAdoptApplyId()).get();
             MemberEntity memberEntity = memberRepository.findByMemberEmail(applyDTO.getApplyEmail()).get();
-            MultipartFile applyFile = applyDTO.getApplyFile();
-            String originalFileName = applyFile.getOriginalFilename();
-            String storedFileName = System.currentTimeMillis()+"_"+originalFileName;
-            String savePath = "D:\\dog_project\\" + storedFileName;
-            applyFile.transferTo(new File(savePath));
-
             ApplyEntity applyEntity = ApplyEntity.toChangeFileEntity(applyDTO,adoptEntity,memberEntity);
             Long savedId = applyRepository.save(applyEntity).getId();
             ApplyEntity entity = applyRepository.findById(savedId).get();
-            ApplyFileEntity applyFileEntity =
-                    ApplyFileEntity.toChangeFileEntity(entity,originalFileName,storedFileName);
-            applyFileRepository.save(applyFileEntity);
+
+            for(MultipartFile applyFile : applyDTO.getApplyFile()){
+                String originalFileName = applyFile.getOriginalFilename();
+                String storedFileName = System.currentTimeMillis()+"_"+originalFileName;
+                String savePath = "D:\\dog_project\\" + storedFileName;
+                applyFile.transferTo(new File(savePath));
+
+
+                ApplyFileEntity applyFileEntity =
+                        ApplyFileEntity.toChangeFileEntity(entity,originalFileName,storedFileName);
+                applyFileRepository.save(applyFileEntity);
+            }
+
         }
 
     }

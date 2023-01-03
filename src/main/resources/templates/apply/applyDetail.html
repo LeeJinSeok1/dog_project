@@ -45,7 +45,9 @@
         </tr>
         <tr>
             <th>거주지 사진:</th>
-            <td><img th:src="@{|/upload/${apply.storedFileName}}" alt="등록된 사진이 없습니다!" width="400px" height="400px"></td>
+            <td th:each="fileName:${apply.storedFileName}">
+                <img th:src="@{|/upload/${fileName}}" alt="등록된 사진이 없습니다!" width="200px" height="200px">
+            </td>
         </tr>
         <tr>
             <th>신청제목:</th>
@@ -87,7 +89,7 @@
                 거절사유:
                 <input type="text" class="form-control" placeholder="거절 사유를 입력해주세요." name="noContents" id="noContents">
                 <br>
-                <input type="button" value="거절하기" class="btn btn-danger">
+                <input type="button" value="거절하기" onclick="applyNo()" class="btn btn-danger">
                 <br>
             </form>
         </div>
@@ -108,11 +110,13 @@
 </div>
 </body>
 <!-- 신청 거절하는 memberEmail, 신청하는 memberEmail, 글 id -->
-<script th:inline="javascript">
-  const applyNoForm =()=>{
+<script>
+  const applyNo =()=>{
       const contents = document.getElementById("noContents").value;
       if(contents==""){
           alert("거절 내용을 입력해주세요.")
+      }else{
+          document.applyNoForm.submit();
       }
   }
 </script>

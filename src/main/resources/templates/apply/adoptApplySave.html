@@ -45,14 +45,14 @@
     <input type="text" class="form-control" th:value="${member.memberAge}" readonly name="applyAge">
     <br>
     신청자 반려동물 여부:
-    <select name="applyHaveDog" id="" class="form-select" id="haveDog" >
+    <select name="applyHaveDog"  class="form-select" id="haveDog" >
       <option value="선택">선택</option>
       <option value="유">유</option>
       <option value="무">무</option>
     </select>
     <br>
     신청 거주지 사진:
-    <input type="file" class="form-control" name="applyFile" id="file">
+    <input type="file" class="form-control" name="applyFile" id="file" multiple>
     <br>
     신청 제목:
     <input type="text" class="form-control" name="applyTitle" id="title">

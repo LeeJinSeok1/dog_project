@@ -43,11 +43,10 @@
         <th>강아지 나이:</th>
         <td th:text="${adopt.adoptAge}"></td>
     </tr>
-<!--    <tr th:if="${adopt.fileAttached == 1}">-->
     <tr>
         <th>강아지 사진</th>
         <td th:each="fileName:${adopt.storedFileName}">
-            <img th:src="@{|/upload/${fileName}}" alt="등록한 사진이 없어요!">
+            <img th:src="@{|/upload/${fileName}}" alt="등록한 사진이 없어요!" width="400px" height="400px">
         </td>
     </tr>
     <tr>

@@ -43,7 +43,7 @@ public class AdoptController {
         adoptService.adoptSave(adoptDTO);
         List<AdoptDTO> adoptDTOList = adoptService.findAll();
         model.addAttribute("adoptList",adoptDTOList);
-        return "/adopt/adoptList";
+        return "redirect:adopt";
     }
 
     // 비회원 리스트
