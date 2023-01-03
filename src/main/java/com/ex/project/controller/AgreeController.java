@@ -28,8 +28,7 @@ public class AgreeController {
     }
 
     @GetMapping("/agreeSuccess")
-    public String agreeSuccess(@RequestParam("id") Long id){
-        agreeService.deleteById(id);
+    public String agreeSuccess(){
         return "/apply/agreeSuccess";
     }
 }

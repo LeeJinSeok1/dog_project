@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,6 +26,8 @@ public class AgreeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private MemberEntity memberEntity;
+
+
 
 
     public static AgreeEntity toChangeEntity(AgreeDTO agreeDTO, MemberEntity memberEntity) {

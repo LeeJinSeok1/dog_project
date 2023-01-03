@@ -45,8 +45,12 @@
                 <h3 class="mb-0">입양신청 방법</h3>
                 <div class="mb-1 text-muted">설명</div>
                 <p class="card-text mb-auto">반려 친구를 입양 할 수 있습니다. <br> 자세한 내용을 클릭하여 확인해 주세요.</p>
-
-                <a href="/adopt" class="stretched-link">클릭</a>
+                <div th:if="${session.loginEmail}">
+                <a href="/adopt" class="stretched-link text-black">클릭</a>
+                </div>
+                <div th:unless="${session.loginEmail}">
+                    <h3>로그인 후 사용해주세요.</h3>
+                </div>
             </div>
             <div class="col-auto d-none d-lg-block">
                 <img src="https://cdn-icons-png.flaticon.com/512/107/107354.png?w=826&t=st=1672098555~exp=1672099155~hmac=8b8142f5f81d0ebeff6e429267c42154e48a431febe53bfc554743069fbb6811" alt="" style="width: 250px; height: 250px">
@@ -54,13 +58,19 @@
         </div>
     </div>
     <div class="col-md-6">
+
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
                 <strong class="d-inline-block mb-2 text-black">분양등록</strong>
                 <h3 class="mb-0">분양신청 방법</h3>
                 <div class="mb-1 text-muted">설명</div>
-                <p class="mb-auto">내 친구를 더 좋은 환경으로 보내줄 수 있습니다. <br> 자세한 내용을 클릭하여 확인해 주세요.</p>
-<!--                <a href="#" class="stretched-link">클릭</a>-->
+                <p class="mb-auto">내 친구를 더 좋은 환경으로 보내줄 수 있습니다. <br> 자세한 내용을 확인해 주세요.</p>
+                <div th:if="${session.loginEmail}">
+                <a th:href="@{|/adoptSave/${session.loginEmail}|}" class="stretched-link text-black">클릭</a>
+                </div>
+                <div th:unless="${session.loginEmail}">
+                    <h3>로그인 후 사용해주세요.</h3>
+                </div>
             </div>
             <div class="col-auto d-none d-lg-block">
                 <img src="https://cdn-icons-png.flaticon.com/512/84/84813.png?w=826&t=st=1672098589~exp=1672099189~hmac=23db387df2c28a331f985edaa74e74ca33b5abe1e3d7b5f494f61eab6ff82156" alt="" style="width: 250px; height: 250px">

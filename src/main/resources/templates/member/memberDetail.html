@@ -146,6 +146,7 @@
     </table>
   </div>
 </div>
+
 <div >
   <div class="container mt-5" >
     <footer class="py-3 my-4">
@@ -223,13 +224,15 @@
           output += "<th>수락자</th>";
           output += "<th>분양자</th>";
           output += "<th>연락처</th>";
+          output += "<th>분양소감 한마디</th>";
           output += "<th>확인하기</th></tr>";
           for(let i in agreeList){
             output += "<tr>";
             output += "<td id='agreeId'>"+agreeList[i].id+"</td>";
-            output += "<td>"+agreeList[i].agreeWriter+"</td>";
-            output += "<td>"+agreeList[i].agreeApplyWriter+"</td>";
+            output += "<td id='agreeWriter'>"+agreeList[i].agreeWriter+"</td>";
+            output += "<td id='agreeApplyWriter'>"+agreeList[i].agreeApplyWriter+"</td>";
             output += "<td>"+agreeList[i].agreePhone+"</td>";
+            output += "<td>"+"<input type=\"text\" class=\"form-control\" id=\"agreeContents\" name=\"agreeContents\">"+"</td>";
             output += "<td>"+"<button class='btn btn-success' onclick='agreeSuccess()'><i class=\"fa-solid fa-bell fa-shake\" style='margin-right: 5px'></i>확인</button>"+"</td>";
             output += "</tr>";
           }
@@ -241,9 +244,36 @@
       })
   }
   const agreeSuccess=()=> {
-    alert("입양처리 하였습니다.")
-    const id = document.getElementById("agreeId").innerText;
-    location.href="/agreeSuccess?id="+id;
+    // alert("입양처리 하였습니다.")
+
+    const agreeId = document.getElementById("agreeId").innerText;
+    const agreeWriter = document.getElementById("agreeWriter").innerText;
+    const agreeApplyWriter = document.getElementById("agreeApplyWriter").innerText;
+    const agreeContents = document.getElementById("agreeContents").value;
+    const id = agreeId
+    $.ajax({
+      type:"post",
+      url:"/successSave",
+      data:{
+        agreeId : agreeId,
+        agreeWriter : agreeWriter,
+        agreeApplyWriter : agreeApplyWriter,
+        agreeContents : agreeContents
+      },
+      dateType: "text",
+      success: function (ck){
+        if(ck =="good"){
+          location.href="/agreeSuccess";
+          alert("입양처리를 완료하였습니다.")
+        }else{
+          alert("저장실패")
+        }
+      },
+      error: function (ck) {
+        alert("저장실패")
+      }
+    })
+
   }
 
   const noOpen = ()=> {
