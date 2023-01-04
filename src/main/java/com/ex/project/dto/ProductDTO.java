@@ -22,6 +22,17 @@ public class ProductDTO {
     private String originalFileName;
     private String storedFileName;
 
+    public ProductDTO(Long id, String productName, String productContents, String productPrice, String productSpecies, int productHits,
+                      String storedFileName) {
+        this.id=id;
+        this.productName=productName;
+        this.productContents=productContents;
+        this.productPrice=productPrice;
+        this.productSpecies=productSpecies;
+        this.productHits=productHits;
+        this.storedFileName=storedFileName;
+    }
+
     public static ProductDTO toChangeDTO(ProductEntity productEntity) {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setId(productEntity.getId());

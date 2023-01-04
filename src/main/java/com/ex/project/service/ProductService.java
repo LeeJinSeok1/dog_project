@@ -6,6 +6,10 @@ import com.ex.project.entity.ProductFileEntity;
 import com.ex.project.repository.ProductFileRepository;
 import com.ex.project.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,6 +55,25 @@ public class ProductService {
             productDTOList.add(productDTO);
         }
         return productDTOList;
+    }
+    @Transactional
+    public Page<ProductDTO> paging(Pageable pageable) {
+        int page =pageable.getPageNumber() -1;
+        final int pageLimit= 6;
+        Page<ProductEntity> productEntities = productRepository.findAll(PageRequest.of
+                (page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+        Page<ProductDTO> productList = productEntities.map(
+                product -> new ProductDTO(product.getId(),
+                        product.getProductName(),
+                        product.getProductContents(),
+                        product.getProductPrice(),
+                        product.getProductSpecies(),
+                        product.getProductHits(),
+                        product.getProductFileEntityList().get(0).getStoredFileName()
+                )
+        );
+        return productList;
+
     }
 }
 
