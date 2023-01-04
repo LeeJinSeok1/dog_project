@@ -33,7 +33,7 @@
               </div>
           </div>
           <div class="col-4 text-center">
-              <h2><strong>Hi My Buddy</strong></h2>
+              <h2><a href="/"><img src="https://cdn-icons-png.flaticon.com/512/395/395153.png?w=826&t=st=1672727526~exp=1672728126~hmac=a7e733f3a7cba229ca098bc188dfe97b9f78b6e3677e2f9d7adcfafad458ac1c" alt="" width="25px" height="25px" style="margin-right: 5px"></a><strong>Hi My Buddy</strong></h2>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="link-secondary" href="#" aria-label="Search">
@@ -50,14 +50,14 @@
           <a class="p-2 link-secondary" href="/adopt" ><strong>입양글</strong></a>
           <a class="p-2 link-secondary" href="/successFind" ><strong>입양후기</strong></a>
           <a class="p-2 link-secondary" th:href="@{|/adoptSave/${session.loginEmail}|}"><strong>입양등록</strong></a>
-          <a class="p-2 link-secondary" href="#" ><strong>반려용품</strong></a>
+          <a class="p-2 link-secondary" href="/productMain"><strong>반려용품</strong></a>
           <a class="p-2 link-secondary" href="#" ><strong>FAQ</strong></a>
             </nav>
           </div>
           <div th:unless="${session.loginEmail}">
             <nav class="nav d-flex justify-content-between">
             <a class="p-2 link-secondary" href="/adoptList" ><strong>입양글</strong></a>
-            <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양신청</strong></a>
+            <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양후기</strong></a>
             <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양등록</strong></a>
             <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>반려용품</strong></a>
             <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>FAQ</strong></a>

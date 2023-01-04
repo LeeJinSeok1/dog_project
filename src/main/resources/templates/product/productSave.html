@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+    }
+    #productSaveForm{
+      margin-left: auto;
+      margin-right: auto;
+      font-size:30px;
+      width: 800px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div>
+  <form action="/productSave" method="post" id="productSaveForm" class="form-control">
+    사진:
+    <input type="file" class="form-control">
+    <br>
+    상품명:
+    <input type="text" class="form-control" name="productName">
+    <br>
+    설명:
+    <input type="text" class="form-control" name="productContents">
+    <br>
+    가격:
+    <input type="text" class="form-control" name="productPrice">
+    <br>
+    종:
+    <select name="productSpecies" class="form-select" >
+      <option value="선택">선택</option>
+      <option value="이탈리안 그레이하운드">이탈리안 그레이하운드</option>
+    </select>
+    <br>
+    <input type="submit"  class="btn btn-dark" value="저장">
+    <br>
+  </form>
+</div>
+
+<!--풋터-->
+<div style="background-color: #d1f6a7">
+  <div class="container" >
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+      </ul>
+      <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+  </div>
+</div>
+</body>
+
+<script>
+
+
+</script>
+</html>

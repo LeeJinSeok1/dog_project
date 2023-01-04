@@ -5,6 +5,7 @@
     <title>memberLogin</title>
   <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
   <script th:src="@{/js/jqurey.js}"></script>
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
     /* 폰트 적용 */
@@ -34,7 +35,7 @@
     <input type="button" class="btn btn-primary" value="로그인" onclick="memberLogin()">
   </form>
 </div>
-<div >
+<div>
   <div class="container mt-5" style="margin-top: 300px" >
     <footer class="py-3 my-4">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -48,6 +49,7 @@
     </footer>
   </div>
 </div>
+
 </body>
 <script>
   const memberLogin = () => {
@@ -74,5 +76,6 @@
     })
 
   }
+
 </script>
 </html>

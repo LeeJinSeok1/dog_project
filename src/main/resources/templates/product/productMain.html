@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jqurey.js}"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+        /* 폰트 적용 */
+        body {
+            font-family: 'Dongle', sans-serif;
+            font-size: 30px;
+        }
+        ul li{
+            list-style: none;
+            float: left;
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container" style="margin-left: auto;margin-right: auto; margin-top: 50px">
+    <div th:if="${session.loginEmail == 'admin'}">
+    <a href="/productSave" class="btn btn-dark">관리자 상품등록</a>
+    </div>
+    <h1>MainProducts</h1>
+<ul>
+    <li>
+        <img src="https://shop-phinf.pstatic.net/20221023_124/1666509804360LTKg8_JPEG/67645639108152485_1108450180.jpg?type=f296_296" alt="">
+        <h2><strong>상품명:</strong>뽀그리</h2>
+        <h3>설명: 따듯한 제품입니다.</h3>
+        <h4>가격:12000원</h4>
+    </li>
+    <li>
+        <img src="https://shop-phinf.pstatic.net/20211002_241/1633101445378tuuGx_JPEG/34237334076301795_1116667749.jpg?type=f296_296" alt="">
+        <h2><strong>상품명:</strong>뽀그리</h2>
+        <h3>설명: 따듯한 제품입니다.</h3>
+        <h4>가격:12000원</h4>
+    </li>
+    <li>
+        <img src="https://shop-phinf.pstatic.net/20201025_220/1603636052848o5u0G_JPEG/4771898540283284_1979468049.jpg?type=f296_296" alt="">
+        <h2><strong>상품명:</strong>뽀그리</h2>
+        <h3>설명: 따듯한 제품입니다.</h3>
+        <h4>가격:12000원</h4>
+    </li>
+    <li>
+        <img src="https://shop-phinf.pstatic.net/20221001_287/1664610499166uDi1V_JPEG/65746278782273668_619791289.jpg?type=f296_296" alt="">
+        <h2><strong>상품명:</strong>뽀그리</h2>
+        <h3>설명: 따듯한 제품입니다.</h3>
+        <h4>가격:12000원</h4>
+    </li>
+    <li>
+        <img src="https://shop-phinf.pstatic.net/20221118_67/16687056157895WEg9_JPEG/69841504471859921_1738609277.jpg?type=f295_381" alt="">
+        <h2><strong>상품명:</strong>뽀그리</h2>
+        <h3>설명: 따듯한 제품입니다.</h3>
+        <h4>가격:12000원</h4>
+    </li>
+    <li>
+        <img src="https://shop-phinf.pstatic.net/20221022_50/16664261602301Umxn_JPEG/67562048793049700_788756432.jpg?type=f295_381" alt="">
+        <h2><strong>상품명:</strong>뽀그리</h2>
+        <h3>설명: 따듯한 제품입니다.</h3>
+        <h4>가격:12000원</h4>
+    </li>
+</ul>
+</div>
+</body>
+</html>
