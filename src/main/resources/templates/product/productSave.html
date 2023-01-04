@@ -25,9 +25,9 @@
 <body>
 <th:block th:replace="header/header :: header"></th:block>
 <div>
-  <form action="/productSave" method="post" id="productSaveForm" class="form-control">
+  <form action="/productSave" method="post" id="productSaveForm" class="form-control" enctype="multipart/form-data">
     사진:
-    <input type="file" class="form-control">
+    <input type="file" class="form-control" name="productFile">
     <br>
     상품명:
     <input type="text" class="form-control" name="productName">

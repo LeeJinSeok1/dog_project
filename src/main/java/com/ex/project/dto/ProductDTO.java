@@ -1,6 +1,7 @@
 package com.ex.project.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,4 +15,9 @@ public class ProductDTO {
     private String productPrice;
     private String productSpecies;
     private int productHits;
+
+    private MultipartFile productFile;
+    private int fileAttached;
+    private String originalFileName;
+    private String storedFileName;
 }

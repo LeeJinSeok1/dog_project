@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,6 +26,11 @@ public class ProductEntity {
     private String productPrice;
     @Column
     private int productHits;
+    @Column
+    private int fileAttached;
+
+    @OneToMany(mappedBy = "productEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<ProductFileEntity> productFileEntityList = new ArrayList<>();
 
     public static ProductEntity toChangeEntity(ProductDTO productDTO) {
         ProductEntity productEntity = new ProductEntity();
@@ -32,6 +39,18 @@ public class ProductEntity {
         productEntity.setProductName(productDTO.getProductName());
         productEntity.setProductPrice(productDTO.getProductPrice());
         productEntity.setProductSpecies(productDTO.getProductSpecies());
+        productEntity.setFileAttached(0);
+        return productEntity;
+    }
+
+    public static ProductEntity toChangeFileEntity(ProductDTO productDTO) {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setProductHits(0);
+        productEntity.setProductContents(productDTO.getProductContents());
+        productEntity.setProductName(productDTO.getProductName());
+        productEntity.setProductPrice(productDTO.getProductPrice());
+        productEntity.setProductSpecies(productDTO.getProductSpecies());
+        productEntity.setFileAttached(1);
         return productEntity;
     }
 }

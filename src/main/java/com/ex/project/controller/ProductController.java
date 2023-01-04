@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
+
 @Controller
 @RequiredArgsConstructor
 public class ProductController {
@@ -22,7 +24,7 @@ public class ProductController {
         return "/product/productSave";
     }
     @PostMapping("/productSave")
-    public String productSave(@ModelAttribute ProductDTO productDTO){
+    public String productSave(@ModelAttribute ProductDTO productDTO) throws IOException {
         productService.productSave(productDTO);
         return "redirect:productMain";
     }
