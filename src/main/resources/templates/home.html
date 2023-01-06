@@ -58,6 +58,21 @@
         </table>
     </div>
 
+
+    <!--best 상품-->
+    <div th:if="${speciesList}" class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px; ">
+
+        <h2><strong>당신의 반려견을 위한 추천 상품 3</strong></h2>
+        <ul style="list-style: none; margin-bottom: 400px; width: 1500px"  >
+            <li th:each="species:${speciesList}" style="margin-left: 100px; float: left;">
+                <a th:href="@{|/productDetail/${species.id}|}"><img th:src="@{|/upload/${species.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
+                <h2 th:text="'상품명:'+' '+${species.productName}"></h2>
+                <h5 th:text="'조회수:'+${species.productHits}"></h5>
+            </li>
+        </ul>
+    </div>
+    <div th:unless="${speciesList}">
+    </div>
 <!--best 상품-->
     <div class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px; ">
 

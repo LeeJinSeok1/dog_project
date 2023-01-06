@@ -20,7 +20,11 @@ public class MemberController {
 
     private  final AgreeService agreeService;
 
+    private final ProductService productService;
+
     private final NoService noService;
+
+    private final SuccessService successService;
     //회원가입 페이지로 이동
     @GetMapping("/memberSave")
     public String memberSavePage() {
@@ -69,11 +73,18 @@ public class MemberController {
         session.setAttribute("loginEmail",result.getMemberEmail());
         List<ApplyDTO> applyDTOList = applyService.findApply(result.getMemberEmail());
         model.addAttribute("applyList",applyDTOList);
-        System.out.println(applyDTOList);
         List<AgreeDTO> agreeDTOList= agreeService.findAgree(result.getMemberEmail());
         model.addAttribute("agreeList",agreeDTOList);
         List<NoDTO> noDTOList = noService.findNo(result.getMemberEmail());
         model.addAttribute("noList",noDTOList);
+        //추천리스트
+        List<ProductDTO> productDogList = productService.findSpeciesList(result.getMemberEmail());
+            model.addAttribute("speciesList",productDogList);
+        List<ProductDTO> productDTOList = productService.findByHits();
+        model.addAttribute("productHitsList",productDTOList);
+        List<SuccessDTO> successDTOList = successService.findList();
+        model.addAttribute("successList",successDTOList);
+
         return "home";
     }
     //로그아웃
@@ -112,6 +123,24 @@ public class MemberController {
     public String memberUpdate(@ModelAttribute MemberDTO memberDTO) {
         memberService.memberUpdate(memberDTO);
         return "/member/memberUpdateSuccess";
+    }
+
+    @GetMapping("/memberMain/{memberEmail}")
+    public String memberMain(@PathVariable String memberEmail,Model model){
+        List<ApplyDTO> applyDTOList = applyService.findApply(memberEmail);
+        model.addAttribute("applyList",applyDTOList);
+        List<AgreeDTO> agreeDTOList= agreeService.findAgree(memberEmail);
+        model.addAttribute("agreeList",agreeDTOList);
+        List<NoDTO> noDTOList = noService.findNo(memberEmail);
+        model.addAttribute("noList",noDTOList);
+        //추천리스트
+        List<ProductDTO> productDogList = productService.findSpeciesList(memberEmail);
+        model.addAttribute("speciesList",productDogList);
+        List<ProductDTO> productDTOList = productService.findByHits();
+        model.addAttribute("productHitsList",productDTOList);
+        List<SuccessDTO> successDTOList = successService.findList();
+        model.addAttribute("successList",successDTOList);
+        return "home";
     }
 
 

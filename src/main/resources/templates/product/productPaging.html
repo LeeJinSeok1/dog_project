@@ -25,22 +25,6 @@
 </head>
 <body>
 <th:block th:replace="header/header :: header"></th:block>
-<div th:if="${speciesList != null}" class="container" style="width: 1500px;margin-left: auto; margin-right: auto;">
-    <h2><strong>당신의 반려친구를 위한 추천 3가지</strong></h2>
-    <ul style="list-style: none; margin-bottom: 400px" >
-        <li th:each="species:${speciesList}" style="margin-left: 100px; float: left;">
-            <a th:href="@{|/productDetail/${species.id}|}"><img th:src="@{|/upload/${species.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
-            <h2 th:text="'상품명:'+' '+${species.productName}"></h2>
-            <h5 th:text="'조회수:'+${species.productHits}"></h5>
-        </li>
-    </ul>
-</div>
-<div th:if="${speciesList == null}">
-    <h2><strong>반려견 미등록 상태</strong></h2>
-</div>
-
-
-
 
 <div class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px;">
     <div th:if="${session.loginEmail == 'admin'}">
@@ -59,7 +43,7 @@
 
     <div class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px">
         <h2><strong>products</strong></h2>
-        <ul style="list-style: none;">
+        <ul style="list-style: none; padding-bottom: 100px">
             <li th:each="product:${productList}" style="margin-left: 100px; float: left;">
                 <a th:href="@{|/productDetail/${product.id}|}"><img th:src="@{|/upload/${product.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
                 <h2 th:text="'상품명:'+' '+${product.productName}"></h2>
@@ -71,7 +55,7 @@
        </div>
 
 
-        <div class="container" id="paging-list">
+        <div class="container" id="paging-list" >
     <div class="container">
         <ul class="pagination justify-content-center">
             <li class="page-item">
