@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
@@ -46,9 +47,17 @@ public class ProductController {
         int endPage = ((startPage + blockLimit - 1) < productDTOList.getTotalPages()) ? startPage + blockLimit - 1 : productDTOList.getTotalPages();
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        System.out.println(productDTOList);
         return "/product/productPaging";
 
+    }
+
+    @GetMapping("/productDetail/{id}")
+    public String productDetail(@PathVariable Long id,
+                                Model model){
+        productService.productPlusHits(id);
+       ProductDTO productDTO = productService.findById(id);
+       model.addAttribute("product",productDTO);
+       return "/product/productDetail";
     }
 
 }

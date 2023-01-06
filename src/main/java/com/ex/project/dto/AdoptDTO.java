@@ -34,15 +34,21 @@ public class AdoptDTO {
     private List<String> originalFileName;
     private List<String> storedFileName;
 
-    public AdoptDTO(Long id, String adoptWriter, String adoptTitle,
-                    String adoptArea, String adoptSpecies, LocalDateTime adoptSaveTime) {
+    public AdoptDTO(Long id, String adoptWriter, String adoptTitle, String adoptArea, String adoptSpecies,
+                    LocalDateTime adoptSaveTime) {
         this.id = id;
         this.adoptWriter = adoptWriter;
         this.adoptTitle = adoptTitle;
         this.adoptArea = adoptArea;
         this.adoptSpecies = adoptSpecies;
         this.adoptSaveTime = adoptSaveTime;
+
     }
+
+//    public AdoptDTO(Long id, String adoptWriter, String adoptTitle,
+//                    String adoptArea, String adoptSpecies, LocalDateTime adoptSaveTime,String storedFileName) {
+//
+//    }
 
     public static AdoptDTO toChangeDTO(AdoptEntity adoptEntity) {
         AdoptDTO adoptDTO = new AdoptDTO();

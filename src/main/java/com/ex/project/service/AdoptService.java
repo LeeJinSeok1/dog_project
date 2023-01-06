@@ -77,7 +77,7 @@ public class AdoptService {
         return adoptDTOList;
     }
 
-
+@Transactional
     public Page<AdoptDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() -1 ;
         final int pageLimit = 3;
@@ -95,7 +95,7 @@ public class AdoptService {
         return adoptList;
     }
 
-
+@Transactional
     public Page<AdoptDTO> searchPaging(String type, String q, Pageable pageable) {
         int page = pageable.getPageNumber() -1 ;
         final int pageLimit = 3;
@@ -108,6 +108,7 @@ public class AdoptService {
                             adopt.getAdoptArea(),
                             adopt.getAdoptSpecies(),
                             adopt.getAdoptSaveTime()
+
                     )
             );
             return adoptList;
@@ -118,6 +119,8 @@ public class AdoptService {
                             adopt.getAdoptWriter(),
                             adopt.getAdoptTitle(),
                             adopt.getAdoptArea(),
+
+
                             adopt.getAdoptSpecies(),
                             adopt.getAdoptSaveTime()
                     )

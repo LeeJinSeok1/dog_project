@@ -24,14 +24,15 @@
 </head>
 <body>
 <th:block th:replace="header/header :: header"></th:block>
-    <div class="container" style="margin-left: auto;margin-right: auto; margin-top: 50px">
+
+    <div class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px">
         <div th:if="${session.loginEmail == 'admin'}">
             <a href="/productSave" class="btn btn-dark">관리자 상품등록</a>
         </div>
         <ul style="list-style: none;">
             <h1><strong>MainProducts</strong></h1>
             <li th:each="product:${productList}" style="margin-left: 100px; float: left;">
-                <img th:src="@{|/upload/${product.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!">
+                <a th:href="@{|/productDetail/${product.id}|}"><img th:src="@{|/upload/${product.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
                 <h2 th:text="'상품명:'+' '+${product.productName}"></h2>
                 <h3 th:text="'설명:'+${product.productContents}" ></h3>
                 <h4 th:text="'가격:'+${product.productPrice}+'원'"></h4>

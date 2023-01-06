@@ -75,6 +75,18 @@ public class ProductService {
         return productList;
 
     }
+    @Transactional
+    public ProductDTO findById(Long id) {
+       ProductEntity productEntity = productRepository.findById(id).get();
+       ProductDTO productDTO = ProductDTO.toChangeDTO(productEntity);
+       return productDTO;
+    }
+    @Transactional
+    public void productPlusHits(Long id) {
+        productRepository.ProductHits(id);
+    }
+
+
 }
 
 
