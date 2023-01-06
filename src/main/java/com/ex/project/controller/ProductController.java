@@ -47,6 +47,9 @@ public class ProductController {
         int endPage = ((startPage + blockLimit - 1) < productDTOList.getTotalPages()) ? startPage + blockLimit - 1 : productDTOList.getTotalPages();
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+        List<ProductDTO> productHitsList = productService.findByHits();
+        model.addAttribute("productHitsList",productHitsList);
+        System.out.println(productHitsList);
         return "/product/productPaging";
 
     }

@@ -21,16 +21,29 @@
             width: 250px;
         }
     </style>
+
 </head>
 <body>
+
 <th:block th:replace="header/header :: header"></th:block>
+<div class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px;">
+    <div th:if="${session.loginEmail == 'admin'}">
+        <a href="/productSave" class="btn btn-dark">관리자 상품등록</a>
+    </div>
+    <h2><strong>Best Hits 3</strong></h2>
+    <ul style="list-style: none; margin-bottom: 400px" >
+        <li th:each="productHits:${productHitsList}" style="margin-left: 100px; float: left;">
+            <a th:href="@{|/productDetail/${productHits.id}|}"><img th:src="@{|/upload/${productHits.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
+            <h2 th:text="'상품명:'+' '+${productHits.productName}"></h2>
+            <h5 th:text="'조회수:'+${productHits.productHits}"></h5>
+        </li>
+    </ul>
+</div>
+
 
     <div class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px">
-        <div th:if="${session.loginEmail == 'admin'}">
-            <a href="/productSave" class="btn btn-dark">관리자 상품등록</a>
-        </div>
+        <h2><strong>products</strong></h2>
         <ul style="list-style: none;">
-            <h1><strong>MainProducts</strong></h1>
             <li th:each="product:${productList}" style="margin-left: 100px; float: left;">
                 <a th:href="@{|/productDetail/${product.id}|}"><img th:src="@{|/upload/${product.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
                 <h2 th:text="'상품명:'+' '+${product.productName}"></h2>
@@ -40,6 +53,8 @@
             </li>
         </ul>
        </div>
+
+
         <div class="container" id="paging-list">
     <div class="container">
         <ul class="pagination justify-content-center">

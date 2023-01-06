@@ -86,6 +86,18 @@ public class ProductService {
         productRepository.ProductHits(id);
     }
 
+    @Transactional
+    public List<ProductDTO> findByHits(){
+//        List<ProductEntity> productEntityList = productRepository.findAll(Sort.by(Sort.Direction.DESC, "productHits"));
+        List<ProductEntity> productEntityList = productRepository.findTop3ByOrderByProductHitsDesc();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (ProductEntity productEntity : productEntityList){
+            ProductDTO productDTO = ProductDTO.toChangeDTO(productEntity);
+            productDTOList.add(productDTO);
+        }
+        return productDTOList;
+    }
+
 
 }
 
