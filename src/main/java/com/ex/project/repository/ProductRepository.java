@@ -17,4 +17,9 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
 
     List<ProductEntity> findTop3ByOrderByProductHitsDesc();
+
+
+    List<ProductEntity> findByProductSpecies(String dogSpecies);
+
+    List<ProductEntity> findTop3ByProductSpeciesOrderByProductHitsDesc(String dogSpecies);
 }

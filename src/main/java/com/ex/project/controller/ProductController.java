@@ -37,8 +37,9 @@ public class ProductController {
         return "redirect:productMain";
     }
 
-    @GetMapping("/product")
-    public String productPaging(@PageableDefault(page =1)Pageable pageable,
+    @GetMapping("/product/{memberEmail}")
+    public String productPaging(@PathVariable String memberEmail,
+                                @PageableDefault(page =1)Pageable pageable,
                                 Model model){
         Page<ProductDTO> productDTOList = productService.paging(pageable);
         model.addAttribute("productList",productDTOList);
@@ -47,9 +48,17 @@ public class ProductController {
         int endPage = ((startPage + blockLimit - 1) < productDTOList.getTotalPages()) ? startPage + blockLimit - 1 : productDTOList.getTotalPages();
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+        //조회수 순 리스트
         List<ProductDTO> productHitsList = productService.findByHits();
         model.addAttribute("productHitsList",productHitsList);
-        System.out.println(productHitsList);
+        //추천리스트
+        List<ProductDTO> productDogList = productService.findSpeciesList(memberEmail);
+        if(productDogList == null){
+            model.addAttribute("speciesList",null);
+        }else{
+            model.addAttribute("speciesList",productDogList);
+        }
+        System.out.println("species="+productDogList);
         return "/product/productPaging";
 
     }

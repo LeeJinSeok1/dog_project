@@ -1,8 +1,10 @@
 package com.ex.project.service;
 
 import com.ex.project.dto.ProductDTO;
+import com.ex.project.entity.DogEntity;
 import com.ex.project.entity.ProductEntity;
 import com.ex.project.entity.ProductFileEntity;
+import com.ex.project.repository.DogRepository;
 import com.ex.project.repository.ProductFileRepository;
 import com.ex.project.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,8 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductFileRepository productFileRepository;
+
+    private final DogRepository dogRepository;
     @Transactional
     public void productSave(ProductDTO productDTO)throws IOException {
         if(productDTO.getProductFile().isEmpty()) {
@@ -98,7 +102,21 @@ public class ProductService {
         return productDTOList;
     }
 
-
+    @Transactional
+    public List<ProductDTO> findSpeciesList(String memberEmail) {
+        DogEntity dogEntity =dogRepository.findByDogWriter(memberEmail).get();
+        if(dogEntity == null ){
+            return null;
+        }else {
+            List<ProductEntity> productEntityList = productRepository.findTop3ByProductSpeciesOrderByProductHitsDesc(dogEntity.getDogSpecies());
+            List<ProductDTO> productDTOList = new ArrayList<>();
+            for (ProductEntity productEntity : productEntityList) {
+                ProductDTO productDTO = ProductDTO.toChangeDTO(productEntity);
+                productDTOList.add(productDTO);
+            }
+            return productDTOList;
+        }
+    }
 }
 
 

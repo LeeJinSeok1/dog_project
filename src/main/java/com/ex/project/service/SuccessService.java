@@ -3,6 +3,7 @@ package com.ex.project.service;
 import com.ex.project.dto.SuccessDTO;
 import com.ex.project.entity.ApplyEntity;
 import com.ex.project.entity.MemberEntity;
+import com.ex.project.entity.ProductEntity;
 import com.ex.project.entity.SuccessEntity;
 import com.ex.project.repository.AgreeRepository;
 import com.ex.project.repository.MemberRepository;
@@ -34,5 +35,16 @@ public class SuccessService {
            successDTOList.add(successDTO);
        }
        return successDTOList;
+    }
+
+    public List<SuccessDTO> findList() {
+        List<SuccessEntity> successEntityList = successRepository.findTop3ByOrderBySuccessSaveTImeDesc();
+        List<SuccessDTO> successDTOList = new ArrayList<>();
+        for (SuccessEntity successEntity : successEntityList){
+           SuccessDTO successDTO = SuccessDTO.toChangeDTO(successEntity);
+           successDTOList.add(successDTO);
+        }
+        return successDTOList;
+
     }
 }
