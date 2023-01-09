@@ -13,7 +13,7 @@ public class ProductDTO {
     private Long id;
     private String productName;
     private String productContents;
-    private String productPrice;
+    private int productPrice;
     private String productSpecies;
     private int productHits;
 
@@ -22,7 +22,7 @@ public class ProductDTO {
     private String originalFileName;
     private String storedFileName;
 
-    public ProductDTO(Long id, String productName, String productContents, String productPrice, String productSpecies, int productHits,
+    public ProductDTO(Long id, String productName, String productContents, int productPrice, String productSpecies, int productHits,
                       String storedFileName) {
         this.id=id;
         this.productName=productName;

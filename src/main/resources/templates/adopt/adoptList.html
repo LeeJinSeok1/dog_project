@@ -38,7 +38,6 @@
         <th>제목</th>
         <th>분양 종</th>
         <th>분양 지역</th>
-        <th>사진</th>
     </tr>
     <tr th:each="adopt : ${adoptList}" >
         <td th:text="${adopt.id}"></td>
@@ -46,7 +45,6 @@
         <td th:text="${adopt.adoptTitle}"></td>
         <td th:text="${adopt.adoptSpecies}"></td>
         <td th:text="${adopt.adoptArea}"></td>
-        <td><img th:src="@{|/upload/${adopt.storedFileName}}" width="50px" height="50px" alt="사진이 없어요!"></td>
     </tr>
 </table>
 </div>

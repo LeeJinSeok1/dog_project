@@ -22,8 +22,8 @@ public class ProductEntity {
     private String productContents;
     @Column(length = 100)
     private String productSpecies;
-    @Column(length = 100,nullable = false)
-    private String productPrice;
+    @Column
+    private int productPrice;
     @Column
     private int productHits;
     @Column
@@ -31,6 +31,9 @@ public class ProductEntity {
 
     @OneToMany(mappedBy = "productEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<ProductFileEntity> productFileEntityList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "productEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<LikeEntity> likeEntityLst = new ArrayList<>();
 
     public static ProductEntity toChangeEntity(ProductDTO productDTO) {
         ProductEntity productEntity = new ProductEntity();

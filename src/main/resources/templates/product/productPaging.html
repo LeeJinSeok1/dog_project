@@ -43,8 +43,8 @@
 
     <div class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px">
         <h2><strong>products</strong></h2>
-        <ul style="list-style: none; padding-bottom: 100px">
-            <li th:each="product:${productList}" style="margin-left: 100px; float: left;">
+        <ul style="list-style: none;">
+            <li th:each="product:${productList}" style="margin-left: 100px; float: left; height: 500px">
                 <a th:href="@{|/productDetail/${product.id}|}"><img th:src="@{|/upload/${product.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
                 <h2 th:text="'상품명:'+' '+${product.productName}"></h2>
                 <h3 th:text="'설명:'+${product.productContents}" ></h3>
@@ -56,8 +56,8 @@
 
 
         <div class="container" id="paging-list" >
-    <div class="container">
-        <ul class="pagination justify-content-center">
+    <div class="container" >
+        <ul class="pagination justify-content-center" style="margin-top: 550px">
             <li class="page-item">
                 <!--첫페이지 요청 링크-->
                 <a class="page-link text-black" th:href="@{/product(page=1)}">

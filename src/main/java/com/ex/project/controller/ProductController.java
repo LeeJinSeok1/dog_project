@@ -1,5 +1,6 @@
 package com.ex.project.controller;
 
+import com.ex.project.dto.LikeDTO;
 import com.ex.project.dto.ProductDTO;
 import com.ex.project.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -63,5 +64,7 @@ public class ProductController {
        model.addAttribute("product",productDTO);
        return "/product/productDetail";
     }
+
+
 
 }

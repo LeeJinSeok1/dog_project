@@ -16,29 +16,30 @@
     #memberLoginForm{
       margin-left: auto;
       margin-right: auto;
-      margin-top: 100px;
+      margin-top: 200px;
       font-size:30px;
       width: 500px;
+      height: 350px;
     }
   </style>
 </head>
 <body>
 <th:block th:replace="header/header :: header"></th:block>
 <div class="container mt-5">
-  <form action="/memberLogin" method="post" class="form-control" id="memberLoginForm" name="memberLoginForm">
+  <form action="/memberLogin" method="post" class="form-control" id="memberLoginForm" name="memberLoginForm" >
     이메일 입력
     <input type="text" class="form-control" placeholder="이메일을 입력해주세요!" name="memberEmail" id="email">
     <br>
     비밀번호 입력
     <input type="text" class="form-control" placeholder="비밀번호를 입력해주세요!" name="memberPass" id="pass">
     <br>
-    <input type="button" class="btn btn-primary" value="로그인" onclick="memberLogin()">
+    <input type="button" class="btn btn-dark" value="로그인" onclick="memberLogin()" style="float: right;">
   </form>
 </div>
 <div>
-  <div class="container mt-5" style="margin-top: 300px" >
+  <div class="container mt-5" >
     <footer class="py-3 my-4">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3" style="margin-top: 300px">
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>

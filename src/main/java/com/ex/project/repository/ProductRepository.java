@@ -12,6 +12,8 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
     @Modifying
+
+
     @Query(value = "update ProductEntity  p set p.productHits = p.productHits + 1 where p.id = :id")
     void ProductHits(@Param("id") Long id);
 
