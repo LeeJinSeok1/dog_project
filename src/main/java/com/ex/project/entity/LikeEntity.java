@@ -13,10 +13,7 @@ public class LikeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private int likeCount;
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
@@ -29,7 +26,6 @@ public class LikeEntity {
         LikeEntity likeEntity = new LikeEntity();
         likeEntity.setProductEntity(productEntity);
         likeEntity.setMemberEntity(memberEntity);
-        likeEntity.setLikeCount(0);
         return likeEntity;
     }
 }

@@ -25,18 +25,22 @@
 </head>
 <body>
 <th:block th:replace="header/header :: header"></th:block>
+<div th:if="${session.loginEmail == 'admin'}">
+    <a href="/productSave" class="btn btn-dark">관리자 상품등록</a>
+</div>
 
+<!--조회수 순-->
 <div class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px;">
-    <div th:if="${session.loginEmail == 'admin'}">
-        <a href="/productSave" class="btn btn-dark">관리자 상품등록</a>
-    </div>
     <h2><strong>Best Hits 3</strong></h2>
-    <ul style="list-style: none; margin-bottom: 500px" >
+    <ul style="list-style: none; margin-bottom: 500px" th:if="${productHitsList != null}">
         <li th:each="productHits:${productHitsList}" style="margin-left: 100px; float: left;">
             <a th:href="@{|/productDetail/${productHits.id}/${session.loginEmail}|}"><img th:src="@{|/upload/${productHits.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
             <h2 th:text="'상품명:'+' '+${productHits.productName}"></h2>
             <h5 th:text="'조회수:'+${productHits.productHits}"></h5>
         </li>
+    </ul>
+    <ul style="list-style: none; margin-bottom: 500px" th:if="${productHitsList == null}">
+        <li><h2>조회 할 상품이 없습니다.</h2></li>
     </ul>
 </div>
 

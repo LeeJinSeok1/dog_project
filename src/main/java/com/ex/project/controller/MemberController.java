@@ -84,6 +84,9 @@ public class MemberController {
         model.addAttribute("productHitsList",productDTOList);
         List<SuccessDTO> successDTOList = successService.findList();
         model.addAttribute("successList",successDTOList);
+        List<ProductDTO> productLikeList = productService.findByLike(memberDTO.getMemberEmail());
+        model.addAttribute("productLikeList",productLikeList);
+        System.out.println(productLikeList);
 
         return "home";
     }
@@ -140,6 +143,9 @@ public class MemberController {
         model.addAttribute("productHitsList",productDTOList);
         List<SuccessDTO> successDTOList = successService.findList();
         model.addAttribute("successList",successDTOList);
+        List<ProductDTO> productLikeList = productService.findByLike(memberEmail);
+        model.addAttribute("productLikeList",productLikeList);
+        System.out.println(productLikeList);
         return "home";
     }
 

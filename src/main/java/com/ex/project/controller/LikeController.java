@@ -31,7 +31,7 @@ public class LikeController {
         Long likeId = likeService.checkFind(likeDTO);
         System.out.println("likeId="+likeId);
         if(likeId != null){
-            likeService.likeDelete(likeId);
+            likeService.likeDelete(likeId,likeDTO.getLikeProductId());
             return "good";
         }else{
             return "no";

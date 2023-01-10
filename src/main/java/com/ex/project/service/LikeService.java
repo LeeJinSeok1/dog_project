@@ -29,7 +29,7 @@ public class LikeService {
 
         Long savedId = likeRepository.save(likeEntity).getId();
 
-        likeRepository.LikeCount(savedId);
+
 
         return savedId;
     }
@@ -50,7 +50,7 @@ public class LikeService {
         }
     }
 
-    public void likeDelete(Long likeId) {
+    public void likeDelete(Long likeId,Long likeProductId) {
         likeRepository.deleteById(likeId);
     }
 

@@ -18,10 +18,11 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
     void ProductHits(@Param("id") Long id);
 
 
+
     List<ProductEntity> findTop3ByOrderByProductHitsDesc();
 
 
-    List<ProductEntity> findByProductSpecies(String dogSpecies);
+
 
     List<ProductEntity> findTop3ByProductSpeciesOrderByProductHitsDesc(String dogSpecies);
 }

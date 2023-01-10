@@ -29,6 +29,7 @@ public class ProductEntity {
     @Column
     private int fileAttached;
 
+
     @OneToMany(mappedBy = "productEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<ProductFileEntity> productFileEntityList = new ArrayList<>();
 

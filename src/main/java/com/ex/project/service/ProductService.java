@@ -1,12 +1,9 @@
 package com.ex.project.service;
 
+import com.ex.project.dto.LikeDTO;
 import com.ex.project.dto.ProductDTO;
-import com.ex.project.entity.DogEntity;
-import com.ex.project.entity.ProductEntity;
-import com.ex.project.entity.ProductFileEntity;
-import com.ex.project.repository.DogRepository;
-import com.ex.project.repository.ProductFileRepository;
-import com.ex.project.repository.ProductRepository;
+import com.ex.project.entity.*;
+import com.ex.project.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,42 +25,49 @@ public class ProductService {
     private final ProductFileRepository productFileRepository;
 
     private final DogRepository dogRepository;
+
+    private final LikeRepository likeRepository;
+
+    private final MemberRepository memberRepository;
+
     @Transactional
-    public void productSave(ProductDTO productDTO)throws IOException {
-        if(productDTO.getProductFile().isEmpty()) {
+    public void productSave(ProductDTO productDTO) throws IOException {
+        if (productDTO.getProductFile().isEmpty()) {
             ProductEntity productEntity = ProductEntity.toChangeEntity(productDTO);
             productRepository.save(productEntity);
-        }else{
+        } else {
             MultipartFile productFile = productDTO.getProductFile();
             String originalFileName = productFile.getOriginalFilename();
-            String storedFileName = System.currentTimeMillis()+"_"+originalFileName;
+            String storedFileName = System.currentTimeMillis() + "_" + originalFileName;
             String savePath = "D:\\dog_project\\" + storedFileName;
             productFile.transferTo(new File(savePath));
 
-            ProductEntity productEntity =ProductEntity.toChangeFileEntity(productDTO);
+            ProductEntity productEntity = ProductEntity.toChangeFileEntity(productDTO);
             Long savedId = productRepository.save(productEntity).getId();
 
             ProductEntity entity = productRepository.findById(savedId).get();
             ProductFileEntity productFileEntity =
-                    ProductFileEntity.toChangeFileEntity(entity,originalFileName,storedFileName);
+                    ProductFileEntity.toChangeFileEntity(entity, originalFileName, storedFileName);
             productFileRepository.save(productFileEntity);
 
         }
     }
+
     @Transactional
     public List<ProductDTO> findAll() {
         List<ProductEntity> productEntityList = productRepository.findAll();
         List<ProductDTO> productDTOList = new ArrayList<>();
-        for (ProductEntity productEntity: productEntityList){
+        for (ProductEntity productEntity : productEntityList) {
             ProductDTO productDTO = ProductDTO.toChangeDTO(productEntity);
             productDTOList.add(productDTO);
         }
         return productDTOList;
     }
+
     @Transactional
     public Page<ProductDTO> paging(Pageable pageable) {
-        int page =pageable.getPageNumber() -1;
-        final int pageLimit= 6;
+        int page = pageable.getPageNumber() - 1;
+        final int pageLimit = 6;
         Page<ProductEntity> productEntities = productRepository.findAll(PageRequest.of
                 (page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
         Page<ProductDTO> productList = productEntities.map(
@@ -79,23 +83,25 @@ public class ProductService {
         return productList;
 
     }
+
     @Transactional
     public ProductDTO findById(Long id) {
-       ProductEntity productEntity = productRepository.findById(id).get();
-       ProductDTO productDTO = ProductDTO.toChangeDTO(productEntity);
-       return productDTO;
+        ProductEntity productEntity = productRepository.findById(id).get();
+        ProductDTO productDTO = ProductDTO.toChangeDTO(productEntity);
+        return productDTO;
     }
+
     @Transactional
     public void productPlusHits(Long id) {
         productRepository.ProductHits(id);
     }
 
     @Transactional
-    public List<ProductDTO> findByHits(){
+    public List<ProductDTO> findByHits() {
 //        List<ProductEntity> productEntityList = productRepository.findAll(Sort.by(Sort.Direction.DESC, "productHits"));
         List<ProductEntity> productEntityList = productRepository.findTop3ByOrderByProductHitsDesc();
         List<ProductDTO> productDTOList = new ArrayList<>();
-        for (ProductEntity productEntity : productEntityList){
+        for (ProductEntity productEntity : productEntityList) {
             ProductDTO productDTO = ProductDTO.toChangeDTO(productEntity);
             productDTOList.add(productDTO);
         }
@@ -104,10 +110,10 @@ public class ProductService {
 
     @Transactional
     public List<ProductDTO> findSpeciesList(String memberEmail) {
-        DogEntity dogEntity =dogRepository.findByDogWriter(memberEmail).get();
-        if(dogEntity == null ){
+        DogEntity dogEntity = dogRepository.findByDogWriter(memberEmail).get();
+        if (dogEntity == null) {
             return null;
-        }else {
+        } else {
             List<ProductEntity> productEntityList = productRepository.findTop3ByProductSpeciesOrderByProductHitsDesc(dogEntity.getDogSpecies());
             List<ProductDTO> productDTOList = new ArrayList<>();
             for (ProductEntity productEntity : productEntityList) {
@@ -116,6 +122,31 @@ public class ProductService {
             }
             return productDTOList;
         }
+    }
+
+    @Transactional
+    public List<ProductDTO> findByLike(String memberEmail) {
+//        회원이 좋아요를 누른 모든 상품 리스트
+        MemberEntity memberEntity = memberRepository.findByMemberEmail(memberEmail).get();
+
+        List<LikeEntity> likeEntityList = likeRepository.findTop3ByMemberEntityOrderByIdDesc(memberEntity);
+
+        List<ProductEntity> productEntityList = new ArrayList<>();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+
+        for (LikeEntity likeEntity : likeEntityList) {
+
+            ProductEntity productEntity = likeEntity.getProductEntity();
+            productEntityList.add(productEntity);
+
+        }
+        for (ProductEntity product : productEntityList) {
+
+            ProductDTO productDTO = ProductDTO.toChangeDTO(product);
+            productDTOList.add(productDTO);
+        }
+
+        return productDTOList;
     }
 }
 

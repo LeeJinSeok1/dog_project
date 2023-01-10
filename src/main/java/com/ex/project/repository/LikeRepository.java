@@ -13,12 +13,13 @@ import java.util.Optional;
 
 public interface LikeRepository extends JpaRepository<LikeEntity,Long> {
 
-    @Modifying
-    @Query(value="update LikeEntity l set l.likeCount = l.likeCount + 1 where l.id=:id")
-    void LikeCount(@Param("id") Long id);
+
 
 
     Optional<LikeEntity> findByMemberEntityAndProductEntity(MemberEntity memberEntity,ProductEntity productEntity);
 
 
+    List<LikeEntity> findTop3ByMemberEntityOrderByIdDesc(MemberEntity memberEntity);
+
+//    List<ProductEntity> findTop3ByProductSpeciesOrderByProductHitsDesc(String dogSpecies);
 }
