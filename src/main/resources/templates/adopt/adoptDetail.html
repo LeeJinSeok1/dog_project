@@ -5,6 +5,7 @@
     <title>adoptList</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
     <script th:src="@{/js/jqurey.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/my_radius.css}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
         /* 폰트 적용 */
@@ -46,7 +47,7 @@
     <tr>
         <th>강아지 사진</th>
         <td th:each="fileName:${adopt.storedFileName}">
-            <img th:src="@{|/upload/${fileName}}" alt="등록한 사진이 없어요!" width="200px" height="200px">
+            <img th:src="@{|/upload/${fileName}}" alt="등록한 사진이 없어요!" style="border-radius: 50%;" width="200px" height="200px">
         </td>
     </tr>
     <tr>

@@ -6,6 +6,7 @@
   <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
   <script th:src="@{/js/jqurey.js}"></script>
   <script src="https://kit.fontawesome.com/0fb4f63c63.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" th:href="@{/css/my_radius.css}" />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
@@ -105,7 +106,7 @@
     <table class="table table-hover table-striped mt-5" >
     <tr>
       <th>친구 사진:</th>
-      <td><img th:src="@{|/upload/${dog.storedFileName}}" alt="" width="200" height="200"></td>
+      <td><img th:src="@{|/upload/${dog.storedFileName}}" alt="" width="200" height="200" style="border-radius: 50%;"></td>
     </tr>
     <tr th:unless="${dog.fileAttached == 0}">
       <th>친구 사진:</th>

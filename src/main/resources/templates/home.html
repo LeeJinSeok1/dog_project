@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
     <script th:src="@{/js/jqurey.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/my_radius.css}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
         /* 폰트 적용 */
@@ -64,7 +65,7 @@
         <h2><strong>최근 찜해 둔 상품 3</strong></h2>
         <ul style="list-style: none; margin-bottom: 400px; width: 1500px"  >
             <li th:each="productLike:${productLikeList}" style="margin-left: 100px; float: left;">
-                <a th:href="@{|/productDetail/${productLike.id}|}"><img th:src="@{|/upload/${productLike.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
+                <a th:href="@{|/productDetail/${productLike.id}/${session.loginEmail}|}"><img th:src="@{|/upload/${productLike.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto; border-radius: 50%;" alt="사진이 없어요!"></a>
                 <h2 th:text="'상품명:'+' '+${productLike.productName}"></h2>
                 <h5 th:text="'조회수:'+${productLike.productHits}"></h5>
             </li>
@@ -79,7 +80,7 @@
         <h2><strong>당신의 반려견을 위한 추천 상품 3</strong></h2>
         <ul style="list-style: none; margin-bottom: 400px; width: 1500px"  >
             <li th:each="species:${speciesList}" style="margin-left: 100px; float: left;">
-                <a th:href="@{|/productDetail/${species.id}|}"><img th:src="@{|/upload/${species.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
+                <a th:href="@{|/productDetail/${species.id}/${session.loginEmail}|}"><img th:src="@{|/upload/${species.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto; border-radius: 50%;" alt="사진이 없어요!"></a>
                 <h2 th:text="'상품명:'+' '+${species.productName}"></h2>
                 <h5 th:text="'조회수:'+${species.productHits}"></h5>
             </li>
@@ -93,7 +94,7 @@
         <h2><strong>실시간 Best Hits 3 반려상품</strong></h2>
         <ul style="list-style: none; margin-bottom: 400px; width: 1500px"  >
             <li th:each="productHits:${productHitsList}" style="margin-left: 100px; float: left;">
-                <a th:href="@{|/productDetail/${productHits.id}|}"><img th:src="@{|/upload/${productHits.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto;" alt="사진이 없어요!"></a>
+                <a th:href="@{|/productDetail/${productHits.id}/${session.loginEmail}|}"><img th:src="@{|/upload/${productHits.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto; border-radius: 50%;" alt="사진이 없어요!"></a>
                 <h2 th:text="'상품명:'+' '+${productHits.productName}"></h2>
                 <h5 th:text="'조회수:'+${productHits.productHits}"></h5>
             </li>

@@ -5,6 +5,7 @@
     <title>adoptList</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
     <script th:src="@{/js/jqurey.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/my_radius.css}" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
         /* 폰트 적용 */
@@ -18,13 +19,18 @@
             background-color:transparent;
         }
 
+        #radius_img_1 {
+            border-radius: 20%;
+        }
+
+
     </style>
 </head>
 <body>
 <th:block th:replace="header/header :: header"></th:block>
-<div class="container input-group" style="margin-top: 50px; margin-left: auto; margin-right: auto;">
+<div class="container input-group" style="margin-top: 100px; margin-left: auto; margin-right: auto;">
 
-    <img th:src="@{|/upload/${product.storedFileName}}" alt="" style="margin-right: 20px">
+    <img th:src="@{|/upload/${product.storedFileName}}" alt="" id="radius_img_1" class="mb-5"  style="margin-left: auto;margin-right: auto;">
             <table class="table table-hover">
                 <input type="text" th:value="${session.loginEmail}" id="memberEmail" hidden>
                 <input type="text" th:value="${product.id}" id="productId" hidden>
