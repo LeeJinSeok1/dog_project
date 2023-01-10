@@ -2,6 +2,7 @@ package com.ex.project.controller;
 
 import com.ex.project.dto.LikeDTO;
 import com.ex.project.dto.ProductDTO;
+import com.ex.project.service.LikeService;
 import com.ex.project.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+
+    private final LikeService likeService;
     @GetMapping("/productMain")
     public String productMain(Model model){
         List<ProductDTO> productDTOList = productService.findAll();
@@ -56,12 +59,21 @@ public class ProductController {
 
     }
 
-    @GetMapping("/productDetail/{id}")
+    @GetMapping("/productDetail/{id}/{memberEmail}")
     public String productDetail(@PathVariable Long id,
-                                Model model){
+                                @PathVariable String memberEmail,
+                                Model model) {
         productService.productPlusHits(id);
        ProductDTO productDTO = productService.findById(id);
        model.addAttribute("product",productDTO);
+       LikeDTO likeDTO = likeService.checkFind2(id,memberEmail);
+        System.out.println("like="+likeDTO);
+        if(likeDTO !=null){
+            model.addAttribute("like",likeDTO);
+        }else{
+            model.addAttribute("like",null);
+        }
+
        return "/product/productDetail";
     }
 

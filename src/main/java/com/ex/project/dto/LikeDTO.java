@@ -10,14 +10,16 @@ import lombok.*;
 @ToString
 public class LikeDTO {
     private Long id;
-    private Long productId;
+    private Long likeProductId;
+    private int likeCount;
     private String memberEmail;
 
     public static LikeDTO toChangeDTO(LikeEntity likeEntity) {
         LikeDTO likeDTO = new LikeDTO();
         likeDTO.setId(likeEntity.getId());
-        likeDTO.setProductId(likeEntity.getProductEntity().getId());
+        likeDTO.setLikeProductId(likeEntity.getProductEntity().getId());
         likeDTO.setMemberEmail(likeEntity.getMemberEntity().getMemberEmail());
+        likeDTO.setLikeCount(likeEntity.getLikeCount());
         return likeDTO;
     }
 }
