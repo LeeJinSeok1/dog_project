@@ -71,21 +71,28 @@ public class MemberController {
                               Model model){
         MemberDTO result = memberService.memberLoginCk(memberDTO);
         session.setAttribute("loginEmail",result.getMemberEmail());
+
         List<ApplyDTO> applyDTOList = applyService.findApply(result.getMemberEmail());
         model.addAttribute("applyList",applyDTOList);
+
         List<AgreeDTO> agreeDTOList= agreeService.findAgree(result.getMemberEmail());
         model.addAttribute("agreeList",agreeDTOList);
+
         List<NoDTO> noDTOList = noService.findNo(result.getMemberEmail());
         model.addAttribute("noList",noDTOList);
         //추천리스트
         List<ProductDTO> productDogList = productService.findSpeciesList(result.getMemberEmail());
             model.addAttribute("speciesList",productDogList);
+
         List<ProductDTO> productDTOList = productService.findByHits();
         model.addAttribute("productHitsList",productDTOList);
+
         List<SuccessDTO> successDTOList = successService.findList();
         model.addAttribute("successList",successDTOList);
+
         List<ProductDTO> productLikeList = productService.findByLike(memberDTO.getMemberEmail());
         model.addAttribute("productLikeList",productLikeList);
+
         System.out.println(productLikeList);
 
         return "home";

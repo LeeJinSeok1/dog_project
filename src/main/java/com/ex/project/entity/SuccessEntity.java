@@ -18,7 +18,7 @@ public class SuccessEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private Long agreeId;
+    private Long SuccessAgreeId;
     @Column(length = 30)
     private String agreeWriter;
     @Column(length = 30)
@@ -34,14 +34,15 @@ public class SuccessEntity {
     private MemberEntity memberEntity;
 
 
-    public static SuccessEntity toChangeEntity(SuccessDTO successDTO, MemberEntity memberEntity) {
+
+    public static SuccessEntity toChangeEntity(SuccessDTO successDTO,MemberEntity memberEntity) {
         SuccessEntity successEntity = new SuccessEntity();
         successEntity.setAgreeWriter(successDTO.getAgreeWriter());
         successEntity.setAgreeApplyWriter(successDTO.getAgreeApplyWriter());
         successEntity.setAgreeContents(successDTO.getAgreeContents());
-        successEntity.setAgreeId(successDTO.getAgreeId());
-        successEntity.setMemberEntity(memberEntity);
+        successEntity.setSuccessAgreeId(successDTO.getAgreeId());
         successEntity.setSuccessSaveTIme(successDTO.getSuccessSaveTime());
+        successEntity.setMemberEntity(memberEntity);
         return successEntity;
     }
 }

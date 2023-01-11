@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface ApplyRepository extends JpaRepository<ApplyEntity,Long> {
     List<ApplyEntity> findAllByAdoptWriter(String memberEmail);
 
+    ApplyEntity findByAdoptWriter(String noWriter);
 
-    Optional<ApplyEntity> findByApplyEmail(String agreeApplyWriter);
+    List<Object> findByApplyEmail(String agreeApplyWriter);
 }

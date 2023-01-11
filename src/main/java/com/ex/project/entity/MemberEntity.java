@@ -53,11 +53,12 @@ public class MemberEntity {
     @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<NoEntity> noEntityList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
-    private List<SuccessEntity> successEntityList = new ArrayList<>();
 
     @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<LikeEntity> likeEntityList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<SuccessEntity> successEntityList = new ArrayList<>();
 
 
     // dto를 entity로 바꾸는 메서드

@@ -46,6 +46,14 @@ public class ApplyEntity {
     @OneToMany(mappedBy = "applyEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<ApplyFileEntity> applyFileEntityList = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "applyEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+//    private List<NoEntity> noEntityList =new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "applyEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+//    private List<AgreeEntity> agreeEntityList = new ArrayList<>();
+
+
+
 
 
     public static ApplyEntity toChangeEntity(ApplyDTO applyDTO,AdoptEntity adoptEntity,MemberEntity memberEntity) {

@@ -5,6 +5,7 @@ import com.ex.project.entity.AgreeEntity;
 import com.ex.project.entity.ApplyEntity;
 import com.ex.project.entity.MemberEntity;
 import com.ex.project.repository.AgreeRepository;
+import com.ex.project.repository.ApplyRepository;
 import com.ex.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ import java.util.List;
 public class AgreeService {
     private final MemberRepository memberRepository;
     private final AgreeRepository agreeRepository;
+
+    private final ApplyRepository applyRepository;
     public void agreeSave(AgreeDTO agreeDTO) {
         MemberEntity memberEntity =memberRepository.findByMemberEmail(agreeDTO.getAgreeApplyWriter()).get();
         AgreeEntity agreeEntity = AgreeEntity.toChangeEntity(agreeDTO,memberEntity);

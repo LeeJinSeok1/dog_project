@@ -25,6 +25,8 @@ public class NoEntity {
     @JoinColumn(name="member_id")
     private MemberEntity memberEntity;
 
+
+
     public static NoEntity toChangeEntity(NoDTO noDTO,MemberEntity memberEntity) {
         NoEntity noEntity = new NoEntity();
         noEntity.setNoContents(noDTO.getNoContents());

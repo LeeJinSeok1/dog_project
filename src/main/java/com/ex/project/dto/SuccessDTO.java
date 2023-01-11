@@ -24,7 +24,7 @@ public class SuccessDTO {
         successDTO.setAgreeWriter(successEntity.getAgreeWriter());
         successDTO.setAgreeApplyWriter(successEntity.getAgreeApplyWriter());
         successDTO.setAgreeContents(successEntity.getAgreeContents());
-        successDTO.setAgreeId(successEntity.getAgreeId());
+        successDTO.setAgreeId(successEntity.getSuccessAgreeId());
         successDTO.setSuccessSaveTime(successEntity.getSuccessSaveTIme());
         return successDTO;
     }

@@ -1,11 +1,9 @@
 package com.ex.project.service;
 
 import com.ex.project.dto.SuccessDTO;
-import com.ex.project.entity.ApplyEntity;
-import com.ex.project.entity.MemberEntity;
-import com.ex.project.entity.ProductEntity;
-import com.ex.project.entity.SuccessEntity;
+import com.ex.project.entity.*;
 import com.ex.project.repository.AgreeRepository;
+import com.ex.project.repository.ApplyRepository;
 import com.ex.project.repository.MemberRepository;
 import com.ex.project.repository.SuccessRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +17,12 @@ import java.util.List;
 public class SuccessService {
     private final MemberRepository memberRepository;
     private final SuccessRepository successRepository;
+
+    private final AgreeRepository agreeRepository;
+
+    private final ApplyRepository applyRepository;
     public Long successSave(SuccessDTO successDTO) {
-        MemberEntity memberEntity = memberRepository.findByMemberEmail(successDTO.getAgreeApplyWriter()).get();
+        MemberEntity memberEntity = memberRepository.findByMemberEmail(successDTO.getAgreeWriter()).get();
         SuccessEntity successEntity = SuccessEntity.toChangeEntity(successDTO,memberEntity);
         Long savedId = successRepository.save(successEntity).getId();
 

@@ -33,6 +33,8 @@ public class AgreeEntity {
 
 
 
+
+
     public static AgreeEntity toChangeEntity(AgreeDTO agreeDTO, MemberEntity memberEntity) {
         AgreeEntity agreeEntity = new AgreeEntity();
         agreeEntity.setAgreeWriter(agreeDTO.getAgreeWriter());

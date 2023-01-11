@@ -62,7 +62,7 @@
     <!--찜한 상품-->
     <div th:if="${productLikeList}" class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px; ">
 
-        <h2><strong>최근 찜해 둔 상품 3</strong></h2>
+        <h2><strong>최근 찜해 둔 상품</strong></h2>
         <ul style="list-style: none; margin-bottom: 400px; width: 1500px"  >
             <li th:each="productLike:${productLikeList}" style="margin-left: 100px; float: left;">
                 <a th:href="@{|/productDetail/${productLike.id}/${session.loginEmail}|}"><img th:src="@{|/upload/${productLike.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto; border-radius: 50%;" alt="사진이 없어요!"></a>
@@ -72,12 +72,11 @@
         </ul>
     </div>
     <div th:unless="${productLikeList}">
-        <h2>아직 찜을 한 상품이 없습니다!</h2>
     </div>
     <!--best 상품-->
     <div th:if="${speciesList}" class="container" style="margin-left: auto;margin-right: auto; margin-top: 100px; ">
 
-        <h2><strong>당신의 반려견을 위한 추천 상품 3</strong></h2>
+        <h2><strong>당신의 반려견을 위한 추천 상품</strong></h2>
         <ul style="list-style: none; margin-bottom: 400px; width: 1500px"  >
             <li th:each="species:${speciesList}" style="margin-left: 100px; float: left;">
                 <a th:href="@{|/productDetail/${species.id}/${session.loginEmail}|}"><img th:src="@{|/upload/${species.storedFileName}}" width="250px" height="280px" style="margin-left: auto;margin-right: auto; border-radius: 50%;" alt="사진이 없어요!"></a>

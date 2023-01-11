@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -110,10 +111,11 @@ public class ProductService {
 
     @Transactional
     public List<ProductDTO> findSpeciesList(String memberEmail) {
-        DogEntity dogEntity = dogRepository.findByDogWriter(memberEmail).get();
-        if (dogEntity == null) {
+        Optional<DogEntity> optionalDogEntity = dogRepository.findByDogWriter(memberEmail);
+        if (optionalDogEntity.isEmpty()) {
             return null;
         } else {
+            DogEntity dogEntity = optionalDogEntity.get();
             List<ProductEntity> productEntityList = productRepository.findTop3ByProductSpeciesOrderByProductHitsDesc(dogEntity.getDogSpecies());
             List<ProductDTO> productDTOList = new ArrayList<>();
             for (ProductEntity productEntity : productEntityList) {

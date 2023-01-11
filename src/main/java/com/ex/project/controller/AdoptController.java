@@ -66,6 +66,22 @@ public class AdoptController {
 
         return "/adopt/adoptList";
     }
+
+
+    // 페이징 리스트 처리
+    @GetMapping("/adopt")
+    public String adopt(@PageableDefault(page=1) Pageable pageable, Model model){
+        System.out.println(pageable.getPageNumber());
+        Page<AdoptDTO> adoptDTOList = adoptService.paging(pageable);
+        model.addAttribute("adoptList",adoptDTOList);
+        int blockLimit = 3;
+        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = ((startPage + blockLimit - 1) < adoptDTOList.getTotalPages()) ? startPage + blockLimit - 1 : adoptDTOList.getTotalPages();
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        System.out.println(pageable.getPageNumber());
+        return "/adopt/adoptPaging";
+    }
     //검색 후 페이징 처리
     @PostMapping("/adoptSearchPaging")
     public String adoptSearch(@RequestParam("type") String type,@RequestParam("q") String q,
@@ -82,20 +98,7 @@ public class AdoptController {
     return "/adopt/adoptPaging";
     }
 
-    // 페이징 리스트 처리
-    @GetMapping("/adopt")
-    public String adopt(@PageableDefault(page=1) Pageable pageable, Model model){
-        System.out.println(pageable.getPageNumber());
-        Page<AdoptDTO> adoptDTOList = adoptService.paging(pageable);
-        model.addAttribute("adoptList",adoptDTOList);
-        int blockLimit = 3;
-        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
-        int endPage = ((startPage + blockLimit - 1) < adoptDTOList.getTotalPages()) ? startPage + blockLimit - 1 : adoptDTOList.getTotalPages();
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        System.out.println(pageable.getPageNumber());
-        return "/adopt/adoptPaging";
-    }
+
 
     @GetMapping("/adoptDetail/{id}")
     public String adoptDetail(@PathVariable Long id,
