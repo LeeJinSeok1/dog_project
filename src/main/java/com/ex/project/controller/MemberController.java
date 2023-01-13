@@ -59,6 +59,7 @@ public class MemberController {
        MemberDTO result = memberService.memberLoginCk(memberDTO);
         System.out.println(result);
        if(result !=null){
+
            return "ok";
        }else{
            return "no";
@@ -153,6 +154,15 @@ public class MemberController {
         List<ProductDTO> productLikeList = productService.findByLike(memberEmail);
         model.addAttribute("productLikeList",productLikeList);
         System.out.println(productLikeList);
+        return "home";
+    }
+
+    @GetMapping("/kakaoLogin")
+    public String kakapLogin(@RequestParam("memberEmail") String memberEmail,
+                             HttpSession session,
+                             Model model){
+        session.setAttribute("loginEmail",memberEmail);
+
         return "home";
     }
 
