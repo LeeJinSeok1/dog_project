@@ -157,13 +157,11 @@ public class MemberController {
         return "home";
     }
 
-    @GetMapping("/kakaoLogin")
-    public String kakapLogin(@RequestParam("memberEmail") String memberEmail,
-                             HttpSession session,
+    @GetMapping("/kakaoSave")
+    public String kakapSave(@RequestParam("memberEmail") String memberEmail,
                              Model model){
-        session.setAttribute("loginEmail",memberEmail);
-
-        return "home";
+        model.addAttribute("memberEmail",memberEmail);
+        return "/member/kakaoSave";
     }
 
 

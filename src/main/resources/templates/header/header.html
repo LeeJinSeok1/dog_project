@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="header" >
     <script src="https://kit.fontawesome.com/0fb4f63c63.js" crossorigin="anonymous"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   <meta charset="UTF-8">
   <title>Title</title>
   <style>
@@ -13,25 +14,62 @@
       <header class="blog-header lh-1 py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
-              <div th:if="${session.loginEmail}">
-                  <div class="btn-group">
-                  <a th:href="@{|/memberDetail/${session.loginEmail}|}" class="link-secondary">myPage</a>
-                  <div th:if="${applyList} or ${agreeList} or ${noList}">
-                      <a th:href="@{|/memberDetail/${session.loginEmail}|}"> <i class="fa-solid fa-envelope fa-bounce text-black" style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0; margin-left: 10px; margin-right: 20px" ></i></a>
+                  <div th:if="${session.loginEmail}">
+                      <div class="btn-group">
+                          <a th:href="@{|/memberDetail/${session.loginEmail}|}" class="link-secondary">myPage</a>
+                          <div th:if="${applyList} or ${agreeList} or ${noList}">
+                              <a th:href="@{|/memberDetail/${session.loginEmail}|}"> <i class="fa-solid fa-envelope fa-bounce text-black" style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0; margin-left: 10px; margin-right: 20px" ></i></a>
+                          </div>
+                          <div th:unless="${applyList} or ${agreeList} or ${noList}">
+                          </div>
+                      </div>
+                      <a href="/memberLogout" class="link-secondary">로그아웃</a>
+                      <a th:href="@{|/memberMain/${session.loginEmail}|}" class="text-black">main</a>
+                      <h4 th:text="${session.loginEmail}"></h4><h4>님 환영합니다.</h4>
                   </div>
-                  <div th:unless="${applyList} or ${agreeList} or ${noList}">
+                  <div th:unless="${session.loginEmail}">
+                      <a class="link-secondary" href="/memberLogin">Login</a>
+                      <a class="link-secondary m-lg-2" href="/memberSave">회원가입</a>
+                      <div onclick="kakaoSave();">
+                          <a href="javascript:void(0)">
+                              <!--        <img src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png" alt="" style="float: right">-->
+                              카카오로 시작하기
+                          </a>
+                      </div>
+                      <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+                      <script>
+                          Kakao.init('4c01cd21dea3f297e5d486eab7cee559'); //발급받은 키 중 javascript키를 사용해준다.
+                          console.log(Kakao.isInitialized()); // sdk초기화여부판단
+                          //카카오로그인
+                          function kakaoSave() {
+                              Kakao.Auth.login({
+                                  success: function (response) {
+                                      console.log(response)
+                                      Kakao.API.request({
+                                          url: '/v2/user/me',
+                                          success: function (account) {
+
+                                              console.log(account)
+                                              const member = account.kakao_account.email;
+                                              window.location.href="kakaoSave?memberEmail="+member;
+
+                                          },
+                                          fail: function (error) {
+                                              console.log(error)
+                                          },
+                                      })
+                                  },
+                                  fail: function (error) {
+                                      console.log(error)
+                                  },
+                              })
+                          }
+
+                      </script>
+                      <a href="/" class="text-black">main</a>
                   </div>
-                  </div>
-                  <a href="/memberLogout" class="link-secondary">로그아웃</a>
-                  <a th:href="@{|/memberMain/${session.loginEmail}|}" class="text-black">main</a>
-                  <h4 th:text="${session.loginEmail}"></h4><h4>님 환영합니다.</h4>
               </div>
-              <div th:unless="${session.loginEmail}">
-            <a class="link-secondary" href="/memberLogin">Login</a>
-            <a class="link-secondary m-lg-2" href="/memberSave">회원가입</a>
-            <a href="/" class="text-black">main</a>
-              </div>
-          </div>
+
           <div class="col-4 text-center">
               <h2><a href="/"><img src="https://cdn-icons-png.flaticon.com/512/395/395153.png?w=826&t=st=1672727526~exp=1672728126~hmac=a7e733f3a7cba229ca098bc188dfe97b9f78b6e3677e2f9d7adcfafad458ac1c" alt="" width="25px" height="25px" style="margin-right: 5px"></a><strong>Hi My Buddy</strong></h2>
           </div>
@@ -45,24 +83,28 @@
       </header>
 
       <div class="nav-scroller py-1 mb-2">
-          <div th:if="${session.loginEmail}">
-            <nav class="nav d-flex justify-content-between">
-          <a class="p-2 link-secondary" href="/adopt" ><strong>입양글</strong></a>
-          <a class="p-2 link-secondary" href="/successFind" ><strong>입양후기</strong></a>
-          <a class="p-2 link-secondary" th:href="@{|/adoptSave/${session.loginEmail}|}"><strong>입양등록</strong></a>
-          <a class="p-2 link-secondary" href="/product"><strong>반려용품</strong></a>
-          <a class="p-2 link-secondary" href="#" ><strong>FAQ</strong></a>
-            </nav>
+
+              <div th:if="${session.loginEmail}">
+                  <nav class="nav d-flex justify-content-between">
+                      <a class="p-2 link-secondary" href="/adopt" ><strong>입양글</strong></a>
+                      <a class="p-2 link-secondary" href="/successFind" ><strong>입양후기</strong></a>
+                      <a class="p-2 link-secondary" th:href="@{|/adoptSave/${session.loginEmail}|}"><strong>입양등록</strong></a>
+                      <a class="p-2 link-secondary" href="/product"><strong>반려용품</strong></a>
+                      <a class="p-2 link-secondary" href="#" ><strong>FAQ</strong></a>
+                  </nav>
+              </div>
+              <div th:unless="${session.loginEmail}">
+                  <nav class="nav d-flex justify-content-between">
+                      <a class="p-2 link-secondary" href="/adoptList" ><strong>입양글</strong></a>
+                      <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양후기</strong></a>
+                      <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양등록</strong></a>
+                      <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>반려용품</strong></a>
+                      <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>FAQ</strong></a>
+                  </nav>
+              </div>
           </div>
-          <div th:unless="${session.loginEmail}">
-            <nav class="nav d-flex justify-content-between">
-            <a class="p-2 link-secondary" href="/adoptList" ><strong>입양글</strong></a>
-            <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양후기</strong></a>
-            <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>입양등록</strong></a>
-            <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>반려용품</strong></a>
-            <a class="p-2 link-secondary" href="#" onclick="alert('로그인 후 사용 가능합니다.')"><strong>FAQ</strong></a>
-            </nav>
-          </div>
+
+
       </div>
     </div>
   </div>
@@ -70,8 +112,27 @@
 <body>
 
 </body>
-<script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
+<script>
+    //카카오로그아웃
+    Kakao.init('4c01cd21dea3f297e5d486eab7cee559'); //발급받은 키 중 javascript키를 사용해준다.
+    console.log(Kakao.isInitialized());
+    function kakaoLogout() {
+        if (Kakao.Auth.getAccessToken()) {
+            Kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function (response) {
+                    console.log(response)
+                    location.href="/memberLogout"
+                },
+                fail: function (error) {
+                    console.log(error)
+                },
+            })
+            Kakao.Auth.setAccessToken(undefined)
+        }
+    }
 
 </script>
 </html>

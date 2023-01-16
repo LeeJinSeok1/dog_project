@@ -38,6 +38,13 @@ public class AdoptController {
         model.addAttribute("member",memberDTO);
         return "/adopt/adoptSave";
     }
+
+    @GetMapping("/kakaoAdoptSave/{memberEmail}")
+    public String kakaoAdoptSavePage(@PathVariable String memberEmail,
+                                Model model) {
+
+        return "/adopt/adoptSave";
+    }
     // 분양 글 저장
     @PostMapping("/adoptSave")
     public String adoptSave(@ModelAttribute AdoptDTO adoptDTO,

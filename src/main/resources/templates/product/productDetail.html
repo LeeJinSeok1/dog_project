@@ -35,7 +35,7 @@
 <div class="container input-group" style="margin-top: 100px; margin-left: auto; margin-right: auto;">
 
     <img th:src="@{|/upload/${product.storedFileName}}" alt="" id="radius_img_1" class="mb-5"  style="margin-left: auto;margin-right: auto;">
-            <table class="table table-hover">
+            <table class="table table-hover" style="width: 800px">
                 <input type="text" th:value="${session.loginEmail}" id="memberEmail" hidden>
                 <input type="text" th:value="${product.id}" id="productId" hidden>
                 <tr>
@@ -53,18 +53,6 @@
                 <tr>
                     <th>조회수:</th>
                     <td th:text="${product.productHits}"></td>
-                </tr>
-                <tr>
-                    <th>결제하기:</th>
-                    <td><a href="#" class="btn btn-warning">결제</a></td>
-                </tr>
-                <tr>
-                    <th>카카오페이:</th>
-                    <td>
-                        <form action="/kakaoPay" method="post">
-                            <button>카카오페이로 결제</button>
-                        </form>
-                    </td>
                 </tr>
                 <tr>
                     <th>좋아요:</th>
@@ -86,6 +74,14 @@
                     </td>
                 </tr>
             </table>
+    <div>
+        <form action="" class="form-control" style="width: 800px">
+            <buttotn onclick="plus()">↑</buttotn><button onclick="minus()">↓</button>
+            <input type="text" class="form-control" value="0" id="cnt">
+            <input type="text" class="form-control">
+            <input type="text" class="form-control">
+        </form>
+    </div>
 
 </div>
 
@@ -105,7 +101,12 @@
 </div>
 
 </body>
-
+<script>
+    const plus = ()=>{
+        let cnt = document.getElementById("cnt").innerText;
+        cnt = cnt + 1;
+    }
+</script>
 <script th:inline="javascript">
     const likeSave=()=>{
         const productId = document.getElementById("productId").value;
