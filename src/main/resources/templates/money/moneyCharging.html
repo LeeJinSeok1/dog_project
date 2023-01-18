@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>memberLogin</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+    }
+    #adoptSaveForm{
+      margin-left: auto;
+      margin-right: auto;
+      font-size:30px;
+      width: 800px;
+    }
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<!--카카오페이 충전-->
+<div class="mt-5">
+  <input type="text" th:value="${session.loginEmail}" id="memberEmail" hidden>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+  <div class="second" align="center">
+    <img class="card-img-top" style="width: 300px; height: 300px" src="http://img.seoul.co.kr//img/upload/2022/01/04/SSI_20220104190629.jpg" alt="..." />
+    <p style="font-weight: bold">카카오페이 현재 사용가능</p>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="5000"><span>5,000원</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"><span>10,000원</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="15000"><span>15,000원</span></label><br/>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="20000"><span>20,000원</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="25000"><span>25,000원</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="30000"><span>30,000원</span></label><br/>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="35000"><span>35,000원</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"><span>40,000원</span></label>
+    <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span>50,000원</span></label>
+    <p  style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 5,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p>
+    <button type="button" class="btn btn-outline-dark" id="charge_kakao">충 전 하 기</button>
+  </div>
+  <script>
+    $('#charge_kakao').click(function () {
+      // getter
+      const memberEmail = document.getElementById("memberEmail").value;
+      var IMP = window.IMP;
+      IMP.init('imp33287521');
+      var money = $('input[name="cp_item"]:checked').val();
+      console.log(money);
+
+      IMP.request_pay({
+        pg: 'kakaopay',
+        merchant_uid: 'merchant_' + new Date().getTime(),
+
+        name: 'MJU 쇼핑몰 머니충전',
+        amount: money,
+        buyer_email: 'iamport@siot.do',
+        buyer_name: '구매자이름',
+        buyer_tel: '010-1234-5678',
+        buyer_addr: '인천광역시 부평구',
+        buyer_postcode: '123-456'
+      }, function (rsp) {
+        console.log(rsp);
+        if (rsp.success) {
+          var msg = '결제가 완료되었습니다.';
+          msg += '고유ID : ' + rsp.imp_uid;
+          msg += '상점 거래ID : ' + rsp.merchant_uid;
+          msg += '결제 금액 : ' + rsp.paid_amount;
+          msg += '카드 승인번호 : ' + rsp.apply_num;
+
+          $.ajax({
+            type: "post",
+            url: "/moneyCharging", //충전 금액값을 보낼 url 설정
+            data: {
+              "plusPoint" : money,
+              "memberEmail" : memberEmail
+            },
+          });
+
+        } else {
+          var msg = '결제에 실패하였습니다.';
+          msg += '에러내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+        alert("충전완료");
+        document.location.href="/moneySuccess"
+      });
+    });
+  </script>
+</div>
+  <div class="container mt-5" style="margin-top: 300px" >
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+      </ul>
+      <p class="text-center text-muted">2022 JinSeok Project </p>
+    </footer>
+  </div>
+</div>
+</body>
+
+</html>

@@ -21,7 +21,7 @@ public class MemberDTO {
     private int memberAge;
     private String memberPhone;
     private String memberPurpose;
-//    private Long dogId;
+
 
     public static MemberDTO changeMemberDTO(MemberEntity memberEntity){
         MemberDTO memberDTO = new MemberDTO();
@@ -35,6 +35,7 @@ public class MemberDTO {
         memberDTO.setMemberPhone(memberEntity.getMemberPhone());
         memberDTO.setMemberPurpose(memberEntity.getMemberPurpose());
         memberDTO.setMemberSaveTime(memberEntity.getMemberSaveTime());
+//        memberDTO.setMemberPoint(memberEntity.getMemberPoint());
         return memberDTO;
     }
 }

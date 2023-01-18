@@ -25,7 +25,8 @@
                       </div>
                       <a href="/memberLogout" class="link-secondary">로그아웃</a>
                       <a th:href="@{|/memberMain/${session.loginEmail}|}" class="text-black">main</a>
-                      <h4 th:text="${session.loginEmail}"></h4><h4>님 환영합니다.</h4>
+                      <h4 th:text="${session.loginEmail}+'님 환영합니다.'"></h4>
+                      <a href="/moneyCharging">금액충전</a>
                   </div>
                   <div th:unless="${session.loginEmail}">
                       <a class="link-secondary" href="/memberLogin">Login</a>

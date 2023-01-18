@@ -37,6 +37,8 @@ public class MemberEntity {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime memberSaveTime;
+    @Column
+    private int memberPoint;
 
     @OneToMany(mappedBy = "memberEntity",cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<DogEntity> dogEntityList = new ArrayList<>();
@@ -64,6 +66,7 @@ public class MemberEntity {
     // dto를 entity로 바꾸는 메서드
     public static MemberEntity changeEntity(MemberDTO memberDTO) {
         MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberPoint(0);
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberPass(memberDTO.getMemberPass());
         memberEntity.setMemberName(memberDTO.getMemberName());
