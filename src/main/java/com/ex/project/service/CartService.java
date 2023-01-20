@@ -29,6 +29,7 @@ public class CartService {
         cartEntity.setPrice(productEntity.getProductPrice());
         cartEntity.setProductName(productEntity.getProductName());
         cartEntity.setMemberEntity(memberEntity);
+        cartEntity.setProductEntity(productEntity);
         Long savedId = cartRepository.save(cartEntity).getId();
         return savedId;
     }
@@ -54,6 +55,12 @@ public class CartService {
         CartDTO cartDTO = new CartDTO();
         cartDTO.setTotalPrice(totalPrice);
         return cartDTO;
+    }
+
+
+@Transactional
+    public void deleteById(Long cartId) {
+       cartRepository.deleteById(cartId);
     }
 }
 

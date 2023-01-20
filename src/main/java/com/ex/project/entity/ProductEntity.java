@@ -35,6 +35,8 @@ public class ProductEntity {
 
     @OneToMany(mappedBy = "productEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<LikeEntity> likeEntityLst = new ArrayList<>();
+    @OneToMany(mappedBy = "productEntity",cascade = CascadeType.REMOVE,orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<CartEntity> cartEntityList = new ArrayList<>();
 
     public static ProductEntity toChangeEntity(ProductDTO productDTO) {
         ProductEntity productEntity = new ProductEntity();

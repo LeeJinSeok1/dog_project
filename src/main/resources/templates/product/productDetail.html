@@ -86,13 +86,11 @@
                     <td><button class="btn btn-dark" onclick="saveCart()">담기</button></td>
                 </tr>
             </table>
-    <h2><strong>장바구니</strong></h2>
     <div class="container" id="cartArea">
 
     </div>
-    <div id="totalArea1">
-        합계:
-        <span id="totalArea2">0</span>
+    <div id="totalArea" class="container" style="width: 1000px">
+
     </div>
 
 </div>
@@ -124,43 +122,107 @@
            },
            dateType: "json",
            success: function (cartList){
-               let output = "<table class='table table-hover' style=\"margin-left:auto; margin-right: auto; width: 1000px;\">";
+               let output = "<h2><strong>장바구니</strong></h2><br>"
+               output += "<table class='table table-hover' style=\"margin-left:auto; margin-right: auto; width: 1000px;\">";
                output += "<tr><th>번호</th>";
                output += "<th>상품명</th>";
-               output += "<th>가격</th></tr>";
+               output += "<th>가격</th>";
+               output += "<th>상품삭제</th></tr>";
                for(let i in cartList){
                    output += "<tr>";
-                   output += "<td>"+cartList[i].id+"</td>";
+                   output += "<td id='cartId'>"+cartList[i].id+"</td>";
                    output += "<td>"+cartList[i].productName+"</td>";
                    output += "<td>"+cartList[i].price+"</td>";
+                   output += "<td><button value='x' onclick='deleteCart()'>x</button></td>"
                    output += "</tr>";
                }
                output += "</table>";
                document.getElementById('cartArea').innerHTML = output;
 
+               $.ajax({
+                   type:"post",
+                   url:"/findTotal",
+                   data:{
+                       memberEmail:memberEmail
+                   },
+                   dateType: "json",
+                   success: function (cartDTO){
+                       console.log(cartDTO)
+                       document.getElementById("totalArea").innerHTML="합계:\n" +
+                           "        <span id=\"totalArea2\" style=\"float: right;\"></span>"
+                       document.getElementById("totalArea2").innerText =cartDTO.totalPrice+"원";
+                   },
+                   error: function (ck) {
+
+                   }
+               })
+
            },
            error: function (ck) {
 
            }
        })
 
-       $.ajax({
-           type:"post",
-           url:"/findTotal",
-           data:{
-             memberEmail:memberEmail
-           },
-           dateType: "json",
-           success: function (cartDTO){
-               console.log(cartDTO)
-               document.getElementById("totalArea2").innerText=cartDTO.totalPrice;
-           },
-           error: function (ck) {
-
-           }
-       })
 
    }
+</script>
+<script>
+    const deleteCart=()=>{
+        const memberEmail =document.getElementById("memberEmail").value;
+        const productId = document.getElementById("productId").value;
+        const cartId = document.getElementById("cartId").innerText;
+
+        $.ajax({
+            type:"post",
+            url:"/deleteCart",
+            data:{
+                memberEmail:memberEmail,
+                productId:productId,
+                cartId:cartId
+            },
+            dateType: "json",
+            success: function (cartList){
+                let output = "<h2><strong>장바구니</strong></h2><br>"
+                output += "<table class='table table-hover' style=\"margin-left:auto; margin-right: auto; width: 1000px;\">";
+                output += "<tr><th>번호</th>";
+                output += "<th>상품명</th>";
+                output += "<th>가격</th>";
+                output += "<th>상품삭제</th></tr>";
+                for(let i in cartList){
+                    output += "<tr>";
+                    output += "<td id='cartId'>"+cartList[i].id+"</td>";
+                    output += "<td>"+cartList[i].productName+"</td>";
+                    output += "<td>"+cartList[i].price+"</td>";
+                    output += "<td><button value='x' onclick='deleteCart()'>x</button></td>"
+                    output += "</tr>";
+                }
+                output += "</table>";
+                document.getElementById('cartArea').innerHTML = output;
+
+                $.ajax({
+                    type:"post",
+                    url:"/findTotal",
+                    data:{
+                        memberEmail:memberEmail
+                    },
+                    dateType: "json",
+                    success: function (cartDTO){
+                        console.log(cartDTO)
+                        document.getElementById("totalArea").innerHTML="합계:\n" +
+                            "        <span id=\"totalArea2\" style=\"float: right;\"></span>"
+                        document.getElementById("totalArea2").innerText =cartDTO.totalPrice+"원";
+                    },
+                    error: function (ck) {
+
+                    }
+                })
+
+            },
+            error: function (ck) {
+
+            }
+        })
+    }
 </script>
 <script th:inline="javascript">
     const likeSave=()=>{
@@ -223,10 +285,5 @@
             }
         })
     }
-
-
-
-
-
 </script>
 </html>

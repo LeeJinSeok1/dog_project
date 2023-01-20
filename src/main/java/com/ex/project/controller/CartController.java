@@ -5,10 +5,7 @@ import com.ex.project.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,17 @@ public class CartController {
     public @ResponseBody CartDTO findTotal(@RequestParam("memberEmail") String memberEmail){
         CartDTO cartDTO = cartService.findTotal(memberEmail);
         return cartDTO;
+    }
+
+    @PostMapping("/deleteCart")
+    public @ResponseBody List<CartDTO> deleteCart(@ModelAttribute CartDTO cartDTO,
+                                          @RequestParam("cartId") Long cartId,
+                                          Model model){
+        System.out.println(cartId);
+        System.out.println("ddtdtd="+cartDTO);
+        cartService.deleteById(cartId);
+        List<CartDTO> cartDTOList = cartService.findAllById(cartDTO);
+        model.addAttribute("cartDTOList",cartDTOList);
+        return cartDTOList;
     }
 }
