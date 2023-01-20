@@ -17,6 +17,7 @@ public class CommentController {
     @PostMapping("/commentSave")
     public @ResponseBody List<CommentDTO> commentSave(@ModelAttribute CommentDTO commentDTO){
         commentService.commentSave(commentDTO);
+        System.out.println(commentDTO.getAdoptId());
         List<CommentDTO> commentDTOList =commentService.findAll(commentDTO.getAdoptId());
         return commentDTOList;
     }

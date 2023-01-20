@@ -73,24 +73,29 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <th>나의 포인트:</th>
+                    <td th:text="${member.memberPoint}+'원'"></td>
+                </tr>
+                <tr>
+                    <th>충전:</th>
+                    <td><a href="/moneyCharging">충전하기</a></td>
+                </tr>
+                <tr>
+                    <th>장바구니:</th>
+                    <td><button class="btn btn-dark" onclick="saveCart()">담기</button></td>
+                </tr>
             </table>
-<!--    <div>-->
-<!--        <form action="" class="form-control" style="width: 800px;margin-left: auto;margin-right: auto;">-->
-<!--            수량:-->
-<!--            <buttotn onclick="plus()">↑</buttotn><button onclick="minus()">↓</button>-->
-<!--            <input type="text" class="form-control" value="0" id="cnt">-->
-<!--            <br>-->
-<!--            <input type="text" class="form-control">-->
-<!--            <br>-->
-<!--            <input type="text" class="form-control">-->
-<!--        </form>-->
-<!--    </div>-->
+    <h2><strong>장바구니</strong></h2>
+    <div class="container" id="cartArea">
+
+    </div>
+    <div id="totalArea1">
+        합계:
+        <span id="totalArea2">0</span>
+    </div>
 
 </div>
-
-
-
-
 
 <div class="container mt-5" style="margin-top: 500px">
     <footer class="py-3 my-4">
@@ -104,13 +109,58 @@
         <p class="text-center text-muted">2022 JinSeok Project </p>
     </footer>
 </div>
-
 </body>
 <script>
-    const plus = ()=>{
-        let cnt = document.getElementById("cnt").innerText;
-        cnt = cnt + 1;
-    }
+   const saveCart=()=>{
+       const memberEmail =document.getElementById("memberEmail").value;
+       const productId = document.getElementById("productId").value;
+
+       $.ajax({
+           type:"post",
+           url:"/cartSave",
+           data:{
+               memberEmail:memberEmail,
+               productId:productId
+           },
+           dateType: "json",
+           success: function (cartList){
+               let output = "<table class='table table-hover' style=\"margin-left:auto; margin-right: auto; width: 1000px;\">";
+               output += "<tr><th>번호</th>";
+               output += "<th>상품명</th>";
+               output += "<th>가격</th></tr>";
+               for(let i in cartList){
+                   output += "<tr>";
+                   output += "<td>"+cartList[i].id+"</td>";
+                   output += "<td>"+cartList[i].productName+"</td>";
+                   output += "<td>"+cartList[i].price+"</td>";
+                   output += "</tr>";
+               }
+               output += "</table>";
+               document.getElementById('cartArea').innerHTML = output;
+
+           },
+           error: function (ck) {
+
+           }
+       })
+
+       $.ajax({
+           type:"post",
+           url:"/findTotal",
+           data:{
+             memberEmail:memberEmail
+           },
+           dateType: "json",
+           success: function (cartDTO){
+               console.log(cartDTO)
+               document.getElementById("totalArea2").innerText=cartDTO.totalPrice;
+           },
+           error: function (ck) {
+
+           }
+       })
+
+   }
 </script>
 <script th:inline="javascript">
     const likeSave=()=>{

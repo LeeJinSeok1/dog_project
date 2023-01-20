@@ -28,7 +28,7 @@
   <form action="/adoptSave"  method="post" class="form-control mt-5" id="adoptSaveForm" name="adoptSaveForm" enctype="multipart/form-data">
 
     작성자(보호자):
-    <input type="text" class="form-control" value="kakao" name="adoptWriter" id="writer" readonly>
+    <input type="text" class="form-control" th:value="${session.loginEmail}" name="adoptWriter" id="writer" readonly>
     <br>
     보낼 가족의 이름:
     <input type="text" class="form-control" name="adoptName" id="name">

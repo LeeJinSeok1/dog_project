@@ -72,7 +72,8 @@ public class MemberController {
                               Model model){
         MemberDTO result = memberService.memberLoginCk(memberDTO);
         session.setAttribute("loginEmail",result.getMemberEmail());
-
+        System.out.println(result);
+        model.addAttribute("member",result);
         List<ApplyDTO> applyDTOList = applyService.findApply(result.getMemberEmail());
         model.addAttribute("applyList",applyDTOList);
 
@@ -94,7 +95,6 @@ public class MemberController {
         List<ProductDTO> productLikeList = productService.findByLike(memberDTO.getMemberEmail());
         model.addAttribute("productLikeList",productLikeList);
 
-        System.out.println(productLikeList);
 
         return "home";
     }

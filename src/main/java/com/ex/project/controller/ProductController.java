@@ -1,8 +1,10 @@
 package com.ex.project.controller;
 
 import com.ex.project.dto.LikeDTO;
+import com.ex.project.dto.MemberDTO;
 import com.ex.project.dto.ProductDTO;
 import com.ex.project.service.LikeService;
+import com.ex.project.service.MemberService;
 import com.ex.project.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-
+    private final MemberService memberService;
     private final LikeService likeService;
     @GetMapping("/productMain")
     public String productMain(Model model){
@@ -44,6 +43,7 @@ public class ProductController {
     @GetMapping("/product")
     public String productPaging(@PageableDefault(page =1)Pageable pageable,
                                 Model model){
+
         Page<ProductDTO> productDTOList = productService.paging(pageable);
         model.addAttribute("productList",productDTOList);
         int blockLimit = 3;
@@ -64,6 +64,9 @@ public class ProductController {
                                 @PathVariable String memberEmail,
                                 Model model) {
         productService.productPlusHits(id);
+        MemberDTO result = memberService.findByMemberEmail(memberEmail);
+        model.addAttribute("member",result);
+        System.out.println("member="+result);
        ProductDTO productDTO = productService.findById(id);
        model.addAttribute("product",productDTO);
        LikeDTO likeDTO = likeService.checkFind2(id,memberEmail);
