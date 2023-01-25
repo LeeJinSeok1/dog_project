@@ -51,10 +51,17 @@ public class CartService {
 @Transactional
     public CartDTO findTotal(String memberEmail) {
     MemberEntity memberEntity = memberRepository.findByMemberEmail(memberEmail).get();
-        int totalPrice = cartRepository.totalPrice(memberEntity);
-        CartDTO cartDTO = new CartDTO();
-        cartDTO.setTotalPrice(totalPrice);
-        return cartDTO;
+        List<CartEntity> cartEntityList = cartRepository.findAllByMemberEntity(memberEntity);
+        if(cartEntityList.isEmpty()){
+            CartDTO cartDTO = new CartDTO();
+            cartDTO.setTotalPrice(0);
+            return cartDTO;
+        }else{
+            int totalPrice = cartRepository.totalPrice(memberEntity);
+            CartDTO cartDTO = new CartDTO();
+            cartDTO.setTotalPrice(totalPrice);
+            return cartDTO;
+        }
     }
 
 
@@ -62,6 +69,8 @@ public class CartService {
     public void deleteById(Long cartId) {
        cartRepository.deleteById(cartId);
     }
+
+
 }
 
 

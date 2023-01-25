@@ -3,6 +3,7 @@ package com.ex.project.controller;
 import com.ex.project.dto.LikeDTO;
 import com.ex.project.dto.MemberDTO;
 import com.ex.project.dto.ProductDTO;
+import com.ex.project.service.CartService;
 import com.ex.project.service.LikeService;
 import com.ex.project.service.MemberService;
 import com.ex.project.service.ProductService;
@@ -23,6 +24,10 @@ public class ProductController {
     private final ProductService productService;
     private final MemberService memberService;
     private final LikeService likeService;
+
+    private final CartService cartService;
+
+
     @GetMapping("/productMain")
     public String productMain(Model model){
         List<ProductDTO> productDTOList = productService.findAll();
@@ -66,10 +71,10 @@ public class ProductController {
         productService.productPlusHits(id);
         MemberDTO result = memberService.findByMemberEmail(memberEmail);
         model.addAttribute("member",result);
-        System.out.println("member="+result);
        ProductDTO productDTO = productService.findById(id);
        model.addAttribute("product",productDTO);
        LikeDTO likeDTO = likeService.checkFind2(id,memberEmail);
+
         System.out.println("like="+likeDTO);
         if(likeDTO !=null){
             model.addAttribute("like",likeDTO);

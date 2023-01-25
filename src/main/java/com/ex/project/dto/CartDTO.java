@@ -13,6 +13,6 @@ public class CartDTO {
     private String memberEmail;
     private int price;
     private String productName;
-    private int totalPrice;
+    private int totalPrice=0;
     private int totalCount;
 }

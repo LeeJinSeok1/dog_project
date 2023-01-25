@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>adoptList</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+  <script th:src="@{/js/jqurey.js}"></script>
+  <!--    카카오-->
+
+  <!--    카카오-->
+  <link rel="stylesheet" th:href="@{/css/my_radius.css}" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&display=swap');
+    /* 폰트 적용 */
+    body {
+      font-family: 'Dongle', sans-serif;
+      font-size: 30px;
+    }
+    button {
+      border: 0;
+      outline: 0;
+      background-color:transparent;
+    }
+
+
+
+  </style>
+</head>
+<body>
+<th:block th:replace="header/header :: header"></th:block>
+<div class="container input-group" style="margin-top: 300px;  margin-left: auto; margin-right: auto;">
+  <h2><strong>나의 장바구니</strong></h2>
+  <div th:if="${cartList != 'null'}">
+  <table class="table table-hover" id="list" style="margin-left:auto; margin-right: auto; width: 1500px;" >
+    <tr>
+      <th>상품명</th>
+      <th>상품가격</th>
+    </tr>
+    <tr th:each="cart : ${cartList}" >
+      <td th:text="${cart.productName}" ></td>
+      <td th:text="${cart.price}" ></td>
+    </tr>
+  </table>
+      <div style="float: right">
+        <h3 th:text="${session.loginEmail}" ></h3>
+        <h3>님의 포인트</h3>
+        <strong><span th:text="${member.memberPoint}" id="memberPoint"></span></strong>
+        <br>
+        <h3>결제 금액:</h3>
+        <strong><span th:text="${cart.totalPrice}" id="totalPrice" ></span></strong>
+        <br>
+        <h3>결제 하기:</h3>
+        <a th:href="@{|/orderSave/${session.loginEmail}/${cart.totalPrice}|}" class="btn btn-dark" id="order">결제하기</a>
+      </div>
+  </div>
+
+  <div th:if="${cart.totalPrice == 0}">
+
+        <h1><strong>장바구니에 담긴 상품이 없습니다.</strong></h1>
+
+  </div>
+
+
+</div>
+
+<div class="container mt-5" >
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3" style="margin-top: 1000px">
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양소식</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">입양신청</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">분양등록</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">임시보호 소식</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">친구를 찾아요</a></li>
+    </ul>
+    <p class="text-center text-muted">2022 JinSeok Project </p>
+  </footer>
+</div>
+</body>
+
+</html>
