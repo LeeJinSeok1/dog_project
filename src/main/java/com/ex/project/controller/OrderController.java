@@ -43,9 +43,11 @@ public class OrderController {
         System.out.println("memberEmail"+memberEmail);
         System.out.println("total"+totalPrice);
         Long savedId = orderService.orderSave2(memberEmail,totalPrice);
+        System.out.println(savedId);
         if(savedId != null){
-            OrderDTO orderDTO = orderService.findByOrder(memberEmail);
+            OrderDTO orderDTO = orderService.findByOrder(savedId);
             MemberDTO memberDTO = memberService.findByMemberEmail(memberEmail);
+            System.out.println("orderDTO="+orderDTO);
             model.addAttribute("order",orderDTO);
             model.addAttribute("member",memberDTO);
             return "/order/orderSuccess";

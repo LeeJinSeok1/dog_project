@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -52,21 +53,22 @@ public class OrderService {
             orderEntity.setOrderPhone(memberEntity.getMemberPhone());
             orderEntity.setMemberEntity(memberEntity);
             Long savedId = orderRepository.save(orderEntity).getId();
+            memberRepository.deleteAllByMemberEntity(memberEntity);
             return savedId;
         }
 
     }
 @Transactional
-    public OrderDTO findByOrder(String memberEmail) {
-        MemberEntity memberEntity = memberRepository.findByMemberEmail(memberEmail).get();
-        OrderEntity orderEntity = orderRepository.findByMemberEntity(memberEntity);
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setId(orderEntity.getId());
-        orderDTO.setOrderTime(orderEntity.getOrderTime());
-        orderDTO.setOrderPrice(orderEntity.getOrderPrice());
-        orderDTO.setOrderEmail(orderEntity.getOrderEmail());
-        orderDTO.setOrderArea(orderEntity.getOrderArea());
-        orderDTO.setOrderPhone(orderEntity.getOrderPhone());
-        return orderDTO;
+    public OrderDTO findByOrder(Long savedId) {
+     OrderEntity orderEntity = orderRepository.findById(savedId).get();
+     OrderDTO orderDTO = new OrderDTO();
+     orderDTO.setId(orderEntity.getId());
+     orderDTO.setOrderTime(orderEntity.getOrderTime());
+     orderDTO.setOrderPrice(orderEntity.getOrderPrice());
+     orderDTO.setOrderEmail(orderEntity.getOrderEmail());
+     orderDTO.setOrderArea(orderEntity.getOrderArea());
+     orderDTO.setOrderPhone(orderEntity.getOrderPhone());
+     return orderDTO;
     }
+
 }

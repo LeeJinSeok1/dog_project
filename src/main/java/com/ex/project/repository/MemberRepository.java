@@ -21,4 +21,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity,Long> {
     @Query(value = "update MemberEntity m set m.memberPoint = m.memberPoint - :minusPoint where m.memberEmail=:memberEmail")
     void memberPointMinus(@Param("memberEmail") String memberEmail,
                           @Param("minusPoint") int minusPoint);
+
+    void deleteAllByMemberEntity(MemberEntity memberEntity);
 }
