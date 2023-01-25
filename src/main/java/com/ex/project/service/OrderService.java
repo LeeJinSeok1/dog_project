@@ -53,7 +53,7 @@ public class OrderService {
             orderEntity.setOrderPhone(memberEntity.getMemberPhone());
             orderEntity.setMemberEntity(memberEntity);
             Long savedId = orderRepository.save(orderEntity).getId();
-            memberRepository.deleteAllByMemberEntity(memberEntity);
+            cartRepository.deleteAllByMemberEntity(memberEntity);
             return savedId;
         }
 

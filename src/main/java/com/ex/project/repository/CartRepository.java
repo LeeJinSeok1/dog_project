@@ -18,4 +18,5 @@ public interface CartRepository extends JpaRepository<CartEntity,Long> {
     int totalPrice(@Param("memberEntity") MemberEntity memberEntity);
 
 
+    void deleteAllByMemberEntity(MemberEntity memberEntity);
 }

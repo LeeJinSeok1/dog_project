@@ -22,5 +22,5 @@ public interface MemberRepository extends JpaRepository<MemberEntity,Long> {
     void memberPointMinus(@Param("memberEmail") String memberEmail,
                           @Param("minusPoint") int minusPoint);
 
-    void deleteAllByMemberEntity(MemberEntity memberEntity);
+
 }
